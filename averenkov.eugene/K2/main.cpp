@@ -9,7 +9,7 @@ struct FwdList
 FwdList* ListManip(FwdList* head, size_t number, size_t count)
 {
   FwdList* correct = head;
-  for (size_t i = 0; i < number; i++)
+  for (size_t i = 1; i < number; i++)
   {
     correct = correct->next;
   }
