@@ -20,7 +20,7 @@ void addElements(FwdList * head, int a, int b)
   }
 }
 
-int main() 
+int main()
 {
   FwdList * head = new FwdList{0, nullptr};
   FwdList * tail = head;
