@@ -8,6 +8,7 @@ struct FwdList {
 FwdList* dublicate(FwdList* head, size_t for_dubl, size_t number);
 FwdList* createList(FwdList* head, int size);
 void clear(FwdList* head, size_t size);
+void clear(FwdList* head);
 void outList(FwdList* head);
 
 int main()
@@ -35,6 +36,7 @@ int main()
   }
 
   outList(head);
+  clear(head);
 }
 
 FwdList* createList(FwdList * head, int size)
@@ -77,6 +79,16 @@ void clear(FwdList* head, size_t size)
 {
   FwdList* new_head = head->next;
   for (size_t i =0; i < size; ++i) {
+    delete head;
+    head = new_head;
+    new_head = head->next;
+  }
+}
+
+void clear(FwdList* head)
+{
+  FwdList * new_head = head->next;
+  while (head->next) {
     delete head;
     head = new_head;
     new_head = head->next;
