@@ -8,12 +8,12 @@ struct FwdList {
 void addElements(FwdList * head, int a, int b)
 {
   FwdList * help = head;
-  for (size_t i = 0; i < a - 1; i++)
+  for (int i = 0; i < a - 1; i++)
   {
     help = help->next;
   }
   int value = help->value;
-  for (size_t i = 0; i < b; i++)
+  for (int i = 0; i < b; i++)
   {
     help->next = new FwdList{value, help->next};
     help = help->next;
@@ -24,7 +24,7 @@ int main()
 {
   FwdList * head = new FwdList{0, nullptr};
   FwdList * tail = head;
-  for (size_t i = 1; i < 10; i++)
+  for (int i = 1; i < 10; i++)
   {
     tail->next = new FwdList{i, nullptr};
     tail = tail->next;
@@ -52,7 +52,7 @@ int main()
     size += b;
   }
   std::cin << head->value;
-  for (size_t i = 1; i < size; i++)
+  for (int i = 1; i < size; i++)
   {
     head = head->next;
     std::cin << " " << head->value;
