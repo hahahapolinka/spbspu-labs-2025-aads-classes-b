@@ -4,39 +4,34 @@
 
 namespace dribas
 {
-  FwdList* insert(FwdList* head, int index, size_t count)
-  {
-    FwdList* interim = head;
-    for (size_t i = 0; i < index && interim != nullptr; ++i) {
-      interim = interim->next;
-      if (!head) {
-        throw std::out_of_range("index is out of range");
-      }
-    }
-    FwdList* nextNode = nullptr;
-    if (interim->next) {
-      nextNode = interim->next;
-    }
-    for (size_t i = 0; i < count; i++) {
-      FwdList* preNode = nullptr;
-      try {
-        preNode = new FwdList{index, nullptr};
-      } catch (const std::bad_alloc&) {
-        head->next = nextNode;
-        throw;
-      }
-      preNode->next = interim->next;
-      interim = preNode;
-    }
-  }
+  FwdList* insert(FwdList* head, int index, size_t count) {
+    index--;
 
-  FwdList* makeList(FwdList* head, size_t size)
+    if (index < 0 || index > 10) {
+      throw std::out_of_range("index is out of range");
+    }
+    FwdList* current = head;
+    for (int i = 0; i < index; i++) {
+      current = current->next;
+    }
+    FwdList* nextNode = current->next;
+    for (size_t i = 0; i < count; ++i) {
+      FwdList* newNode = new FwdList{index, nextNode};
+      current->next = newNode;
+      current = newNode;
+    }
+
+    return head;
+}
+
+  FwdList* makeList(FwdList* head, int size)
   {
     try {
       head = new FwdList {0, nullptr};
-      for (size_t i = 0; i < size; i++) {
-        head->next = new FwdList {0, nullptr};
-        head = head->next;
+      FwdList* current = head;
+      for (int i = 1; i < size; i++) {
+        current->next = new FwdList {i, nullptr};
+        current = current->next;
       }
     } catch (...) {
       throw;
@@ -45,11 +40,13 @@ namespace dribas
   }
   void outList(std::ostream& out, FwdList* head)
   {
-    out << head->value;
-    head = head->next;
-    while (head) {
-      out << " " << head->value;
+    if (head) {
+      out << head->value;
       head = head->next;
+      while (head) {
+        out << " " << head->value;
+        head = head->next;
+      }
     }
   }
   void clear(FwdList* head)
@@ -65,21 +62,36 @@ namespace dribas
 
 int main()
 {
-  constexpr size_t  size = 10;
+  constexpr int size = 10;
 
   dribas::FwdList * head = nullptr;
   try {
-    head = dribas::makeList(head, size);
-  } catch (const std::bad_alloc & e) {
+    head = makeList(head, size);
+  } catch (const std::exception & e) {
     std::cerr << e.what() << '\n';
     clear(head);
     return 1;
   }
-  while(!(std::cin.eof())) {
-    size_t index = 0;
+
+  dribas::FwdList* headPtr = head;
+
+  while (!(std::cin.eof())) {
+    int index = 0;
     size_t count = 0;
     if (std::cin >> index >> count) {
-      
+      try {
+        head = insert(head, index, count);
+      } catch (const std::exception& e) {
+        std::cerr << e.what() << '\n';
+        clear(head);
+        return 1;
+      }
     }
   }
+
+  outList(std::cout, headPtr);
+  std::cout <<'\n';
+  
+  clear(headPtr);
+  return 0;
 }
