@@ -20,10 +20,23 @@ void addElements(FwdList * head, int a, int b)
   }
 }
 
+void clearElements(FwdList * deletehelp, int i)
+{
+  FwdList * deletenext = deletehelp->next;
+  for (int j = 0; j < i - 1; j++)
+  {
+    delete deletehelp;
+    deletehelp = deletenext;
+    deletenext = deletenext->next;
+  }
+  delete deletehelp;
+}
+
 int main()
 {
   FwdList * head = new FwdList{0, nullptr};
   FwdList * tail = head;
+  FwdList * deletehelp = head;
   for (int i = 1; i < 10; i++)
   {
     tail->next = new FwdList{i, nullptr};
@@ -46,24 +59,18 @@ int main()
     if (a > size)
     {
       std::cerr << "Index out of range!\n";
+      clearElements(deletehelp, size);
       return 1;
     }
     addElements(head, a, b);
     size += b;
   }
-  FwdList * deletehelp = head;
   std::cout << head->value;
   for (int i = 1; i < size; i++)
   {
     head = head->next;
     std::cout << " " << head->value;
   }
-  FwdList * deletenext = deletehelp->next;
-  for (int i = 0; i < size; i++)
-  {
-    delete deletehelp;
-    deletehelp = deletenext;
-    deletenext  = deletenext->next;
-  }
+  clearElements(deletehelp, size);
   return 0;
 }
