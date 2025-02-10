@@ -6,16 +6,60 @@ struct FwdList
   FwdList * next;
 };
 
-FwdList* createDubls(FwdList* list, size_t num, size_t dubls)
-{}
-
 void freeList(FwdList* head)
-{}
+{
+  FwdList* current = head;
+  while (current != nullptr)
+  {
+    FwdList* next = current->next;
+    delete current;
+    current = next;
+  }
+}
+
+FwdList* createDubls(FwdList* head, int num, size_t dubls)
+{
+  FwdList* target = head;
+
+  while (target->value != num - 1)
+  {
+    target = target->next;
+  }
+
+  FwdList* current = target;
+  for (size_t i = 0; i < dubls; i++)
+  {
+    try
+    {
+      FwdList* dublNode = new FwdList{target->value, current->next};
+      current->next = dublNode;
+      current = dublNode;
+    }
+    catch (const std::bad_alloc&)
+    {
+      freeList(head);
+      throw;
+    }
+  }
+
+  return target;
+}
+
+void printList(std::ostream& out, FwdList* head)
+{
+  out << head->value;
+  FwdList* current = head->next;
+  while (current != nullptr)
+  {
+    out << " " << current->value;
+    current = current->next;
+  }
+}
 
 int main()
 {
   FwdList* head = nullptr;
-  for (size_t i = 1; i < 11; i++)
+  for (int i = 0; i < 10; i++)
   {
     try
     {
@@ -26,8 +70,12 @@ int main()
       }
       else
       {
-        newNode->next = head;
-        head = newNode;
+        FwdList* current = head;
+        while (current->next != nullptr)
+        {
+          current = current->next;
+        }
+        current->next = newNode;
       }
     }
     catch (const std::bad_alloc&)
@@ -36,11 +84,15 @@ int main()
     }
   }
 
-  size_t num = 0, dubls = 0;
+  int num = 0;
+  size_t dubls = 0;
 
-  while (std::cin << num << dubls)
+  while (std::cin >> num >> dubls)
   {
     createDubls(head, num, dubls);
   }
 
+  printList(std::cout, head);
+  std::cout << "\n";
+  freeList(head);
 }
