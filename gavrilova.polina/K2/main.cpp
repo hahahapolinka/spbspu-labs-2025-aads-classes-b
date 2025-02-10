@@ -22,10 +22,12 @@ int main()
   }
   FwdList* origin_head = head;
 
-  while (std::cin && !std::cin.eof()) {
+  while (!std::cin.eof()) {
     size_t for_dubl = 0;
     size_t num = 0;
-    std::cin >> for_dubl >> num;
+    if (!(std::cin >> for_dubl >> num)) {
+      break;
+    };
     if (for_dubl == 0) {
       clear(origin_head);
       return 1;
