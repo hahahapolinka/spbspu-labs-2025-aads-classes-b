@@ -5,25 +5,24 @@
 namespace dribas
 {
   FwdList* insert(FwdList* head, int index, size_t count) {
-    index--;
-
-    if (index < 0 || index > 10) {
+    if (index < 1) {
       throw std::out_of_range("index is out of range");
     }
     FwdList* current = head;
-    for (int i = 0; i < index; i++) {
+    for (int i = 1; i < index && current != nullptr; ++i) {
       current = current->next;
     }
-    FwdList* nextNode = current->next;
-    for (size_t i = 0; i < count; ++i) {
-      FwdList* newNode = new FwdList{index, nextNode};
+    if (!current) {
+      throw std::out_of_range("index is out of range");
+    }
+    for (size_t i = 0; i < count; i++) {
+      FwdList* newNode = new FwdList{current->value, current->next};
       current->next = newNode;
       current = newNode;
     }
 
     return head;
 }
-
   FwdList* makeList(FwdList* head, int size)
   {
     try {
