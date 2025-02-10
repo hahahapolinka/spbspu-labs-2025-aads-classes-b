@@ -33,7 +33,7 @@ int main()
       return 1;
     }
     try {
-      head = dublicate(head, for_dubl, num);
+      head = dublicate(origin_head, for_dubl, num);
     } catch(const std::exception& e) {
       std::cerr << e.what();
       clear(origin_head);
@@ -86,9 +86,7 @@ FwdList* dublicate(FwdList* head, size_t for_dubl, size_t number)
       head->next = original_next;
       throw;
     }
-    if (cur->next) {
-      node->next = cur->next;
-    }
+    node->next = cur->next;
     cur->next = node;
     cur = node;
   }
