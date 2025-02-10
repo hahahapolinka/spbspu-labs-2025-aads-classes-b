@@ -76,7 +76,7 @@ int main()
     catch (...)
     {
       std::cerr << "Error\n";
-      break;
+      return 1;
     }
   }
   printList(head);
