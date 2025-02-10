@@ -39,6 +39,27 @@ FwdList* createList()
   return head;
 }
 
+void printList(FwdList* head)
+{
+  FwdList* current = head;
+  while (current != nullptr)
+  {
+    std::cout << current->value << " ";
+    current = current->next;
+  }
+  std::cout << "\n";
+}
+
+void deleteList(FwdList* head)
+{
+  while (head != nullptr)
+  {
+    FwdList* temp = head;
+    head = head->next;
+    delete temp;
+  }
+}
+
 int main()
 {
   
