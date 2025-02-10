@@ -42,9 +42,11 @@ FwdList* createList()
 void printList(FwdList* head)
 {
   FwdList* current = head;
+  std::cout << current->value;
+  current = current->next;
   while (current != nullptr)
   {
-    std::cout << current->value << " ";
+    std::cout << " " << current->value;
     current = current->next;
   }
   std::cout << "\n";
