@@ -20,27 +20,27 @@ int main()
     std::cerr << "Memory error!";
     return 1;
   }
+  FwdList* origin_head = head;
 
   while (std::cin && !std::cin.eof()) {
     size_t for_dubl = 0;
     size_t num = 0;
     std::cin >> for_dubl >> num;
     if (for_dubl == 0) {
-      clear(head);
+      clear(origin_head);
       return 1;
     }
-    FwdList* node = nullptr;
     try {
-      node = dublicate(head, for_dubl, num);
+      head = dublicate(head, for_dubl, num);
     } catch(const std::exception& e) {
       std::cerr << e.what();
-      clear(head);
+      clear(origin_head);
       return 1;
     }
   }
-  node = head;
-  outList(head);
-  clear(head);
+  
+  outList(origin_head);
+  clear(origin_head);
 }
 
 FwdList* createList(FwdList * head, int size)
