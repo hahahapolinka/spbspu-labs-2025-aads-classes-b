@@ -27,7 +27,7 @@ kizhin::FwdList* kizhin::insertDuplicates(FwdList* const head, const std::size_t
     target = target->next;
   }
   if (target == nullptr) {
-    throw std::logic_error("");
+    throw std::logic_error("Failed to find position node");
   }
   FwdList* first = new FwdList{ target->value, nullptr };
   FwdList* last = first;

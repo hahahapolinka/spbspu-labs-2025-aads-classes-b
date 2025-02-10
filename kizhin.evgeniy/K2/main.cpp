@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdexcept>
 #include "forward-list.hpp"
 
 int main()
@@ -8,7 +9,10 @@ int main()
     std::size_t position = 0;
     std::size_t size = 0;
     while (std::cin >> position >> size) {
-      insertDuplicates(list, position, size);
+      if (position == 0) {
+        throw std::logic_error("Invalid position");
+      }
+      insertDuplicates(list, position - 1, size);
     }
     kizhin::outputList(std::cout, list) << '\n';
   } catch (const std::exception& e) {
