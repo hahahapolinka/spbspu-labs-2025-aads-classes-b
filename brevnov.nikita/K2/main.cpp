@@ -51,4 +51,11 @@ int main()
     addElements(head, a, b);
     size += b;
   }
+  std::cin << head->value;
+  for (size_t i = 1; i < size; i++)
+  {
+    head = head->next;
+    std::cin << " " << head->value;
+  }
+  return 0;
 }
