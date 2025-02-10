@@ -21,7 +21,7 @@ FwdList* addDubls(FwdList* head, int num, size_t dubls)
 {
   FwdList* target = head;
 
-  while (target->value != num - 1)
+  for (int i = 1; i < num; i++)
   {
     target = target->next;
   }
@@ -91,7 +91,7 @@ int main()
   {
     if (num < 1 || num > 10)
     {
-      std::cerr << "out of range\n";
+      freeList(head);
       return 1;
     }
     addDubls(head, num, dubls);
