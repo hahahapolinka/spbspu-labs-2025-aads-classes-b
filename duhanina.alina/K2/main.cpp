@@ -73,7 +73,7 @@ int main()
     }
     catch (...)
     {
-      std::cerr << e.what() << "\n";
+      std::cerr << "Error\n";
       break;
     }
   }
