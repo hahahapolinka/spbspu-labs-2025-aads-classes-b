@@ -7,7 +7,17 @@ struct FwdList {
 
 void addElements(FwdList * head, int a, int b)
 {
-
+  FwdList * help = head;
+  for (size_t i = 0; i < a - 1; i++)
+  {
+    help = help->next;
+  }
+  int value = help->value;
+  for (size_t i = 0; i < b; i++)
+  {
+    help->next = new FwdList{value, help->next};
+    help = help->next;
+  }
 }
 
 int main() 
@@ -29,6 +39,10 @@ int main()
       break;
     }
     std::cin >> b;
+    if (std::cin.fail())
+    {
+      break;
+    }
     if (a > size)
     {
       std::cerr << "Index out of range!\n";
