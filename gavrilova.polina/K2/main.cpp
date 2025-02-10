@@ -37,9 +37,8 @@ int main()
       clear(head);
       return 1;
     }
-    if (node) continue;
   }
-
+  node = head;
   outList(head);
   clear(head);
 }
