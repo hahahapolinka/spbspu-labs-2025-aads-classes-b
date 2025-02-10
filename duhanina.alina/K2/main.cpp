@@ -62,5 +62,22 @@ void deleteList(FwdList* head)
 
 int main()
 {
-  
+  FwdList* head = createList();
+  size_t position = 0;
+  size_t count = 0;
+  while (std::cin >> position >> count)
+  {
+    try
+    {
+      head = insertDuplicates(head, position, count);
+    }
+    catch (...)
+    {
+      std::cerr << e.what() << "\n";
+      break;
+    }
+  }
+  printList(head);
+  deleteList(head);
+  return 0;
 }
