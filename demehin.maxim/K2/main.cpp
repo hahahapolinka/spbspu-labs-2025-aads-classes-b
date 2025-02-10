@@ -89,12 +89,12 @@ int main()
 
   while (std::cin >> num >> dubls)
   {
-    addDubls(head, num, dubls);
-    if (num < 1 || num > 9)
+    if (num < 1 || num > 10)
     {
       std::cerr << "out of range\n";
       return 1;
     }
+    addDubls(head, num, dubls);
   }
 
   printList(std::cout, head);
