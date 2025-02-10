@@ -69,6 +69,12 @@ int main()
   size_t count = 0;
   while (std::cin >> position >> count)
   {
+    if (position == 0)
+    {
+      std::cerr << "Error\n";
+      deleteList(head);
+      return 1;
+    }
     try
     {
       head = insertDuplicates(head, position, count);
@@ -76,6 +82,7 @@ int main()
     catch (...)
     {
       std::cerr << "Error\n";
+      deleteList(head);
       return 1;
     }
   }
