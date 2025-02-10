@@ -13,6 +13,10 @@ FwdList* ListManip(FwdList* head, size_t number, size_t count)
   {
     correct = correct->next;
   }
+  if (correct == nullptr)
+  {
+    throw std::out_of_range("Position is out of range");
+  }
   FwdList* point = correct;
   FwdList* dubl = correct->next;
   for (size_t i = 0; i < count; i++)
@@ -55,7 +59,7 @@ int main()
   size_t pos, count;
   while (std::cin >> pos >> count)
   {
-    if (pos > size || pos == 0)
+    if (pos == 0)
     {
       std::cerr << "Error\n";
       deleteList(head);
