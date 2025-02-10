@@ -65,13 +65,13 @@ FwdList* createList(FwdList * head, int size)
 FwdList* dublicate(FwdList* head, size_t for_dubl, size_t number)
 {
   for (size_t i = 0; i < (for_dubl - 1); ++i) {
-    if (!head) {
-      throw std::out_of_range("!");
-    }
     head = head->next;
   }
   FwdList* cur = head;
-  FwdList* original_next = cur->next;
+  FwdList* original_next = nullptr;
+  if (cur->next) {
+    original_next = cur->next;
+  }
 
   for (size_t i = 0; i < number; ++i) {
     FwdList* node = nullptr;
@@ -82,7 +82,10 @@ FwdList* dublicate(FwdList* head, size_t for_dubl, size_t number)
       head->next = original_next;
       throw;
     }
-    node->next = cur->next;
+    node->next = nullptr;
+    if (cur->next) {
+      node->next = cur->next;
+    }
     cur->next = node;
     cur = node;
   }
