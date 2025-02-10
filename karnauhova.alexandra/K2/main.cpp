@@ -95,7 +95,7 @@ FwdList* createList()
 
 void clear(FwdList* head)
 {
-  while (head->next != nullptr)
+  while (head)
   {
     FwdList* now = head->next;
     delete head;
