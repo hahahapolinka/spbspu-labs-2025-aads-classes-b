@@ -51,11 +51,19 @@ int main()
     addElements(head, a, b);
     size += b;
   }
+  FwdList * deletehelp = head;
   std::cout << head->value;
   for (int i = 1; i < size; i++)
   {
     head = head->next;
     std::cout << " " << head->value;
+  }
+  FwdList * deletenext = deletehelp->next;
+  for (int i = 0; i < size; i++)
+  {
+    delete deletehelp;
+    deletehelp = deletenext;
+    deletenext  = deletenext->next;
   }
   return 0;
 }
