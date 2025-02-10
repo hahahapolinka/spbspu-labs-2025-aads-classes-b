@@ -25,11 +25,14 @@ int main()
     size_t for_dubl = 0;
     size_t num = 0;
     std::cin >> for_dubl >> num;
+    if (for_dubl == 0) {
+      return 1;
+    }
     FwdList* node = nullptr;
     try {
       node = dublicate(head, for_dubl, num);
-    } catch(const std::bad_alloc&) {
-      std::cerr << "Memory error!";
+    } catch(const std::exception& e) {
+      std::cerr << e.what();
       clear(head);
       return 1;
     }
@@ -59,6 +62,9 @@ FwdList* createList(FwdList * head, int size)
 FwdList* dublicate(FwdList* head, size_t for_dubl, size_t number)
 {
   for (size_t i = 0; i < for_dubl; ++i) {
+    if (!head) {
+      throw std::out_of_range("!");
+    }
     head = head->next;
   }
   FwdList* cur = head;
@@ -83,11 +89,11 @@ FwdList* dublicate(FwdList* head, size_t for_dubl, size_t number)
 void clear(FwdList* head, size_t size)
 {
   if (!head) return;
-  FwdList* new_head = head->next;\
+  FwdList* new_head = head->next;
   for (size_t i =0; i < size; ++i) {
-    delete head;
-    head = new_head;
     if (head) {
+      delete head;
+      head = new_head;
       new_head = head->next;
     }
   }
