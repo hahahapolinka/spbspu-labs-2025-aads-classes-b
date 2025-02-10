@@ -1,6 +1,6 @@
 #include "forward-list.hpp"
 #include <cassert>
-#include <stdexcept>
+#include <iostream>
 
 namespace kizhin {
   void clear(FwdList*) noexcept;
@@ -49,6 +49,19 @@ kizhin::FwdList* kizhin::insertDuplicates(FwdList* const head, const std::size_t
   target->next = first;
   last->next = originalNext;
   return target;
+}
+
+std::ostream& kizhin::outputList(std::ostream& out, FwdList* list)
+{
+  assert(list);
+  FwdList* current = list;
+  out << current->value;
+  current = current->next;
+  while (current) {
+    out << ' ' << current->value;
+    current = current->next;
+  }
+  return out;
 }
 
 void kizhin::clear(FwdList* head) noexcept
