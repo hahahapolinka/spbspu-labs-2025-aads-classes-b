@@ -45,6 +45,11 @@ int main()
   size_t pos, count;
   while (std::cin >> pos >> count)
   {
+    if (pos > size || pos == 0)
+    {
+      std::cerr << "Error";
+      return 1;
+    }
     try
     {
       ListManip(head, pos, count);
