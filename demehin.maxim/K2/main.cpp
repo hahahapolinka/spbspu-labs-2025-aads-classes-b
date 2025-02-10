@@ -17,7 +17,7 @@ void freeList(FwdList* head)
   }
 }
 
-FwdList* createDubls(FwdList* head, int num, size_t dubls)
+FwdList* addDubls(FwdList* head, int num, size_t dubls)
 {
   FwdList* target = head;
 
@@ -89,7 +89,12 @@ int main()
 
   while (std::cin >> num >> dubls)
   {
-    createDubls(head, num, dubls);
+    addDubls(head, num, dubls);
+    if (num < 1 || num > 9)
+    {
+      std::cerr << "out of range\n";
+      return 1;
+    }
   }
 
   printList(std::cout, head);
