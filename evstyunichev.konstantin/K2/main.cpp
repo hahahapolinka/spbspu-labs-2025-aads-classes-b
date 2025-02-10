@@ -70,7 +70,7 @@ int main()
   size_t size = 0;
   for (size_t i = 1; i < 10; i++)
   {
-    if (!add(tail, i));
+    if (!add(tail, i))
     {
       clear(head);
       return 1;
@@ -81,17 +81,23 @@ int main()
   int a = 0, b = 0;
   while (std::cin >> a >> b)
   {
-    if (!insert_to_pos(head, --a, b))
+    if (b > size)
+    {
+      std::cout << "so large position!\n";
+    }
+    else if (!insert_to_pos(head, --a, b))
     {
       clear(head);
       return 1;
     }
+    size += b;
   }
   while (cur)
   {
     std::cout << cur->value << ' ';
     cur = cur->next;
   }
+  std::cout << '\n';
   clear(head);
   return 0;
 }
