@@ -2,10 +2,6 @@
 #include <cassert>
 #include <iostream>
 
-namespace kizhin {
-  void clear(FwdList*) noexcept;
-}
-
 kizhin::FwdList* kizhin::initList(int start, const int stop)
 {
   FwdList* head = new FwdList{ start++, nullptr };
@@ -51,6 +47,20 @@ kizhin::FwdList* kizhin::insertDuplicates(FwdList* const head, const std::size_t
   return target;
 }
 
+void kizhin::clear(FwdList* head) noexcept
+{
+  if (head == nullptr) {
+    return;
+  }
+  FwdList* tmp = head;
+  while (head->next) {
+    tmp = head->next;
+    delete head;
+    head = tmp;
+  }
+  delete head;
+}
+
 std::ostream& kizhin::outputList(std::ostream& out, FwdList* list)
 {
   assert(list);
@@ -62,17 +72,5 @@ std::ostream& kizhin::outputList(std::ostream& out, FwdList* list)
     current = current->next;
   }
   return out;
-}
-
-void kizhin::clear(FwdList* head) noexcept
-{
-  assert(head);
-  FwdList* tmp = head;
-  while (head->next) {
-    tmp = head->next;
-    delete head;
-    head = tmp;
-  }
-  delete head;
 }
 

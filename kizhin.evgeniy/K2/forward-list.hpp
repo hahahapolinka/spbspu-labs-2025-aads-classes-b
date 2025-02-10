@@ -12,6 +12,7 @@ namespace kizhin {
 
   FwdList* initList(int, int);
   FwdList* insertDuplicates(FwdList*, std::size_t, std::size_t);
+  void clear(FwdList*) noexcept;
   std::ostream& outputList(std::ostream&, FwdList*);
 }
 
