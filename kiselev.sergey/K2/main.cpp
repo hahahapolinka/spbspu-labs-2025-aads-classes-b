@@ -34,14 +34,27 @@ FwdList* createList()
     throw;
   }
 }
+FwdList* addNumber(FwdList* head, size_t number, size_t count)
+{
+  FwdList* element = nullptr;
+  for (size_t i = 0; i < number + 1; ++i)
+  {
+    element = head;
+    head = head->next;
+  }
+}
 int main()
 {
   size_t number = 0;
   size_t count = 0;
-  if (!(std::cin >> number >> count))
+  while (!(std::cin.eof()))
   {
-    std::cerr << "Incorrect input\n";
-    return 1;
+    if (!(std::cin >> number >> count))
+    {
+      std::cerr << "Incorrect input\n";
+      return 1;
+    }
   }
   FwdList* head = createList();
+  return 0;
 }
