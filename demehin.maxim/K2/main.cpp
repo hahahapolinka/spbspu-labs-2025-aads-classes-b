@@ -58,10 +58,15 @@ void printList(std::ostream& out, FwdList* head)
 
 bool isOutOfRange(FwdList* head, size_t num)
 {
+  if (num < 1)
+  {
+    return true;
+  }
+
   FwdList* headCopy = head;
   for (size_t i = 1; i < num; i++)
   {
-    if (headCopy == nullptr)
+    if (headCopy->next == nullptr)
     {
       return true;
     }
