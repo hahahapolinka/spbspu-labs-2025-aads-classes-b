@@ -1,56 +1,104 @@
-struct FwdList
-{
+#include <cstddef>
+#include <iostream>
+struct FwdList {
   int value;
   FwdList * next;
 };
-
-struct ListIterator
-{
-  FwdList* node;
-  using this_t = ListIterator;
-
-  ListIterator(): node(nullptr) {}
-  ~ListIterator() = default
-  ListIterator(const this_t&) = default;
-  this_t& operator=(const this_t&) = default;
-
-  this_t& operator++();
-  this_t operator++(int);
-
-  int& operator*();
-  int* operator->();
-
-  bool operator!=(const this_t&) const;
-  bool operator==(const this_t&) const;
-};
-
-ListIterator::this_t& ListIterator::operator++()
-{
-  assert(node != nullptr);
-  node = node->next;
-  return *this;
-}
-
-ListIterator::this_t& ListIterator::operator++(int)
-{
-  assert(node != nullptr);
-  this_t result(*this);
-  ++(*this);
-  return result;
-}
-
+void outputList(FwdList* head);
+FwdList* editList(FwdList* head, int element, size_t count);
+FwdList* createList();
+void clear(FwdList* head);
 
 int main()
 {
-  size_t input[10000] = {};
-  while
+  try
+  {
+    FwdList* head = createList();
+    int element = 0;
+    size_t count = 0;
+    while (std::cin >> element && !std::cin.eof())
+    {
+      if (element > 10)
+      {
+        std::cerr << "Element out of range\n";
+        return 1;
+      }
+      if (std::cin >> count && !std::cin.eof())
+      {
+        editList(head, element, count);
+      }
+    }
+    outputList(head);
+  }
+  catch (std::bad_alloc& e)
+  {
+    std::cerr << "Out of memmory\n";
+    return 1;
+  }
 }
 
-FwdList* editList(FwdList* head, size_t element, size_t count)
+void outputList(FwdList* head)
+{
+  std::cout << head->value;
+  head = head->next;
+  while (head)
+  {
+    std::cout << " " << head->value;
+    head = head->next;
+  }
+  std::cout << "\n";
+}
+FwdList* editList(FwdList* head, int element, size_t count)
 {
   FwdList* now = head;
-  for (size_t i = 1; i < element; i++)
+  while (now->value != (element - 1))
   {
     now = now->next;
+  }
+  try
+  {
+    for (size_t i = 0; i < count; i++)
+    {
+      FwdList* new_element = new FwdList{element - 1, nullptr};
+      new_element->next = now->next;
+      now->next = new_element;
+    }
+  }
+  catch (std::bad_alloc& e)
+  {
+    clear(head);
+    throw;
+  }
+  return now;
+}
+
+FwdList* createList()
+{
+  FwdList* head = nullptr;
+  try
+  {
+    head = new FwdList{0, nullptr};
+    FwdList* now = head;
+    for (int i = 1; i < 10; i++)
+    {
+      now->next = new FwdList{i, nullptr};
+      now = now->next;
+    }
+    return head;
+  }
+  catch (std::bad_alloc& e)
+  {
+    clear(head);
+    throw;
+  }
+}
+
+void clear(FwdList* head)
+{
+  while (head->next != nullptr)
+  {
+    FwdList* now = head->next;
+    delete head;
+    head = now;
   }
 }
