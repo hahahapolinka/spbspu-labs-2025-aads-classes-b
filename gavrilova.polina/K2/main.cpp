@@ -30,7 +30,7 @@ int main()
       node = dublicate(head, for_dubl, num);
     } catch(const std::bad_alloc&) {
       std::cerr << "Memory error!";
-      clear();
+      clear(head);
       return 1;
     }
     node->next = nullptr;
