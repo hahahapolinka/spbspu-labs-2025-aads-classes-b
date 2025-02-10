@@ -17,9 +17,9 @@ int main()
     size_t element = 0;
     size_t count = 0;
     size_t size = 10;
-    while (std::cin >> element || !std::cin.eof())
+    while (std::cin >> element && !std::cin.eof())
     {
-      if (element > size && element <= 0)
+      if (element > size || element <= 0)
       {
         clear(head);
         std::cerr << "Element out of range\n";
