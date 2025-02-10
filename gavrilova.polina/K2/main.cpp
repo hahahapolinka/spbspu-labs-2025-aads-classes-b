@@ -35,6 +35,7 @@ int main()
     }
     node->next = nullptr;
   }
+  
   outList(head);
   clear(head);
 }
@@ -61,6 +62,7 @@ FwdList* dublicate(FwdList* head, size_t for_dubl, size_t number)
     head = head->next;
   }
   FwdList* cur = head;
+
   for (size_t i = 0; i < number; ++i) {
     try {
       FwdList* node = new FwdList{cur->value, nullptr};
@@ -68,7 +70,9 @@ FwdList* dublicate(FwdList* head, size_t for_dubl, size_t number)
       cur->next = node;
       cur = node;
     } catch(const std::bad_alloc&) {
+      cur = cur->next;
       clear(head->next, i);
+      head->next = cur;
       throw;
     }
   }
@@ -77,7 +81,8 @@ FwdList* dublicate(FwdList* head, size_t for_dubl, size_t number)
 
 void clear(FwdList* head, size_t size)
 {
-  FwdList* new_head = head->next;
+  if (!head) return;
+  FwdList* new_head = head->next;\
   for (size_t i =0; i < size; ++i) {
     delete head;
     head = new_head;
@@ -89,6 +94,7 @@ void clear(FwdList* head, size_t size)
 
 void clear(FwdList* head)
 {
+  if (!head) return;
   FwdList * new_head = head->next;
   while (head) {
     delete head;
@@ -101,6 +107,7 @@ void clear(FwdList* head)
 }
 
 void outList(FwdList* head) {
+  if (!head) return;
   std::cout << head->value;
   while (head->next) {
     std::cout << " ";
