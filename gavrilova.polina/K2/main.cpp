@@ -80,18 +80,23 @@ void clear(FwdList* head, size_t size)
   for (size_t i =0; i < size; ++i) {
     delete head;
     head = new_head;
-    new_head = head->next;
+    if (head) {
+      new_head = head->next;
+    }
   }
 }
 
 void clear(FwdList* head)
 {
   FwdList * new_head = head->next;
-  while (head->next) {
+  while (head) {
     delete head;
     head = new_head;
-    new_head = head->next;
+    if (head) {
+      new_head = head->next;
+    }
   }
+
 }
 
 void outList(FwdList* head) {
