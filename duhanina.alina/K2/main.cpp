@@ -10,7 +10,7 @@ struct FwdList
 FwdList* insertDuplicates(FwdList* head, size_t position, size_t count)
 {
   FwdList* current = head;
-  for (size_t i = 1; i <= position && current != nullptr; ++i)
+  for (size_t i = 1; i < position && current != nullptr; ++i)
   {
     current = current->next;
   }
