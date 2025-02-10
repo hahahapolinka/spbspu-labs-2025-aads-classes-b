@@ -5,7 +5,7 @@ struct FwdList {
   FwdList * next;
 };
 void outputList(FwdList* head);
-FwdList* editList(FwdList* head, int element, size_t count);
+FwdList* editList(FwdList* head, size_t element, size_t count);
 FwdList* createList();
 void clear(FwdList* head);
 
@@ -14,11 +14,12 @@ int main()
   try
   {
     FwdList* head = createList();
-    int element = 0;
+    size_t element = 0;
     size_t count = 0;
+    size_t size = 10;
     while (std::cin >> element && !std::cin.eof())
     {
-      if (element > 10)
+      if (element > size)
       {
         std::cerr << "Element out of range\n";
         return 1;
@@ -26,9 +27,11 @@ int main()
       if (std::cin >> count && !std::cin.eof())
       {
         editList(head, element, count);
+        size += element;
       }
     }
     outputList(head);
+    clear(head);
   }
   catch (std::bad_alloc& e)
   {
@@ -48,18 +51,19 @@ void outputList(FwdList* head)
   }
   std::cout << "\n";
 }
-FwdList* editList(FwdList* head, int element, size_t count)
+FwdList* editList(FwdList* head, size_t element, size_t count)
 {
   FwdList* now = head;
-  while (now->value != (element - 1))
+  for (size_t i = 1; i < element; i++)
   {
     now = now->next;
   }
+  int number = now->value;
   try
   {
     for (size_t i = 0; i < count; i++)
     {
-      FwdList* new_element = new FwdList{element - 1, nullptr};
+      FwdList* new_element = new FwdList{number, nullptr};
       new_element->next = now->next;
       now->next = new_element;
     }
