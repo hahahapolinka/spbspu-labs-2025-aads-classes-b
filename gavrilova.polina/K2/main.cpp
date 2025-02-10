@@ -37,7 +37,7 @@ int main()
       clear(head);
       return 1;
     }
-    node->next = nullptr;
+    if (node) continue;
   }
 
   outList(head);
