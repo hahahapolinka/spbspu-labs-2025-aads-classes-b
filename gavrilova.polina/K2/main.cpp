@@ -38,7 +38,8 @@ int main()
       return 1;
     }
   }
-  
+
+
   outList(origin_head);
   clear(origin_head);
 }
