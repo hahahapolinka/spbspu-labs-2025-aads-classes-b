@@ -73,7 +73,7 @@ FwdList* dublicate(FwdList* head, size_t for_dubl, size_t number)
   return head;
 }
 
-void clear(FwdList* head, size_t size) 
+void clear(FwdList* head, size_t size)
 {
   FwdList* new_head = head->next;
   for (size_t i =0; i < size; ++i) {
