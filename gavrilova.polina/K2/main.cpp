@@ -71,7 +71,7 @@ FwdList* dublicate(FwdList* head, size_t for_dubl, size_t number)
   FwdList* cur = head;
   FwdList* original_next = cur->next;
 
-  for (size_t i = 0; i < number; ++i) {
+  for (size_t i = 0; i < number - 1; ++i) {
     FwdList* node = nullptr;
     try {
       node = new FwdList{cur->value, nullptr};
