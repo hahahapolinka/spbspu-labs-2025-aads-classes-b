@@ -1,11 +1,14 @@
 #include <exception>
 #include <iostream>
+#include <stdexcept>
 #include <stddef.h>
+
 struct FwdList
 {
   int value;
   FwdList* next;
 };
+
 void deleteList(FwdList* list)
 {
   while (list)
@@ -15,14 +18,15 @@ void deleteList(FwdList* list)
     list = temp;
   }
 }
+
 FwdList* createList(FwdList* head)
 {
   try
   {
     head = new FwdList { 1, nullptr };
     FwdList* head_ = head;
-    const int size = 11;
-    for (int i = 2; i < size; ++i)
+    const int size = 10;
+    for (int i = 2; i < size + 1; ++i)
     {
       head->next = new FwdList { i, nullptr };
       head = head->next;
@@ -34,21 +38,21 @@ FwdList* createList(FwdList* head)
     throw;
   }
 }
+
 FwdList* addNumber(FwdList* head, size_t number, size_t count)
 {
-  FwdList* element = nullptr;
-  for (size_t i = 0; i < number + 1; ++i)
+  FwdList* element = head;
+  for (size_t i = 0; i < number; ++i)
   {
-    element = head;
-    head = head->next;
+    element = element->next;
   }
   for (size_t i = 0; i < count; ++i)
   {
     try
     {
-      FwdList* node = new FwdList { element->value, nullptr };
-      node->next = element->next;
+      FwdList* node = new FwdList { element->value, element->next };
       element->next = node;
+      element = node;
     }
     catch (...)
     {
@@ -57,6 +61,7 @@ FwdList* addNumber(FwdList* head, size_t number, size_t count)
   }
   return element;
 }
+
 bool isRange(FwdList* head, size_t number)
 {
   for (size_t i = 1; i < number; ++i)
@@ -69,6 +74,7 @@ bool isRange(FwdList* head, size_t number)
   }
   return false;
 }
+
 std::ostream& outputList(std::ostream& out, FwdList* head)
 {
   out << head->value;
@@ -80,6 +86,7 @@ std::ostream& outputList(std::ostream& out, FwdList* head)
   }
   return out;
 }
+
 int main()
 {
   FwdList* head = nullptr;
@@ -90,6 +97,11 @@ int main()
     head = createList(head);
     while (std::cin >> number >> count)
     {
+      if (number == 0)
+      {
+        std::cerr << "Incorrect parameter\n";
+        return 1;
+      }
       if (isRange(head, number))
       {
         deleteList(head);
@@ -99,11 +111,11 @@ int main()
     }
     outputList(std::cout, head) << "\n";
   }
-  catch (const std::exception&)
+  catch (const std::exception& e)
   {
+    std::cerr << e.what() << "\n";
     deleteList(head);
     return 1;
   }
   deleteList(head);
-  return 0;
 }
