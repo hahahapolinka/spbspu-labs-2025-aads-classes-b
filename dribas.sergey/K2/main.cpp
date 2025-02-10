@@ -75,7 +75,7 @@ int main()
 
   dribas::FwdList* headPtr = head;
 
-  while (!(std::cin.eof())) {
+  while (std::cin) {
     int index = 0;
     size_t count = 0;
     if (std::cin >> index >> count) {
