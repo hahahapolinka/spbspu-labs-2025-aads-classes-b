@@ -27,6 +27,18 @@ FwdList* insertDuplicates(FwdList* head, size_t position, size_t count)
   return head;
 }
 
+FwdList* createList()
+{
+  FwdList* head = new FwdList{0, nullptr};
+  FwdList* current = head;
+  for (int i = 1; i < 10; ++i)
+  {
+    current->next = new FwdList{i, nullptr};
+    current = current->next;
+  }
+  return head;
+}
+
 int main()
 {
   
