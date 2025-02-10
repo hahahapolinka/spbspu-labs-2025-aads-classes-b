@@ -32,6 +32,16 @@ FwdList* ListManip(FwdList* head, size_t number, size_t count)
   return point;
 }
 
+void deleteList(FwdList* head)
+{
+  while (head)
+  {
+    FwdList* temp = head;
+    head = head->next;
+    delete temp;
+  }
+}
+
 int main()
 {
   constexpr int size = 10;
@@ -47,7 +57,8 @@ int main()
   {
     if (pos > size || pos == 0)
     {
-      std::cerr << "Error";
+      std::cerr << "Error\n";
+      deleteList(head);
       return 1;
     }
     try
@@ -56,14 +67,19 @@ int main()
     }
     catch (...)
     {
-      std::cerr << "Error";
+      std::cerr << "Error\n";
+      deleteList(head);
+      return 1;
     }
   }
   FwdList* current = head;
   while (current)
   {
     std::cout << current->value;
-    if (current->next) std::cout << " ";
+    if (current->next)
+    {
+      std::cout << " ";
+    }
     FwdList* temp = current;
     current = current->next;
     delete temp;
