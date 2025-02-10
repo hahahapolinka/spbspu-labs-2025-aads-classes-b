@@ -64,17 +64,18 @@ FwdList* dublicate(FwdList* head, size_t for_dubl, size_t number)
   FwdList* cur = head;
 
   for (size_t i = 0; i < number; ++i) {
+    FwdList* original_next = cur->next;
+    FwdList* node = nullptr;
     try {
-      FwdList* node = new FwdList{cur->value, nullptr};
-      node->next = cur->next;
-      cur->next = node;
-      cur = node;
+      node = new FwdList{cur->value, nullptr};
     } catch(const std::bad_alloc&) {
-      cur = cur->next;
       clear(head->next, i);
-      head->next = cur;
+      head->next = original_next;
       throw;
     }
+    node->next = cur->next;
+    cur->next = node;
+    cur = node;
   }
   return head;
 }
@@ -94,14 +95,10 @@ void clear(FwdList* head, size_t size)
 
 void clear(FwdList* head)
 {
-  if (!head) return;
-  FwdList * new_head = head->next;
   while (head) {
+    FwdList * new_head = head->next;
     delete head;
     head = new_head;
-    if (head) {
-      new_head = head->next;
-    }
   }
 
 }
