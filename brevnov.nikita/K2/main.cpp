@@ -51,7 +51,7 @@ int main()
     addElements(head, a, b);
     size += b;
   }
-  std::cin << head->value;
+  std::cout << head->value;
   for (int i = 1; i < size; i++)
   {
     head = head->next;
