@@ -26,7 +26,7 @@ int main()
     size_t num = 0;
     std::cin >> for_dubl >> num;
     if (for_dubl == 0) {
-      clear(head)
+      clear(head);
       return 1;
     }
     FwdList* node = nullptr;
@@ -70,6 +70,7 @@ FwdList* dublicate(FwdList* head, size_t for_dubl, size_t number)
   }
   FwdList* cur = head;
   FwdList* original_next = cur->next;
+
   for (size_t i = 0; i < number; ++i) {
     FwdList* node = nullptr;
     try {
