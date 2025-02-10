@@ -19,9 +19,9 @@ FwdList* createList(FwdList* head)
 {
   try
   {
-    FwdList* head = new FwdList { 1, nullptr };
+    head = new FwdList { 1, nullptr };
     FwdList* head_ = head;
-    const size_t size = 10;
+    const int size = 11;
     for (int i = 2; i < size; ++i)
     {
       head->next = new FwdList { i, nullptr };
