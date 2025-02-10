@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include <iostream>
 
 struct FwdList
@@ -78,7 +79,8 @@ int main()
     tail = tail->next;
   }
   size = 10;
-  int a = 0, b = 0;
+  int a = 0;
+  size_t b = 0;
   while (std::cin >> a >> b)
   {
     if (b > size)
