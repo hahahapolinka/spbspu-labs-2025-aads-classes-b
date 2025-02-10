@@ -91,7 +91,7 @@ int main()
 
   outList(std::cout, headPtr);
   std::cout <<'\n';
-  
+
   clear(headPtr);
   return 0;
 }
