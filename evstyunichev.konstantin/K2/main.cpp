@@ -6,60 +6,86 @@ struct FwdList
   FwdList *next;
 };
 
-FwdList * get_index(size_t target, FwdList *ptr, size_t cur_pos = 0)
+FwdList * get_element(size_t target, FwdList *ptr)
 {
-  if (cur_pos == target)
+  for (size_t i = 0; (i < target) && ptr; i++)
   {
-    return ptr;
-  }
-  return get_index(target, ptr->next, cur_pos++);
-}
-
-FwdList * add(FwdList *ptr, int value)
-{
-  FwdList *cur = new FwdList{value, nullptr};
-  cur->next = ptr->next;
-  ptr->next = cur;
-  return cur;
-}
-
-FwdList * insert_to_pos(FwdList *head, size_t pos, size_t k)
-{
-  FwdList *ptr = get_index(pos, head);
-  for (size_t i = 0; i < k; i++)
-  {
-    add(ptr, ptr->value);
     ptr = ptr->next;
   }
   return ptr;
 }
 
-void clear(FwdList *ptr)
+int add(FwdList *ptr, int value)
 {
-  FwdList *cur = ptr;
-  while (ptr)
+  try
   {
-    cur = ptr->next;
-    delete ptr;
-    ptr = cur;
+    FwdList *cur = new FwdList{value, nullptr};
+    cur->next = ptr->next;
+    ptr->next = cur;
+  }
+  catch(const std::exception& e)
+  {
+    return 0;
+  }
+  return 1;
+}
+
+FwdList * insert_to_pos(FwdList *head, size_t pos, size_t k)
+{
+  FwdList *ptr = get_element(pos, head), *cur = ptr;
+  if (ptr)
+  {
+    for (size_t i = 0; i < k; i++)
+    {
+      if (add(cur, ptr->value))
+      {
+        cur = cur->next;
+      }
+      else
+      {
+        return nullptr;
+      }
+    }
+  }
+  return ptr;
+}
+
+void clear(FwdList *head)
+{
+  FwdList *cur = head;
+  while (head)
+  {
+    cur = head->next;
+    delete head;
+    head = cur;
   }
   return;
 }
 
 int main()
 {
-  FwdList *head = new FwdList{0, nullptr}, *tail = head, *cur = head;
+  FwdList *head = nullptr;
+  head = new FwdList{0, nullptr};
+  FwdList *tail = head, *cur = head;
   size_t size = 0;
   for (size_t i = 1; i < 10; i++)
   {
-    add(tail, i);
+    if (!add(tail, i));
+    {
+      clear(head);
+      return 1;
+    }
     tail = tail->next;
   }
   size = 10;
   int a = 0, b = 0;
   while (std::cin >> a >> b)
   {
-    tail = ((a == size) ? insert_to_pos(head, a, b) : tail);
+    if (!insert_to_pos(head, --a, b))
+    {
+      clear(head);
+      return 1;
+    }
   }
   while (cur)
   {
