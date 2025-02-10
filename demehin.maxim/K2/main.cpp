@@ -17,11 +17,11 @@ void freeList(FwdList* head)
   }
 }
 
-FwdList* addDubls(FwdList* head, int num, size_t dubls)
+FwdList* addDubls(FwdList* head, size_t num, size_t dubls)
 {
   FwdList* target = head;
 
-  for (int i = 1; i < num; i++)
+  for (size_t i = 1; i < num; i++)
   {
     target = target->next;
   }
@@ -56,6 +56,21 @@ void printList(std::ostream& out, FwdList* head)
   }
 }
 
+bool isOutOfRange(FwdList* head, size_t num)
+{
+  FwdList* headCopy = head;
+  for (size_t i = 1; i < num; i++)
+  {
+    if (headCopy == nullptr)
+    {
+      return true;
+    }
+    headCopy = headCopy->next;
+  }
+
+  return false;
+}
+
 int main()
 {
   FwdList* head = nullptr;
@@ -83,13 +98,11 @@ int main()
       freeList(head);
     }
   }
-
-  int num = 0;
-  size_t dubls = 0;
+  size_t num = 0, dubls = 0;
 
   while (std::cin >> num >> dubls)
   {
-    if (num < 1 || num > 10)
+    if (isOutOfRange(head, num))
     {
       freeList(head);
       return 1;
