@@ -23,10 +23,10 @@ FwdList* createList(FwdList* head)
 {
   try
   {
-    head = new FwdList { 1, nullptr };
+    head = new FwdList { 0, nullptr };
     FwdList* head_ = head;
     const int size = 10;
-    for (int i = 2; i < size + 1; ++i)
+    for (int i = 1; i < size; ++i)
     {
       head->next = new FwdList { i, nullptr };
       head = head->next;
@@ -99,15 +99,14 @@ int main()
     {
       if (number == 0)
       {
-        std::cerr << "Incorrect parameter\n";
-        return 1;
+        throw std::invalid_argument("Incorrect parameter");
       }
       if (isRange(head, number))
       {
         deleteList(head);
         return 1;
       }
-      addNumber(head, number, count);
+      addNumber(head, number - 1, count);
     }
     outputList(std::cout, head) << "\n";
   }
