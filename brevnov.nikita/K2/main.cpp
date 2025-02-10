@@ -55,7 +55,7 @@ int main()
   for (int i = 1; i < size; i++)
   {
     head = head->next;
-    std::cin << " " << head->value;
+    std::cout << " " << head->value;
   }
   return 0;
 }
