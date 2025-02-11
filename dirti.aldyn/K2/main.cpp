@@ -41,6 +41,10 @@ void clear(FwdList * head)
 
 void newList(FwdList * head, size_t number, size_t size)
 {
+  if (number == 0)
+  {
+    throw;
+  }
   FwdList * tempHead = head;
   for (size_t i = 1; i < number; ++i)
   {
