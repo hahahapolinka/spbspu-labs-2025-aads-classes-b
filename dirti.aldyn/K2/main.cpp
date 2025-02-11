@@ -5,28 +5,33 @@ struct FwdList
 {
   int value;
   FwdList * next;
-}
+};
 
-void startList(FwdList * head)
+void clear(FwdList * head);
+
+FwdList * startList()
 {
+  FwdList * head = new FwdList{0, nullptr};
   FwdList * tempHead = head;
-  for (size_t i = 1; i < 10, ++i)
+  for (int i = 1; i < 10; ++i)
   {
     try
     {
       tempHead->next = new FwdList{i, nullptr};
       tempHead = tempHead->next;
     }
-    catch (const std:bad_alloc & e)
+    catch (const std::bad_alloc & e)
     {
       clear(head);
       throw;
     }
+  }
+  return head;
 }
 
 void clear(FwdList * head)
 {
-  while (head->next)
+  while (head)
   {
     FwdList * nextHead = head->next;
     delete head;
@@ -42,19 +47,32 @@ void newList(FwdList * head, size_t number, size_t size)
     tempHead = tempHead->next;
     if (!tempHead)
     {
-      clear(head);
       throw;
     }
   }
-  
+  FwdList * next = tempHead->next;
+  FwdList * newHead = nullptr;
+  for (size_t i = 0; i < size; ++i)
+  {
+    try
+    {
+      newHead = new FwdList{tempHead->value, next};
+      tempHead->next = newHead;
+      tempHead = newHead;
+    }
+    catch (const std::bad_alloc & e)
+    {
+      throw;
+    }
+  }
 }
 
 int main()
 {
+  FwdList * head = nullptr;
   try
   {
-    FwdList * head = new FwdList{0, nullptr};
-    startList(head);
+    FwdList * head = startList();
   }
   catch (const std::bad_alloc & e)
   {
@@ -79,4 +97,13 @@ int main()
       }
     }
   }
+  std::cout << head->value;
+  FwdList * tempHead = head->next;
+  while (tempHead)
+  {
+    std::cout << " " << tempHead->value;
+    tempHead = tempHead->next;
+  }
+  std::cout << "\n";
+  clear(head);
 }
