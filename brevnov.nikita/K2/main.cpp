@@ -71,6 +71,7 @@ int main()
     head = head->next;
     std::cout << " " << head->value;
   }
+  std::cout << "\n";
   clearElements(deletehelp, size);
   return 0;
 }
