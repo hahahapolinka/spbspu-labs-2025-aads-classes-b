@@ -47,7 +47,7 @@ int main()
   while (!std::cin.eof())
   {
     std::cin >> a;
-    if (std::cin.eof() || std::cin.fail() || a <= 0)
+    if (std::cin.eof() || std::cin.fail())
     {
       break;
     }
@@ -56,7 +56,7 @@ int main()
     {
       break;
     }
-    if (a > size)
+    if (a > size || a <= 0)
     {
       std::cerr << "Index out of range!\n";
       clearElements(deletehelp, size);
