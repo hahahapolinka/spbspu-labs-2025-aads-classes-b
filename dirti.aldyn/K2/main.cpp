@@ -72,7 +72,7 @@ int main()
   FwdList * head = nullptr;
   try
   {
-    FwdList * head = startList();
+    head = startList();
   }
   catch (const std::bad_alloc & e)
   {
