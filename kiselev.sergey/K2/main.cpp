@@ -21,22 +21,15 @@ void deleteList(FwdList* list)
 
 FwdList* createList(FwdList* head)
 {
-  try
+  head = new FwdList { 0, nullptr };
+  FwdList* head_ = head;
+  const int size = 10;
+  for (int i = 1; i < size; ++i)
   {
-    head = new FwdList { 0, nullptr };
-    FwdList* head_ = head;
-    const int size = 10;
-    for (int i = 1; i < size; ++i)
-    {
-      head->next = new FwdList { i, nullptr };
-      head = head->next;
-    }
-    return head_;
+    head->next = new FwdList { i, nullptr };
+    head = head->next;
   }
-  catch (...)
-  {
-    throw;
-  }
+  return head_;
 }
 
 FwdList* addNumber(FwdList* head, size_t number, size_t count)
@@ -46,33 +39,17 @@ FwdList* addNumber(FwdList* head, size_t number, size_t count)
   {
     element = element->next;
   }
+  if (!element)
+  {
+    throw std::logic_error("The number exceeds the number of elements");
+  }
   for (size_t i = 0; i < count; ++i)
   {
-    try
-    {
-      FwdList* node = new FwdList { element->value, element->next };
-      element->next = node;
-      element = node;
-    }
-    catch (...)
-    {
-      throw;
-    }
+    FwdList* node = new FwdList { element->value, element->next };
+    element->next = node;
+    element = node;
   }
   return element;
-}
-
-bool isRange(FwdList* head, size_t number)
-{
-  for (size_t i = 1; i < number; ++i)
-  {
-    if (!head->next)
-    {
-      return true;
-    }
-    head = head->next;
-  }
-  return false;
 }
 
 std::ostream& outputList(std::ostream& out, FwdList* head)
@@ -100,11 +77,6 @@ int main()
       if (number == 0)
       {
         throw std::invalid_argument("Incorrect parameter");
-      }
-      if (isRange(head, number))
-      {
-        deleteList(head);
-        return 1;
       }
       addNumber(head, number - 1, count);
     }
