@@ -11,7 +11,7 @@ namespace dribas
   };
 
   FwdList* insert(FwdList* head, int index, size_t count);
-  FwdList* makeList(int size);
+  FwdList* makeList(FwdList* head, int size);
   void outList(std::ostream& out, FwdList* head);
   void clear(FwdList* head);
 }

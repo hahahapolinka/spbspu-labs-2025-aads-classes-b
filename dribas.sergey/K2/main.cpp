@@ -8,7 +8,7 @@ int main()
 
   dribas::FwdList * head = nullptr;
   try {
-    head = dribas::makeList(size);
+    head = makeList(head, size);
   } catch (const std::exception & e) {
     std::cerr << e.what() << '\n';
     clear(head);
@@ -16,6 +16,7 @@ int main()
   }
 
   dribas::FwdList* headPtr = head;
+
   while (std::cin) {
     int index = 0;
     size_t count = 0;
