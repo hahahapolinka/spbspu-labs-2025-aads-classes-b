@@ -62,7 +62,16 @@ int main()
       clearElements(deletehelp, size);
       return 1;
     }
-    addElements(head, a, b);
+    try
+    {
+      addElements(head, a, b);
+    }
+    catch(const std::bad_alloc& e)
+    {
+      clearElements(deletehelp, size);
+      std::cerr << "Not enough memory!\n";
+      return 1;
+    }
     size += b;
   }
   std::cout << head->value;
