@@ -22,15 +22,11 @@ dribas::FwdList* dribas::insert(FwdList* head, int index, size_t count)
 
 dribas::FwdList* dribas::makeList(FwdList* head, int size)
 {
-  try {
-    head = new FwdList {0, nullptr};
-    FwdList* current = head;
-    for (int i = 1; i < size; i++) {
-      current->next = new FwdList {i, nullptr};
-      current = current->next;
-    }
-  } catch (...) {
-    throw;
+  head = new FwdList {0, nullptr};
+  FwdList* current = head;
+  for (int i = 1; i < size; i++) {
+    current->next = new FwdList {i, nullptr};
+    current = current->next;
   }
   return head;
 }
