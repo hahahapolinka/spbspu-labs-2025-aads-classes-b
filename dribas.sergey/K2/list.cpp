@@ -22,6 +22,9 @@ dribas::FwdList* dribas::insert(FwdList* head, int index, size_t count)
 
 dribas::FwdList* dribas::makeList(FwdList* head, int size)
 {
+  if (head) {
+    clear(head);
+  }
   head = new FwdList {0, nullptr};
   FwdList* current = head;
   for (int i = 1; i < size; i++) {
@@ -45,10 +48,12 @@ void dribas::outList(std::ostream& out, FwdList* head)
 
 void dribas::clear(FwdList* head)
 {
-  FwdList* interim = head;
-  while (head) {
-    interim = head->next;
-    delete head;
-    head = interim;
+  if (head) {
+    FwdList* interim = head;
+    while (head) {
+      interim = head->next;
+      delete head;
+      head = interim;
+    }
   }
 }
