@@ -84,12 +84,10 @@ int main()
   }
   catch(const std::bad_alloc& e)
   {
-    std::cerr << e.what() << '\n';
     return 1;
   }
   catch(const std::out_of_range& e)
   {
-    std::cerr << e.what() << '\n';
     return 2;
   }
 }
