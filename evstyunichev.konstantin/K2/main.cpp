@@ -1,5 +1,5 @@
-#include <stdexcept>
 #include <iostream>
+#include <stdexcept>
 
 struct FwdList
 {
@@ -9,44 +9,30 @@ struct FwdList
 
 FwdList * get_element(size_t target, FwdList *ptr)
 {
-  for (size_t i = 0; (i < target) && ptr; i++)
+  for (size_t i = 0; i < target; i++)
   {
+    if (!ptr)
+    {
+      throw std::out_of_range("out of range");
+    }
     ptr = ptr->next;
   }
   return ptr;
 }
 
-int add(FwdList *ptr, int value)
+void add(FwdList *ptr, int value)
 {
-  try
-  {
-    FwdList *cur = new FwdList{value, nullptr};
-    cur->next = ptr->next;
-    ptr->next = cur;
-  }
-  catch(const std::exception& e)
-  {
-    return 0;
-  }
-  return 1;
+  FwdList *cur = new FwdList{value, nullptr};
+  cur->next = ptr->next;
+  ptr->next = cur;
 }
 
 FwdList * insert_to_pos(FwdList *head, size_t pos, size_t k)
 {
   FwdList *ptr = get_element(pos, head), *cur = ptr;
-  if (ptr)
+  for (size_t i = 0; i < k; i++)
   {
-    for (size_t i = 0; i < k; i++)
-    {
-      if (add(cur, ptr->value))
-      {
-        cur = cur->next;
-      }
-      else
-      {
-        return nullptr;
-      }
-    }
+    add(cur, ptr->value);
   }
   return ptr;
 }
@@ -65,45 +51,45 @@ void clear(FwdList *head)
 
 int main()
 {
-  FwdList *head = nullptr;
-  head = new FwdList{0, nullptr};
-  FwdList *tail = head, *cur = head;
-  size_t size = 0;
-  for (size_t i = 1; i < 10; i++)
+  try
   {
-    if (!add(tail, i))
+    FwdList *head = nullptr;
+    head = new FwdList{0, nullptr};
+    FwdList *tail = head, *cur = head;
+    size_t size = 0;
+    for (size_t i = 1; i < 10; i++)
     {
-      clear(head);
-      return 1;
+      add(tail, i);
+      tail = tail->next;
     }
-    tail = tail->next;
-  }
-  size = 10;
-  int a = 0;
-  size_t b = 0;
-  while (std::cin >> a >> b)
-  {
-    if (b > size)
+    size = 10;
+    int a = 0;
+    size_t b = 0;
+    while (std::cin >> a >> b)
     {
-      std::cout << "so large position!\n";
+      insert_to_pos(head, --a, b);
+      size += b;
     }
-    else if (!insert_to_pos(head, --a, b))
-    {
-      clear(head);
-      return 1;
-    }
-    size += b;
-  }
-  while (cur)
-  {
     std::cout << cur->value;
     cur = cur->next;
-    if (cur)
+    while (cur)
     {
       std::cout << ' ';
+      std::cout << cur->value;
+      cur = cur->next;
     }
+    std::cout << '\n';
+    clear(head);
+    return 0;
   }
-  std::cout << '\n';
-  clear(head);
-  return 0;
+  catch(const std::bad_alloc& e)
+  {
+    std::cerr << e.what() << '\n';
+    return 1;
+  }
+  catch(const std::out_of_range& e)
+  {
+    std::cerr << e.what() << '\n';
+    return 2;
+  }
 }
