@@ -76,7 +76,16 @@ int main()
       deleteList(head);
       return 1;
     }
-    head = insertDuplicates(head, position, count);
+    try
+    {
+      head = insertDuplicates(head, position, count);
+    }
+    catch (...)
+    {
+      std::cerr << "error\n";
+      deleteList(head);
+      return 1;
+    }
   }
   FwdList* current = head;
   std::cout << current->value;
