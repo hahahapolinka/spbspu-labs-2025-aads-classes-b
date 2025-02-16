@@ -9,13 +9,17 @@ struct FwdList
 
 FwdList * get_element(size_t target, FwdList *ptr)
 {
+  if (!ptr)
+  {
+    throw std::out_of_range("out of range");
+  }
   for (size_t i = 0; i < target; i++)
   {
+    ptr = ptr->next;
     if (!ptr)
     {
       throw std::out_of_range("out of range");
     }
-    ptr = ptr->next;
   }
   return ptr;
 }
