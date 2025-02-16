@@ -65,8 +65,9 @@ FwdList* createList(FwdList * head, int size)
 
 FwdList* createList(FwdList * head, int size, int value)
 {
+  head = new FwdList{value, nullptr};
   FwdList* cur = head;
-  for (int i = 0; i < size; ++i) {
+  for (int i = 1; i < size; ++i) {
     try {
       cur->next = new FwdList{value, nullptr};
       cur = cur->next;
