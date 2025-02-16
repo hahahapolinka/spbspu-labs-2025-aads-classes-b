@@ -13,7 +13,8 @@ int main()
       if (position == 0) {
         throw std::logic_error("Invalid position");
       }
-      insertDuplicates(kizhin::getNodeByIndex(list, position - 1), size);
+      kizhin::FwdList* nodePosition = kizhin::getNodeByIndex(list, position - 1);
+      kizhin::insertDuplicates(nodePosition, size);
     }
     kizhin::outputList(std::cout, list) << '\n';
   } catch (const std::exception& e) {
