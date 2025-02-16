@@ -94,7 +94,7 @@ FwdList* dublicate(FwdList* head, size_t for_dubl, size_t number)
   for (size_t i = 0; i < (number - 1); ++i) {
     node = node->next;
   }
-  node->next = temp; 
+  node->next = temp;
   return head;
 }
 
