@@ -51,9 +51,9 @@ void clear(FwdList *head)
 
 int main()
 {
+  FwdList *head = nullptr;
   try
   {
-    FwdList *head = nullptr;
     head = new FwdList{0, nullptr};
     FwdList *tail = head, *cur = head;
     size_t size = 0;
@@ -84,10 +84,12 @@ int main()
   }
   catch(const std::bad_alloc& e)
   {
+    clear(head);
     return 1;
   }
   catch(const std::out_of_range& e)
   {
+    clear(head);
     return 2;
   }
 }
