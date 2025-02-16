@@ -10,8 +10,10 @@ namespace kizhin {
     FwdList* next;
   };
 
-  FwdList* initList(int, int);
-  FwdList* insertDuplicates(FwdList*, std::size_t, std::size_t);
+  FwdList* initList(int start, int stop);
+  FwdList* insertDuplicates(FwdList*, std::size_t);
+  const FwdList* getNodeByIndex(const FwdList*, std::size_t);
+  FwdList* getNodeByIndex(FwdList*, std::size_t);
   void clear(FwdList*) noexcept;
   std::ostream& outputList(std::ostream&, FwdList*);
 }

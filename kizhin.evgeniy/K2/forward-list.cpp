@@ -18,22 +18,14 @@ kizhin::FwdList* kizhin::initList(int start, const int stop)
   return head;
 }
 
-kizhin::FwdList* kizhin::insertDuplicates(FwdList* const head, const std::size_t position,
-    const std::size_t size)
+kizhin::FwdList* kizhin::insertDuplicates(FwdList* const position, const std::size_t size)
 {
-  assert(size != 0);
-  FwdList* target = head;
-  for (std::size_t i = 0; target != nullptr && i != position; ++i) {
-    target = target->next;
-  }
-  if (target == nullptr) {
-    throw std::logic_error("Failed to find position node");
-  }
-  FwdList* first = new FwdList{ target->value, nullptr };
+  assert(size != 0 && position != nullptr);
+  FwdList* first = new FwdList{ position->value, nullptr };
   FwdList* last = first;
   try {
     for (std::size_t i = 1; i != size; ++i) {
-      FwdList* newNode = new FwdList{ target->value, nullptr };
+      FwdList* newNode = new FwdList{ position->value, nullptr };
       last->next = newNode;
       last = newNode;
     }
@@ -41,35 +33,46 @@ kizhin::FwdList* kizhin::insertDuplicates(FwdList* const head, const std::size_t
     clear(first);
     throw;
   }
-  FwdList* originalNext = target->next;
-  target->next = first;
+  FwdList* originalNext = position->next;
+  position->next = first;
   last->next = originalNext;
-  return target;
+  return position;
+}
+
+const kizhin::FwdList* kizhin::getNodeByIndex(const FwdList* head,
+    const std::size_t index)
+{
+  assert(head != nullptr);
+  for (std::size_t i = 0; i != index; ++i) {
+    head = head->next;
+  }
+  return head;
+}
+
+kizhin::FwdList* kizhin::getNodeByIndex(FwdList* head, const std::size_t index)
+{
+  return const_cast< FwdList* >(
+      getNodeByIndex(static_cast< const FwdList* >(head), index));
 }
 
 void kizhin::clear(FwdList* head) noexcept
 {
-  if (head == nullptr) {
-    return;
+  FwdList* tmp = nullptr;
+  while (head != nullptr) {
+    tmp = head;
+    head = head->next;
+    delete tmp;
   }
-  FwdList* tmp = head;
-  while (head->next) {
-    tmp = head->next;
-    delete head;
-    head = tmp;
-  }
-  delete head;
 }
 
-std::ostream& kizhin::outputList(std::ostream& out, FwdList* list)
+std::ostream& kizhin::outputList(std::ostream& out, FwdList* head)
 {
-  assert(list);
-  FwdList* current = list;
-  out << current->value;
-  current = current->next;
-  while (current) {
-    out << ' ' << current->value;
-    current = current->next;
+  assert(head);
+  out << head->value;
+  head = head->next;
+  while (head) {
+    out << ' ' << head->value;
+    head = head->next;
   }
   return out;
 }
