@@ -41,7 +41,6 @@ int main()
     }
   }
 
-
   outList(origin_head);
   clear(origin_head);
 }
@@ -90,8 +89,12 @@ FwdList* dublicate(FwdList* head, size_t for_dubl, size_t number)
   }
   FwdList* node = nullptr;
   node = createList(node, number, head->value);
-  node->next = head->next;
+  FwdList* temp  = head->next;
   head->next = node;
+  for (size_t i = 0; i < (number - 1); ++i) {
+    node = node->next;
+  }
+  node->next = temp; 
   return head;
 }
 
