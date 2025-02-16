@@ -7,6 +7,16 @@ struct FwdList
   FwdList* next;
 };
 
+void deleteList(FwdList* head)
+{
+  while (head != nullptr)
+  {
+    FwdList* temp = head;
+    head = head->next;
+    delete temp;
+  }
+}
+
 FwdList* insertDuplicates(FwdList* head, size_t position, size_t count)
 {
   FwdList* current = head;
@@ -20,9 +30,16 @@ FwdList* insertDuplicates(FwdList* head, size_t position, size_t count)
   }
   for (size_t i = 0; i < count; ++i)
   {
-    FwdList* newNode = new FwdList{current->value, current->next};
-    current->next = newNode;
-    current = newNode;
+    try
+    {
+      FwdList* newNode = new FwdList{current->value, current->next};
+      current->next = newNode;
+      current = newNode;
+    }
+    catch (const std::bad_alloc&)
+    {
+      deleteList(head);
+    }
   }
   return head;
 }
@@ -33,33 +50,17 @@ FwdList* createList()
   FwdList* current = head;
   for (int i = 1; i < 10; ++i)
   {
-    current->next = new FwdList{i, nullptr};
-    current = current->next;
+    try
+    {
+      current->next = new FwdList{i, nullptr};
+      current = current->next;
+    }
+    catch (const std::bad_alloc&)
+    {
+      deleteList(head);
+    }
   }
   return head;
-}
-
-void printList(FwdList* head)
-{
-  FwdList* current = head;
-  std::cout << current->value;
-  current = current->next;
-  while (current != nullptr)
-  {
-    std::cout << " " << current->value;
-    current = current->next;
-  }
-  std::cout << "\n";
-}
-
-void deleteList(FwdList* head)
-{
-  while (head != nullptr)
-  {
-    FwdList* temp = head;
-    head = head->next;
-    delete temp;
-  }
 }
 
 int main()
@@ -75,18 +76,17 @@ int main()
       deleteList(head);
       return 1;
     }
-    try
-    {
-      head = insertDuplicates(head, position, count);
-    }
-    catch (...)
-    {
-      std::cerr << "Error\n";
-      deleteList(head);
-      return 1;
-    }
+    head = insertDuplicates(head, position, count);
   }
-  printList(head);
+  FwdList* current = head;
+  std::cout << current->value;
+  current = current->next;
+  while (current != nullptr)
+  {
+    std::cout << " " << current->value;
+    current = current->next;
+  }
+  std::cout << "\n";
   deleteList(head);
   return 0;
 }
