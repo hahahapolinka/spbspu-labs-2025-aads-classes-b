@@ -20,30 +20,23 @@ int main()
     std::cerr << "Memory error!";
     return 1;
   }
-  FwdList* origin_head = head;
 
-  while (!std::cin.eof()) {
+  while (std::cin && !std::cin.eof()) {
     size_t for_dubl = 0;
     size_t num = 0;
-    if (!(std::cin >> for_dubl >> num)) {
-      break;
-    };
-    if (for_dubl == 0) {
-      clear(origin_head);
-      return 1;
-    }
+    std::cin >> for_dubl >> num;
+    FwdList* node = nullptr;
     try {
-      head = dublicate(origin_head, for_dubl, num);
-    } catch(const std::exception& e) {
-      std::cerr << e.what();
-      clear(origin_head);
+      node = dublicate(head, for_dubl, num);
+    } catch(const std::bad_alloc&) {
+      std::cerr << "Memory error!";
       return 1;
     }
+    node->next = nullptr;
   }
 
-
-  outList(origin_head);
-  clear(origin_head);
+  outList(head);
+  clear(head);
 }
 
 FwdList* createList(FwdList * head, int size)
@@ -64,60 +57,45 @@ FwdList* createList(FwdList * head, int size)
 
 FwdList* dublicate(FwdList* head, size_t for_dubl, size_t number)
 {
-  for (size_t i = 0; i < (for_dubl - 1); ++i) {
+  for (size_t i = 0; i < for_dubl; ++i) {
     head = head->next;
-    if (!head) {
-      throw std::out_of_range("!");
-    }
   }
-
   FwdList* cur = head;
-  FwdList* original_next = nullptr;
-  if (cur->next) {
-    original_next = cur->next;
-  }
-
   for (size_t i = 0; i < number; ++i) {
-    FwdList* node = nullptr;
     try {
-      node = new FwdList{cur->value, nullptr};
+      FwdList* node = new FwdList{cur->value, nullptr};
+      node->next = cur->next;
+      cur->next = node;
+      cur = node;
     } catch(const std::bad_alloc&) {
       clear(head->next, i);
-      head->next = original_next;
       throw;
     }
-    node->next = cur->next;
-    cur->next = node;
-    cur = node;
   }
   return head;
 }
 
 void clear(FwdList* head, size_t size)
 {
-  if (!head) return;
   FwdList* new_head = head->next;
   for (size_t i =0; i < size; ++i) {
-    if (head) {
-      delete head;
-      head = new_head;
-      new_head = head->next;
-    }
+    delete head;
+    head = new_head;
+    new_head = head->next;
   }
 }
 
 void clear(FwdList* head)
 {
-  while (head) {
-    FwdList * new_head = head->next;
+  FwdList * new_head = head->next;
+  while (head->next) {
     delete head;
     head = new_head;
+    new_head = head->next;
   }
-
 }
 
 void outList(FwdList* head) {
-  if (!head) return;
   std::cout << head->value;
   while (head->next) {
     std::cout << " ";
