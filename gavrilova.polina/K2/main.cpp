@@ -87,7 +87,8 @@ FwdList* dublicate(FwdList* head, size_t for_dubl, size_t number)
       throw std::out_of_range("!");
     }
   }
-  FwdList* node = createList(node, number, head->next);
+  FwdList* node = nullptr;
+  node = createList(node, number, head->value);
   node->next = head->next;
   head->next = node;
   return head;
