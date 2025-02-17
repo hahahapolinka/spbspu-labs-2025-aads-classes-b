@@ -23,6 +23,10 @@ FwdList* addDubls(FwdList* head, size_t num, size_t dubls)
 
   for (size_t i = 1; i < num; i++)
   {
+    if (target->next == nullptr)
+    {
+      throw std::out_of_range("out of range");
+    }
     target = target->next;
   }
 
@@ -37,8 +41,7 @@ FwdList* addDubls(FwdList* head, size_t num, size_t dubls)
     }
     catch (const std::bad_alloc&)
     {
-      freeList(head);
-      throw;
+      return target;
     }
   }
 
@@ -56,47 +59,20 @@ void printList(std::ostream& out, FwdList* head)
   }
 }
 
-bool isOutOfRange(FwdList* head, size_t num)
-{
-  if (num < 1)
-  {
-    return true;
-  }
-
-  FwdList* headCopy = head;
-  for (size_t i = 1; i < num; i++)
-  {
-    if (headCopy->next == nullptr)
-    {
-      return true;
-    }
-    headCopy = headCopy->next;
-  }
-
-  return false;
-}
-
 int main()
 {
-  FwdList* head = nullptr;
-  for (int i = 0; i < 10; i++)
+  FwdList* head = new FwdList{0, nullptr};
+  for (int i = 1; i < 10; i++)
   {
     try
     {
       FwdList* newNode = new FwdList{i, nullptr};
-      if (head == nullptr)
+      FwdList* current = head;
+      while (current->next != nullptr)
       {
-        head = newNode;
+        current = current->next;
       }
-      else
-      {
-        FwdList* current = head;
-        while (current->next != nullptr)
-        {
-          current = current->next;
-        }
-        current->next = newNode;
-      }
+      current->next = newNode;
     }
     catch (const std::bad_alloc&)
     {
@@ -107,12 +83,16 @@ int main()
 
   while (std::cin >> num >> dubls)
   {
-    if (isOutOfRange(head, num))
+    try
     {
+      addDubls(head, num, dubls);
+    }
+    catch(const std::out_of_range& e)
+    {
+      std::cerr << e.what() << "\n";
       freeList(head);
       return 1;
     }
-    addDubls(head, num, dubls);
   }
 
   printList(std::cout, head);
