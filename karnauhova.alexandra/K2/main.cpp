@@ -11,9 +11,10 @@ void clear(FwdList* head);
 
 int main()
 {
+  FwdList* head = nullptr;
   try
   {
-    FwdList* head = createList();
+    head = createList();
     size_t element = 0;
     size_t count = 0;
     size_t size = 10;
