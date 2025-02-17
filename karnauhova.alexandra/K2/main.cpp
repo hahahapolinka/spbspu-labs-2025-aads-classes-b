@@ -36,6 +36,7 @@ int main()
   }
   catch (std::bad_alloc& e)
   {
+    clear(head);
     std::cerr << "Out of memmory\n";
     return 1;
   }
@@ -52,6 +53,7 @@ void outputList(FwdList* head)
   }
   std::cout << "\n";
 }
+
 FwdList* editList(FwdList* head, size_t element, size_t count)
 {
   FwdList* now = head;
@@ -60,19 +62,11 @@ FwdList* editList(FwdList* head, size_t element, size_t count)
     now = now->next;
   }
   int number = now->value;
-  try
+  for (size_t i = 0; i < count; i++)
   {
-    for (size_t i = 0; i < count; i++)
-    {
-      FwdList* new_element = new FwdList{number, nullptr};
-      new_element->next = now->next;
-      now->next = new_element;
-    }
-  }
-  catch (std::bad_alloc& e)
-  {
-    clear(head);
-    throw;
+    FwdList* new_element = new FwdList{number, nullptr};
+    new_element->next = now->next;
+    now->next = new_element;
   }
   return now;
 }
@@ -80,22 +74,14 @@ FwdList* editList(FwdList* head, size_t element, size_t count)
 FwdList* createList()
 {
   FwdList* head = nullptr;
-  try
+  head = new FwdList{0, nullptr};
+  FwdList* now = head;
+  for (int i = 1; i < 10; i++)
   {
-    head = new FwdList{0, nullptr};
-    FwdList* now = head;
-    for (int i = 1; i < 10; i++)
-    {
-      now->next = new FwdList{i, nullptr};
-      now = now->next;
-    }
-    return head;
+    now->next = new FwdList{i, nullptr};
+    now = now->next;
   }
-  catch (std::bad_alloc& e)
-  {
-    clear(head);
-    throw;
-  }
+  return head;
 }
 
 void clear(FwdList* head)
