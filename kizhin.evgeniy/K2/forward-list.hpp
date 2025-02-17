@@ -15,7 +15,7 @@ namespace kizhin {
   const FwdList* getNodeByIndex(const FwdList*, std::size_t);
   FwdList* getNodeByIndex(FwdList*, std::size_t);
   void clear(FwdList*) noexcept;
-  std::ostream& outputList(std::ostream&, FwdList*);
+  std::ostream& outputList(std::ostream&, const FwdList*);
 }
 
 #endif

@@ -51,8 +51,8 @@ const kizhin::FwdList* kizhin::getNodeByIndex(const FwdList* head,
 
 kizhin::FwdList* kizhin::getNodeByIndex(FwdList* head, const std::size_t index)
 {
-  return const_cast< FwdList* >(
-      getNodeByIndex(static_cast< const FwdList* >(head), index));
+  const FwdList* constHead = head;
+  return const_cast< FwdList* >(getNodeByIndex(constHead, index));
 }
 
 void kizhin::clear(FwdList* head) noexcept
@@ -65,7 +65,7 @@ void kizhin::clear(FwdList* head) noexcept
   }
 }
 
-std::ostream& kizhin::outputList(std::ostream& out, FwdList* head)
+std::ostream& kizhin::outputList(std::ostream& out, const FwdList* head)
 {
   assert(head);
   out << head->value;
