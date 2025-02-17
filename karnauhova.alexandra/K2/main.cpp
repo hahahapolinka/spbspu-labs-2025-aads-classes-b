@@ -4,7 +4,7 @@ struct FwdList {
   int value;
   FwdList * next;
 };
-void outputList(FwdList* head);
+void outputList(const FwdList* head);
 FwdList* editList(FwdList* head, size_t element, size_t count);
 FwdList* createList();
 void clear(FwdList* head);
@@ -43,7 +43,7 @@ int main()
   }
 }
 
-void outputList(FwdList* head)
+void outputList(const FwdList* head)
 {
   std::cout << head->value;
   head = head->next;
