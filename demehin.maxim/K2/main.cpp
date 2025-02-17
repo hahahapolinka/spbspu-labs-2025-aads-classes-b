@@ -20,6 +20,10 @@ void freeList(FwdList* head)
 FwdList* addDubls(FwdList* head, size_t num, size_t dubls)
 {
   FwdList* target = head;
+  if (num == 0)
+  {
+    throw std::out_of_range("out of range");
+  }
 
   for (size_t i = 1; i < num; i++)
   {
