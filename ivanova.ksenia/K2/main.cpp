@@ -15,9 +15,10 @@ FwdList* duplicate(FwdList* head, size_t index, size_t count)
   if (!current)
   {
     std::cerr << "Out of range" << '\n';
-    return nullptr;
+    return 0;
   }
-  for (size_t i = 0; i < count; ++i) {
+  for (size_t i = 0; i < count; ++i)
+  {
     FwdList* newNode = new FwdList{current->value, current->next};
     current->next = newNode;
     current = newNode;
@@ -25,7 +26,7 @@ FwdList* duplicate(FwdList* head, size_t index, size_t count)
   return current;
 }
 
-void clear(FwdList* head) 
+void clear(FwdList* head)
 {
   while (head)
   {
@@ -38,18 +39,20 @@ void clear(FwdList* head)
 void print(FwdList* head)
 {
   std::cout << head->value;
-  while (head->next) {
+  while (head->next)
+  {
     std::cout << " " << head->next->value;
     head = head->next;
   }
   std::cout << "\n";
 }
 
-int main() 
+int main()
 {
   FwdList* head = new FwdList{0, nullptr};
   FwdList* current = head;
-  for (int i = 1; i < 10; ++i) {
+  for (int i = 1; i < 10; ++i)
+  {
     current->next = new FwdList{i, nullptr};
     current = current->next;
   }
