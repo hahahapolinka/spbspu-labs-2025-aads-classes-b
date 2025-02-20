@@ -22,20 +22,21 @@ void deleteList(FwdList* list)
 
 FwdList* createList()
 {
-  FwdList* head_ = new FwdList { 0, nullptr };
+  FwdList* list = new FwdList { 0, nullptr };
+  FwdList* head = list;
   const int size = 10;
   try
   {
     for (int i = 1; i < size; ++i)
     {
-      head_->next = new FwdList { i, nullptr };
-      head_ = head_->next;
+      list->next = new FwdList { i, nullptr };
+      list = list->next;
     }
-    return head_;
+    return head;
   }
   catch (const std::bad_alloc&)
   {
-    deleteList(head_);
+    deleteList(head);
     throw;
   }
 }
