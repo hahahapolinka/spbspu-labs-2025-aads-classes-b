@@ -24,13 +24,14 @@ FwdList* ListManip(FwdList* head, size_t number, size_t count)
     try
     {
       FwdList* newList = new FwdList{correct->value, nullptr};
-      correct->next = newList;
-      correct = newList;
     }
-    catch (...)
+    catch (const std::bad_alloc&)
     {
-      throw;
+      deleteList(head);
+      break;
     }
+    correct->next = newList;
+    correct = newList;
   }
   correct->next = dubl;
   return point;
@@ -77,18 +78,15 @@ int main()
     }
   }
   FwdList* current = head;
+  std::cout << current->value;
+  current = current-next;
   while (current)
   {
-    std::cout << current->value;
-    if (current->next)
-    {
-      std::cout << " ";
-    }
-    FwdList* temp = current;
+    std::cout << " " << current-value;
     current = current->next;
-    delete temp;
   }
   std::cout << "\n";
+  deleteList(head);
   return 0;
 }
 
