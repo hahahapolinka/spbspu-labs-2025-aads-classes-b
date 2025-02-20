@@ -17,9 +17,9 @@ void freeList(FwdList* head)
   }
 }
 
-FwdList* addDubls(FwdList* head, size_t num, size_t dubls)
+void addDubls(FwdList** head, size_t num, size_t dubls)
 {
-  FwdList* target = head;
+  FwdList* target = *head;
   if (num == 0)
   {
     throw std::out_of_range("out of range");
@@ -37,19 +37,10 @@ FwdList* addDubls(FwdList* head, size_t num, size_t dubls)
   FwdList* current = target;
   for (size_t i = 0; i < dubls; i++)
   {
-    try
-    {
-      FwdList* dublNode = new FwdList{target->value, current->next};
-      current->next = dublNode;
-      current = dublNode;
-    }
-    catch (const std::bad_alloc&)
-    {
-      return target;
-    }
+    FwdList* dublNode = new FwdList{target->value, current->next};
+    current->next = dublNode;
+    current = dublNode;
   }
-
-  return target;
 }
 
 void printList(std::ostream& out, FwdList* head)
@@ -81,6 +72,7 @@ int main()
     catch (const std::bad_alloc&)
     {
       freeList(head);
+      return 1;
     }
   }
   size_t num = 0, dubls = 0;
@@ -89,13 +81,17 @@ int main()
   {
     try
     {
-      addDubls(head, num, dubls);
+      addDubls(&head, num, dubls);
     }
     catch(const std::out_of_range& e)
     {
       std::cerr << e.what() << "\n";
       freeList(head);
       return 1;
+    }
+    catch(const std::bad_alloc&)
+    {
+      std::cerr << "error of addin dubls\n";
     }
   }
 
