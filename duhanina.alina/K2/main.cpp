@@ -48,7 +48,7 @@ FwdList* createList()
 {
   FwdList* head = new FwdList{0, nullptr};
   FwdList* current = head;
-  for (size_t i = 1; i < 10; ++i)
+  for (int i = 1; i < 10; ++i)
   {
     try
     {
