@@ -48,7 +48,7 @@ FwdList* createList()
 {
   FwdList* head = new FwdList{0, nullptr};
   FwdList* current = head;
-  for (int i = 1; i < 10; ++i)
+  for (size_t i = 1; i < 10; ++i)
   {
     try
     {
@@ -58,6 +58,7 @@ FwdList* createList()
     catch (const std::bad_alloc&)
     {
       deleteList(head);
+      break;
     }
   }
   return head;
