@@ -58,7 +58,7 @@ FwdList* createList()
     catch (const std::bad_alloc&)
     {
       deleteList(head);
-      break;
+      return nullptr;
     }
   }
   return head;
@@ -67,6 +67,11 @@ FwdList* createList()
 int main()
 {
   FwdList* head = createList();
+  if (head == nullptr)
+  {
+    std::cerr << "error\n";
+    return 1;
+  }
   size_t position = 0;
   size_t count = 0;
   while (std::cin >> position >> count)
