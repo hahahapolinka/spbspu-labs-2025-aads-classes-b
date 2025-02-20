@@ -1,5 +1,6 @@
 #include <exception>
 #include <iostream>
+#include <new>
 #include <stdexcept>
 #include <stddef.h>
 
@@ -19,17 +20,24 @@ void deleteList(FwdList* list)
   }
 }
 
-FwdList* createList(FwdList* head)
+FwdList* createList()
 {
-  head = new FwdList { 0, nullptr };
-  FwdList* head_ = head;
+  FwdList* head_ = new FwdList { 0, nullptr };
   const int size = 10;
-  for (int i = 1; i < size; ++i)
+  try
   {
-    head->next = new FwdList { i, nullptr };
-    head = head->next;
+    for (int i = 1; i < size; ++i)
+    {
+      head_->next = new FwdList { i, nullptr };
+      head_ = head_->next;
+    }
+    return head_;
   }
-  return head_;
+  catch (const std::bad_alloc&)
+  {
+    deleteList(head_);
+    throw;
+  }
 }
 
 FwdList* addNumber(FwdList* head, size_t number, size_t count)
@@ -71,7 +79,7 @@ int main()
   size_t count = 0;
   try
   {
-    head = createList(head);
+    head = createList();
     while (std::cin >> number >> count)
     {
       if (number == 0)
