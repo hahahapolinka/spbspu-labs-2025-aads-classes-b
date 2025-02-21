@@ -11,7 +11,6 @@ int main()
     head = dribas::makeList(size);
   } catch (const std::exception & e) {
     std::cerr << e.what() << '\n';
-    clear(head);
     return 1;
   }
 
