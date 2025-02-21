@@ -52,13 +52,26 @@ FwdList* addNumber(FwdList* head, size_t number, size_t count)
   {
     throw std::logic_error("The number exceeds the number of elements");
   }
-  for (size_t i = 0; i < count; ++i)
+  FwdList* toReturn = element;
+  FwdList* firstElement = new FwdList { element->value, nullptr };
+  element = firstElement;
+  try
   {
-    FwdList* node = new FwdList { element->value, element->next };
-    element->next = node;
-    element = node;
+    for (size_t i = 1; i < count; ++i)
+    {
+      FwdList* node = new FwdList { element->value, nullptr };
+      element->next = node;
+      element = node;
+    }
   }
-  return element;
+  catch (const std::bad_alloc&)
+  {
+    deleteList(firstElement);
+    throw;
+  }
+  element->next = toReturn->next;
+  toReturn->next = firstElement;
+  return toReturn;
 }
 
 std::ostream& outputList(std::ostream& out, FwdList* head)
