@@ -4,11 +4,11 @@
 
 int main()
 {
-  constexpr int size = 10;
+  constexpr size_t size = 10;
 
   dribas::FwdList * head = nullptr;
   try {
-    head = makeList(head, size);
+    head = dribas::makeList(size);
   } catch (const std::exception & e) {
     std::cerr << e.what() << '\n';
     clear(head);

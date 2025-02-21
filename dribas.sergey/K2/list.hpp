@@ -6,12 +6,12 @@
 namespace dribas
 {
   struct FwdList {
-    int value;
+    long unsigned int value;
     FwdList * next;
   };
 
   FwdList* insert(FwdList* head, int index, size_t count);
-  FwdList* makeList(FwdList* head, int size);
+  FwdList* makeList(size_t size);
   void outList(std::ostream& out, FwdList* head);
   void clear(FwdList* head);
 }
