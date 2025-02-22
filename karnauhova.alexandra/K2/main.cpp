@@ -35,7 +35,7 @@ int main()
     outputList(head);
     clear(head);
   }
-  catch (std::bad_alloc& e)
+  catch (const std::bad_alloc& e)
   {
     clear(head);
     std::cerr << "Out of memmory\n";
@@ -77,12 +77,20 @@ FwdList* createList()
   FwdList* head = nullptr;
   head = new FwdList{0, nullptr};
   FwdList* now = head;
-  for (int i = 1; i < 10; i++)
+  try
   {
-    now->next = new FwdList{i, nullptr};
-    now = now->next;
+    for (int i = 1; i < 10; i++)
+    {
+      now->next = new FwdList{i, nullptr};
+      now = now->next;
+    }
+    return head;
   }
-  return head;
+  catch(const std::bad_alloc& e)
+  {
+    clear(head);
+    throw;
+  }
 }
 
 void clear(FwdList* head)
