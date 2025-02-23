@@ -39,6 +39,7 @@ FwdList* insertDuplicates(FwdList* head, size_t position, size_t count)
     catch (const std::bad_alloc&)
     {
       deleteList(head);
+      throw;
     }
   }
   return head;
@@ -58,7 +59,7 @@ FwdList* createList()
     catch (const std::bad_alloc&)
     {
       deleteList(head);
-      return nullptr;
+      throw;
     }
   }
   return head;
@@ -66,10 +67,14 @@ FwdList* createList()
 
 int main()
 {
-  FwdList* head = createList();
-  if (head == nullptr)
+  try
+  {
+    FwdList* head = createList();
+  }
+  catch (...)
   {
     std::cerr << "error\n";
+    deleteList(head);
     return 1;
   }
   size_t position = 0;
