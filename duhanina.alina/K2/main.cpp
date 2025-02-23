@@ -30,17 +30,9 @@ FwdList* insertDuplicates(FwdList* head, size_t position, size_t count)
   }
   for (size_t i = 0; i < count; ++i)
   {
-    try
-    {
-      FwdList* newNode = new FwdList{current->value, current->next};
-      current->next = newNode;
-      current = newNode;
-    }
-    catch (const std::bad_alloc&)
-    {
-      deleteList(head);
-      throw;
-    }
+    FwdList* newNode = new FwdList{current->value, current->next};
+    current->next = newNode;
+    current = newNode;
   }
   return head;
 }
@@ -51,16 +43,8 @@ FwdList* createList()
   FwdList* current = head;
   for (int i = 1; i < 10; ++i)
   {
-    try
-    {
-      current->next = new FwdList{i, nullptr};
-      current = current->next;
-    }
-    catch (const std::bad_alloc&)
-    {
-      deleteList(head);
-      throw;
-    }
+    current->next = new FwdList{i, nullptr};
+    current = current->next;
   }
   return head;
 }
