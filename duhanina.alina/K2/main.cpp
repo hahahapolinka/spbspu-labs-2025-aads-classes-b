@@ -67,9 +67,10 @@ FwdList* createList()
 
 int main()
 {
+  FwdList* head = nullptr;
   try
   {
-    FwdList* head = createList();
+    head = createList();
   }
   catch (...)
   {
