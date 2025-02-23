@@ -89,7 +89,7 @@ FwdList* dublicate(FwdList* head, size_t for_dubl, size_t number)
   }
   FwdList* node_head = nullptr;
   auto node = createList(node_head, number, head->value);
-  node.second->next = head->next; 
+  node.second->next = head->next
   head->next = node.first;
   return head;
 }
