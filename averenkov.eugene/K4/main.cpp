@@ -15,13 +15,12 @@ void deleteList(List< T >* head)
 template < class T >
 void printList(List< T >* head)
 {
-  List< T >* fake = head;
   std::cout << head->data;
-  fake = fake->next;
-  while(fake)
+  head = head->next;
+  while(head)
   {
-    std::cout << " " << fake->data;
-    fake = fake->next;
+    std::cout << " " << head->data;
+    head = head->next;
   }
 }
 
@@ -32,7 +31,7 @@ int main(int argc, char** argv)
     std::cerr << "Error\n";
     return 1;
   }
-  int data;
+  int data = 0;
   std::cin >> data;
   if (std::cin.eof())
   {
@@ -43,7 +42,7 @@ int main(int argc, char** argv)
     std::cerr << "error\n";
     return 1;
   }
-  List< int >* head = new List< int > { data, nullptr };
+  List< int >* head = new List< int >;
   List< int >* current = head;
   while (std::cin >> data)
   {

@@ -9,11 +9,11 @@ struct List
 };
 
 template< class T >
-void pushIn(List< T >* head, int data)
+List< T >* pushIn(List< T >* head, int data)
 {
   List< T >* newList = new List< T > {data, nullptr};
   newList->next = head;
-  head = newList;
+  return newList;
 }
 
 template< class T >
@@ -22,7 +22,7 @@ List< T >* reverse_with_list(List< T >* head)
   List< T >* newHead = nullptr;
   while (head)
   {
-    pushIn(head, head->data);
+    newHead = pushIn(newHead, head->data);
     head = head->next;
   }
   return newHead;
