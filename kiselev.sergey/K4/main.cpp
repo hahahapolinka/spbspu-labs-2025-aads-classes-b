@@ -1,8 +1,10 @@
+#include <cctype>
 #include <exception>
 #include <iostream>
 #include <new>
 #include <ostream>
 #include <stdexcept>
+#include <string>
 #include <endian.h>
 template< class T >
 struct List
@@ -30,13 +32,15 @@ List< T >* createList(std::istream& input, List< T >* list)
   {
     while (!(input.eof()))
     {
-      int a = 0;
-      input >> a;
-      if (!input)
+      std::string numbers;
+      char symbol;
+      input >> symbol;
+      numbers.push_back(symbol);
+      if (!std::isdigit(numbers.front()))
       {
         throw std::logic_error("Incorrect number");
       }
-      list = new List< T >{ a, nullptr };
+      list = new List< T >{ std::stoi(numbers), nullptr };
       list = list->next;
     }
     return head;
