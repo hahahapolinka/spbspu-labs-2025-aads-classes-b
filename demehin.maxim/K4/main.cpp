@@ -24,7 +24,7 @@ List< T >* reverse_with_list(List< T >* head)
 }
 
 template< class T >
-List< T >* reverce_cleanly(List< T >* head) noexcept
+List< T >* reverse_cleanly(List< T >* head) noexcept
 {
   return nullptr;
 }
@@ -51,9 +51,11 @@ template< class T >
 void print_list(std::ostream& out, List< T >* head)
 {
   List< T >* current = head;
+  out << current->data;
+  current = current->next;
   while (current != nullptr)
   {
-    out << current->data;
+    out << " " << current->data;
     current = current->next;
   }
 }
@@ -65,7 +67,10 @@ int main(int argc, char* argv[])
     return 1;
   }
   int num = 0;
-  std::cin >> num;
+  if (!(std::cin >> num))
+  {
+    return 1;
+  }
   List< int >* head = new List< int >{num, nullptr};
   try
   {
@@ -97,6 +102,10 @@ int main(int argc, char* argv[])
   {
     head = reverse_with_list(head);
   }
+  //if (param == "1")
+  //{
+    //head = reverse_cleanly(head);
+  //}
 
 
   print_list(std::cout, head);
