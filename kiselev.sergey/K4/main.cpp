@@ -131,6 +131,7 @@ int main(int argc, char** argv)
     }
     else if (!list && std::cin.eof())
     {
+      std::cout << "\n";
       return 0;
     }
     if (list->next)
