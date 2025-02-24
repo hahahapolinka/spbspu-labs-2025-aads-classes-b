@@ -134,11 +134,11 @@ int main(int argc, char** argv)
     }
     std::cout << "\n";
   }
-  else
+  /*else
   {
     std::cerr << "empty\n";
     return 1;
-  }
+  }*/
   free_list(head);
   return 0;
 }
