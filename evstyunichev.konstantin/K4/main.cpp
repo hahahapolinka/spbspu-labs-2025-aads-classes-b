@@ -163,18 +163,18 @@ int main(int argc, const char **argv)
     if (!std::cin.eof())
     {
       clear(head);
-      std::cerr << argv;
+      std::cerr << "input error";
       return 1;
     }
-    if (argc == 1 && argv[0][0] == '0')
+    if (argc == 2 && argv[0][0] == '0')
     {
       head = reverse_with_list(head);
     }
-    else if (argc == 1 && argv[0][0] == '1')
+    else if (argc == 2 && argv[0][0] == '1')
     {
       head = reverse_cleanly(head);
     }
-    else if (argc == 1 && argv[0][0] == '2')
+    else if (argc == 2 && argv[0][0] == '2')
     {
       head = reverse_recursively(head);
     }
