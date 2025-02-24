@@ -7,13 +7,6 @@ struct List {
 };
 
 template< class T >
-List< T >* create_element(List< T >* last, T element)
-{
-    last->next = new List< T >{element, nullptr};
-    return last->next;
-}
-
-template< class T >
 void clear(List< T >* head)
 {
   while (head)
@@ -50,6 +43,10 @@ List< T > * reverse_with_list(List< T > * head)
 template< class T >
 List< T > * reverse_cleanly(List< T > * head) noexcept
 {
+    if (!head)
+    {
+        return head;
+    }
     List< T > * next = head->next;
     head->next = nullptr;
     List< T > * last = head;
@@ -79,7 +76,7 @@ List< T > * reverse_recursively(List< T > * head) noexcept
 template< class T >
 void output_list(std::ostream& out, List< T > * head)
 {
-  if (head)
+  if (!head)
   {
     out << "\n";
   }
@@ -97,16 +94,17 @@ int main(int argc, char** argv)
 {
   int x = 0;
   List< int >* head = nullptr;
-  List< int >* last = head;
   try
   {
     if (std::cin >> x && !std::cin.eof())
     {
-        last = new List< int >{x, nullptr};
+        head = new List< int >{x, nullptr};
     }
+    List< int >* last = head;
     while (std::cin >> x && !std::cin.eof())
     {
-      last = create_element(last, x);
+        last->next = new List< int >{x, nullptr};
+        last = last->next;
     }
   }
   catch (const std::bad_alloc& e)
