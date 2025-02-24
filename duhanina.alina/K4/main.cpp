@@ -69,7 +69,7 @@ List< T >* create_node(List< T >* node, T data)
   List< T >* current = node;
   while (current->next)
   {
-    current = node->next;
+    current = current->next;
   }
   current->next = new List< T > { data, nullptr };
   return node;
@@ -84,19 +84,6 @@ int main(int argc, char** argv)
   }
   List<int>* head = nullptr;
   int data = 0;
-  try
-  {
-    while (std::cin >> data && !std::cin.eof())
-    {
-      head = create_node(head, data);
-    }
-  }
-  catch (...)
-  {
-    free_list(head);
-    std::cerr << "error\n";
-    return 1;
-  }
   int mode = 0;
   try
   {
@@ -105,26 +92,46 @@ int main(int argc, char** argv)
   catch (...)
   {
     std::cerr << "error\n";
-    head = reverse_recursively(head);
   }
-  if (mode == 0)
+  try
   {
-    head = reverse_with_list(head);
+    while (std::cin >> data)
+    {
+      head = create_node(head, data);
+    }
+    if (mode == 0)
+    {
+      head = reverse_with_list(head);
+    }
+    else if (mode == 1)
+    {
+      head = reverse_cleanly(head);
+    }
+    else if (mode == 2)
+    {
+      head = reverse_recursively(head);
+    }
+    else
+    {
+      head = reverse_recursively(head);
+      std::cerr << "error\n";
+    }
   }
-  else if (mode == 1)
+  catch (...)
   {
-    head = reverse_cleanly(head);
+    free_list(head);
+    std::cerr << "error\n";
+    return 1;
   }
-  else if (mode == 2)
+  try
   {
-    head = reverse_recursively(head);
+    mode = std::stoi(argv[1]);
   }
-  else
+  catch (...)
   {
-    head = reverse_recursively(head);
     std::cerr << "error\n";
   }
-  List< int >* current = head;
+  List<int>* current = head;
   if (current)
   {
     std::cout << current->data;
