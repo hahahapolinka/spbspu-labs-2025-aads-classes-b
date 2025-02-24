@@ -24,7 +24,7 @@ List< T > * reverse_with_list(List< T > * head)
   List< T > * temp = head;
   try
   {
-    while (head)
+    while (temp)
     {
       List< T > * now = new List< T >{temp->data, it};
       it = now;
@@ -78,7 +78,6 @@ void output_list(std::ostream& out, List< T > * head)
 {
   if (head == nullptr)
   {
-    out << "\n";
     return;
   }
   List< T >* list = head;
