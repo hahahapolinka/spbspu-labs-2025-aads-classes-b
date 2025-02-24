@@ -97,18 +97,18 @@ int main(int argc, char** argv)
   {
     while (std::cin >> data)
     {
-      if (std::cin.fail())
-      {
-        std::cerr << "error\n";
-        free_list(head);
-        return 1;
-      }
       head = create_node(head, data);
     }
     if (std::cin.eof() && head == nullptr)
     {
       std::cout << "\n";
       return 0;
+    }
+    if (!std::cin.eof() && std::cin.fail())
+    {
+      std::cerr << "error\n";
+      free_list(head);
+      return 1;
     }
     if (mode == 0)
     {
@@ -137,20 +137,14 @@ int main(int argc, char** argv)
   List< int >* current = head;
   if (current)
   {
-    std::cout << current->data;
-    current = current->next;
-    while (current != nullptr)
-    {
-      std::cout << " " << current->data;
-      current = current->next;
-    }
-    std::cout << "\n";
-  }
-/*  else
+  std::cout << current->data;
+  current = current->next;
+  while (current != nullptr)
   {
-    std::cerr << "empty\n";
-    return 1;
-  }*/
+    std::cout << " " << current->data;
+    current = current->next;
+  }
+  std::cout << "\n";
   free_list(head);
   return 0;
 }
