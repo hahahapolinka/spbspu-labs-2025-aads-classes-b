@@ -32,7 +32,7 @@ int main(int argc, char** argv)
 {
   if (argc < 2)
   {
-    std::cerr << "Error\n";
+    std::cerr << "Error!!\n";
     return 1;
   }
   int data = 0;
@@ -61,6 +61,12 @@ int main(int argc, char** argv)
       deleteList(head);
       return 1;
     }
+  }
+  if (!std::cin)
+  {
+    std::cerr << "Wrong Input";
+    deleteList(head);
+    return 1;
   }
   if (std::atoi(argv[1]) == 0)
   {
