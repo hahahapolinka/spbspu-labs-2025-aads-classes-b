@@ -6,6 +6,18 @@ struct List
   T data;
   List< T > * next;
 }
+template< class T >
+void clear(List< T > * head)
+{
+  List< T > * deletehelp = head->next;
+  while (deletehelp->value != nullptr)
+  {
+    delete head;
+    head = deletehelp;
+    deletehelp = deletehelp->next;
+  }
+  delete head;
+}
 
 template< class T >
 List< T > * reverse_with_list(List< T > * head)
@@ -39,7 +51,15 @@ int main (int argc)
     std::cout << "\n";
     return 0;
   }
-  List * head = {a, nullptr};
+  try
+  {
+    List * head = new List{a, nullptr};
+  }
+  catch (const std::bad_alloc& e)
+  {
+    std::cerr << "Not enough memory!\n";
+    return 1;
+  }
   List * tail = head;
   while (!std::cin.eof())
   {
@@ -53,6 +73,13 @@ int main (int argc)
     {
       tail->next = new List{a, nullptr};
     }
-    catch (const std::bad)
+    catch (const std::bad_alloc& e)
+    {
+      clear(head);
+      std::cerr << "Not enough memory!\n";
+      return 1;
+    }
+    tail = tail->next;
   }
+  
 }
