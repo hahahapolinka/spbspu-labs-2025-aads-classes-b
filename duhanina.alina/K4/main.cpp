@@ -92,12 +92,17 @@ int main(int argc, char** argv)
   catch (...)
   {
     std::cerr << "error\n";
-    return 1;
   }
   try
   {
     while (std::cin >> data)
     {
+      if (std::cin.fail())
+      {
+        std::cerr << "error\n";
+        free_list(head);
+        return 1;
+      }
       head = create_node(head, data);
     }
     if (mode == 0)
@@ -124,7 +129,7 @@ int main(int argc, char** argv)
     std::cerr << "error\n";
     return 1;
   }
-  List<int>* current = head;
+  List< int >* current = head;
   if (current)
   {
     std::cout << current->data;
