@@ -6,6 +6,7 @@ struct List
   T data;
   List< T > * next;
 }
+
 template< class T >
 void clear(List< T > * head)
 {
@@ -17,6 +18,12 @@ void clear(List< T > * head)
     deletehelp = deletehelp->next;
   }
   delete head;
+}
+
+template< class T >
+std::ostream& outputing(List< T > * head, std::ostream& out)
+{
+  
 }
 
 template< class T >
@@ -81,5 +88,26 @@ int main (int argc)
     }
     tail = tail->next;
   }
-  
+  if (argc == 2)
+  {
+    head = reverse_recursively(List< T > * head);
+  }
+  else if (argc == 0)
+  {
+    try
+    {
+      head = reverse_with_list(List< T > * head);
+    }
+    catch (const std::bad_alloc& e)
+    {
+      clear(head);
+      std::cerr << "Not enough memory!\n";
+      return 1;
+    }
+  }
+  else
+  {
+    head = reverse_cleanly(List< T > * head);
+  }
+
 }
