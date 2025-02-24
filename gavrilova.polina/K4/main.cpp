@@ -21,7 +21,6 @@ template< class T >
 FwdList< T >* reverse_with_list(FwdList< T >* head)
 {
   FwdList< FwdList< T >* >* stack = new FwdList< FwdList< T >* >{head, nullptr};
-  
   while (head) {
     try {
       FwdList< FwdList< int >* >* new_node = new FwdList< FwdList< T >* >{head, stack};
