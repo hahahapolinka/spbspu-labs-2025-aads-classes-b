@@ -2,7 +2,7 @@
 #include "list.hpp"
 
 
-int main(int argc, char ** argv)
+int main()
 { 
   dribas::List < int > * head = nullptr;
   while (std::cin) {

@@ -23,6 +23,9 @@ namespace dribas
 
   template < class T >
   void clear(List < T > * head);
+
+  template< class T >
+  void outputList(std::ostream& out, List< T > * head);
 }
 
 #endif
