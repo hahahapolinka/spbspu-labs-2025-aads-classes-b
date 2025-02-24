@@ -3,6 +3,7 @@
 #include <new>
 #include <ostream>
 #include <stdexcept>
+#include <endian.h>
 template< class T >
 struct List
 {
@@ -86,13 +87,7 @@ List< T >* reverse_cleanly(List< T >* head) noexcept
 }
 
 template< typename T >
-List< T >* reverse_recursively(List< T >* head) noexcept
-{
-  List< T >* temp = reverse_recursively(head->next);
-  head->next->next = head;
-  head->next = nullptr;
-  return temp;
-}
+List< T >* reverse_recursively(List< T >* head) noexcept;
 template< typename T >
 std::ostream& printList(std::ostream& output, List< T >* list)
 {
@@ -112,15 +107,15 @@ int main(int argc, char** argv)
   try
   {
     list = createList(std::cin, list);
-    if (argc == 0)
+    if (argc == 2 && argv[1][0] == '0')
     {
       reverse_with_list(list);
     }
-    else if (argc == 1)
+    else if (argc == 2 && argv[1][0] == '1')
     {
       reverse_cleanly(list);
     }
-    else if (argc == 2)
+    else if (argc == 2 && argv[1][0] == '2')
     {
       reverse_recursively(list);
     }
@@ -130,6 +125,7 @@ int main(int argc, char** argv)
       reverse_cleanly(list);
     }
     printList(std::cout, list) << "\n";
+    deleteList(list);
     return 0;
   }
   catch (const std::exception& e)
