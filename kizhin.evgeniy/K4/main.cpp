@@ -14,7 +14,7 @@ int main(int argc, char** argv)
       clear(list);
       return 1;
     } else if (std::cin.eof() && list == nullptr) {
-      clear(list);
+      std::cout << '\n';
       return 0;
     }
     if (result == 0) {
