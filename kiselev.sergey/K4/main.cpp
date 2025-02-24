@@ -128,7 +128,7 @@ int main(int argc, char** argv)
     {
       return 0;
     }
-    if (std::cin.eof() && !std::cin)
+    if (!std::cin.eof() && !std::cin)
     {
       std::cerr << "Incorrect input\n";
       deleteList(list);
