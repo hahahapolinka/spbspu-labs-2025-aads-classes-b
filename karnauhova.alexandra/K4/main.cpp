@@ -102,7 +102,7 @@ int main(int argc, char** argv)
   {
     if (std::cin >> x && !std::cin.eof())
     {
-        last = new List< int >{x, nullptr}; 
+        last = new List< int >{x, nullptr};
     }
     while (std::cin >> x && !std::cin.eof())
     {
