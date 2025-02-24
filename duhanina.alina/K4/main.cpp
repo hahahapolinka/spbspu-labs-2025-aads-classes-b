@@ -100,10 +100,6 @@ int main(int argc, char** argv)
     {
       head = create_node(head, data);
     }
-    if (head == nullptr)
-    {
-      return 0;
-    }
     if (mode == 0)
     {
       head = reverse_with_list(head);
@@ -140,11 +136,11 @@ int main(int argc, char** argv)
     }
     std::cout << "\n";
   }
-  /*else
+  else
   {
     std::cerr << "empty\n";
     return 1;
-  }*/
+  }
   free_list(head);
   return 0;
 }
