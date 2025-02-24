@@ -145,7 +145,7 @@ std::ostream & out_list(std::ostream &out, List< T > *head)
 int main(int argc, const char **argv)
 {
   int n = 0;
-  if(!std::cin >> n)
+  if(!(std::cin >> n))
   {
     std::cerr << "zero input";
     return 2;
