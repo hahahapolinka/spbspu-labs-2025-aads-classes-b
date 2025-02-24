@@ -19,6 +19,15 @@ namespace kizhin {
       delete tmp;
     }
   }
+
+  template < class T >
+  FwdList< T >* reverseWithList(FwdList< T >* head);
+
+  template < class T >
+  FwdList< T >* reverseCleanly(FwdList< T >* head) noexcept;
+
+  template < class T >
+  FwdList< T >* reverseRecursively(FwdList< T >* head) noexcept;
 }
 
 #endif
