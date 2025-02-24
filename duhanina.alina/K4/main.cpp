@@ -77,6 +77,10 @@ List< T >* create_node(List< T >* node, T data)
 
 int main(int argc, char** argv)
 {
+  if (argc < 1)
+  {
+    return 1;
+  }
   List<int>* head = nullptr;
   int data = 0;
   int mode = 0;
