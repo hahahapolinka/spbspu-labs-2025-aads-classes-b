@@ -39,7 +39,6 @@ int main(int argc, char** argv)
   std::cin >> data;
   if (std::cin.fail())
   {
-    std::cerr << "error\n";
     return 1;
   }
   List< int >* head = new List< int > { data, nullptr };
