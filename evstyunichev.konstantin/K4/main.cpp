@@ -142,11 +142,14 @@ std::ostream & out_list(std::ostream &out, List< T > *head)
   return out;
 }
 
-int main()
+int main(int argc, const char **argv)
 {
-  int argc = 2;
   int n = 0;
-  std::cin >> n;
+  if(!std::cin >> n)
+  {
+    std::cerr << "zero input";
+    return 2;
+  }
   List< int > *head = nullptr, *tail = head;
   try
   {
@@ -160,6 +163,7 @@ int main()
     if (!std::cin.eof())
     {
       clear(head);
+      std::cerr << argv;
       return 1;
     }
     if (argc == 0)
@@ -173,6 +177,11 @@ int main()
     else if (argc == 2)
     {
       head = reverse_recursively(head);
+    }
+    else
+    {
+      head = reverse_cleanly(head);
+      std::cerr << "not 0 or 1 or 2\n";
     }
     out_list(std::cout, head) << '\n';
     clear(head);
