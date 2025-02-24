@@ -15,6 +15,10 @@ void deleteList(List< T >* head)
 template < class T >
 void printList(List< T >* head)
 {
+  if (!head)
+  {
+    return;
+  }
   std::cout << head->data;
   head = head->next;
   while(head)
@@ -42,7 +46,7 @@ int main(int argc, char** argv)
     std::cerr << "error\n";
     return 1;
   }
-  List< int >* head = new List< int >;
+  List< int >* head = new List< int > { data, nullptr };
   List< int >* current = head;
   while (std::cin >> data)
   {

@@ -19,11 +19,18 @@ List< T >* pushIn(List< T >* head, int data)
 template< class T >
 List< T >* reverse_with_list(List< T >* head)
 {
+  List< T >* oldHead = head;
   List< T >* newHead = nullptr;
   while (head)
   {
     newHead = pushIn(newHead, head->data);
     head = head->next;
+  }
+  while(oldHead)
+  {
+    List< T >* fake = head;
+    head = head->next;
+    delete fake;
   }
   return newHead;
 }
