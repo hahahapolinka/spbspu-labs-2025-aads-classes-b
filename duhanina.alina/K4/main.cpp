@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 template< class T >
 struct List {
@@ -74,32 +75,20 @@ List< T >* create_node(List< T >* node, T data)
   return node;
 }
 
-int main(int arg)
+int main(int argc, char** argv)
 {
-  List< int >* head = nullptr;
+  if (argc != 2)
+  {
+    std::cerr << "error\n";
+    return 1;
+  }
+  List<int>* head = nullptr;
   int data = 0;
   try
   {
     while (std::cin >> data)
     {
       head = create_node(head, data);
-    }
-    if (arg == 0)
-    {
-      head = reverse_with_list(head);
-    }
-    else if (arg == 1)
-    {
-      head = reverse_cleanly(head);
-    }
-    else if (arg == 2)
-    {
-      head = reverse_recursively(head);
-    }
-    else
-    {
-      head = reverse_recursively(head);
-      std::cerr << "error\n";
     }
   }
   catch (...)
@@ -108,15 +97,49 @@ int main(int arg)
     std::cerr << "error\n";
     return 1;
   }
-  List< int >* current = head;
-  std::cout << current->data;
-  current = current->next;
-  while (current != nullptr)
+  int mode = 0;
+  try
   {
-    std::cout << " " << current->data;
-    current = current->next;
+    mode = std::stoi(argv[1]);
   }
-  std::cout << "\n";
+  catch (...)
+  {
+    std::cerr << "error\n";
+    head = reverse_recursively(head);
+  }
+  if (mode == 0)
+  {
+    head = reverse_with_list(head);
+  }
+  else if (mode == 1)
+  {
+    head = reverse_cleanly(head);
+  }
+  else if (mode == 2)
+  {
+    head = reverse_recursively(head);
+  }
+  else
+  {
+    head = reverse_recursively(head);
+    std::cerr << "error\n";
+  }
+  List< int >* current = head;
+  if (current)
+  {
+    std::cout << current->data;
+    current = current->next;
+    while (current != nullptr)
+    {
+      std::cout << " " << current->data;
+      current = current->next;
+    }
+    std::cout << "\n";
+  }
+  else
+  {
+    std::cerr << "empty\n";
+  }
   free_list(head);
   return 0;
 }
