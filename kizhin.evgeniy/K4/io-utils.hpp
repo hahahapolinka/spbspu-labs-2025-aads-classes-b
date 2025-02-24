@@ -17,7 +17,8 @@ namespace kizhin {
       result = new FwdList< T >{ currentData, nullptr };
       FwdList< T >* currentNode = result;
       while (in >> currentData) {
-        currentNode = new FwdList< T >{ currentData, currentNode };
+        currentNode->next = new FwdList< T >{ currentData, nullptr };
+        currentNode = currentNode->next;
       }
     } catch (...) {
       clear(result);
