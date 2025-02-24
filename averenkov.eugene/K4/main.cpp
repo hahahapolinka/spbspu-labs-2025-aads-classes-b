@@ -39,7 +39,7 @@ int main(int argc, char** argv)
   std::cin >> data;
   if (std::cin.eof())
   {
-    return 0;
+    return 1;
   }
   if (std::cin.fail())
   {
