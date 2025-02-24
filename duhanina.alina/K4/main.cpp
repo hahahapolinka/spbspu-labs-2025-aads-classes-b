@@ -62,10 +62,10 @@ void free_list(List< T >* head)
 template<class T>
 List< T >* create_node(List< T >* node, T data)
 {
-  if (!node)
+  /*if (!node)
   {
     return new List< T >{ data, nullptr };
-  }
+  }*/
   List< T >* current = node;
   while (current->next)
   {
@@ -134,11 +134,11 @@ int main(int argc, char** argv)
     }
     std::cout << "\n";
   }
-  /*else
+  else
   {
     std::cerr << "empty\n";
     return 1;
-  }*/
+  }
   free_list(head);
   return 0;
 }
