@@ -100,6 +100,10 @@ int main(int argc, char** argv)
   List< int >* last = head;
   try
   {
+    if (std::cin >> x && !std::cin.eof())
+    {
+        last = new List< int >{x, nullptr}; 
+    }
     while (std::cin >> x && !std::cin.eof())
     {
       last = create_element(last, x);
