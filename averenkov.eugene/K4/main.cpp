@@ -35,6 +35,15 @@ int main(int argc, char** argv)
     std::cerr << "Error!!\n";
     return 0;
   }
+  int arg = 0;
+  try
+  {
+    arg = std::stoi(argv[1]);
+  }
+  catch (...)
+  {
+    std::cerr << "Error\n";
+  }
   int data = 0;
   List< int >* head = nullptr;
   List< int >* current = nullptr;
@@ -71,7 +80,7 @@ int main(int argc, char** argv)
     deleteList(head);
     return 1;
   }
-  if (std::atoi(argv[1]) == 0)
+  if (arg == 0)
   {
     try
     {
@@ -84,11 +93,11 @@ int main(int argc, char** argv)
       return 1;
     }
   }
-  else if (std::atoi(argv[1]) == 1)
+  else if (arg == 1)
   {
     head = reverse_cleanly(head);
   }
-  else if (std::atoi(argv[1]) == 2)
+  else if (arg == 2)
   {
     head = reverse_recursively(head);
   }
