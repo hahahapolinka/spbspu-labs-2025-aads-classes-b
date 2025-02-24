@@ -76,9 +76,10 @@ List< T > * reverse_recursively(List< T > * head) noexcept
 template< class T >
 void output_list(std::ostream& out, List< T > * head)
 {
-  if (!head)
+  if (head == nullptr)
   {
     out << "\n";
+    return;
   }
   List< T >* list = head;
   out << list->data;
@@ -122,15 +123,15 @@ int main(int argc, char** argv)
   char* str = argv[1];
   try
   {
-    if (argc == 2 && str[0] == '0' && str[1] != '\0')
+    if (argc == 2 && str[0] == '0')
     {
         head = reverse_with_list(head);
     }
-    else if (argc == 2 && str[0] == '1' && str[1] != '\0')
+    else if (argc == 2 && str[0] == '1')
     {
         head = reverse_cleanly(head);
     }
-    else if (argc == 2 && str[0] == '2' && str[1] != '\0')
+    else if (argc == 2 && str[0] == '2')
     {
         head = reverse_recursively(head);
     }
