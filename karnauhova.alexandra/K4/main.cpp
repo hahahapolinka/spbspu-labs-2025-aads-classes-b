@@ -90,8 +90,8 @@ void output_list(std::ostream& out, List< T > * head)
   {
     out << " " << list->data;
     list = list->next;
-  } 
-} 
+  }
+}
 
 int main(int argc, char** argv)
 {
