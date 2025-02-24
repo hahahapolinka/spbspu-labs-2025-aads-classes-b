@@ -36,18 +36,22 @@ int main(int argc, char** argv)
     return 0;
   }
   int data = 0;
-  if (!(std::cin >> data))
-  {
-    return 0;
-  }
-  List< int >* head = new List< int > { data, nullptr };
-  List< int >* current = head;
+  List< int >* head = nullptr;
+  List< int >* current = nullptr;
   while (std::cin >> data)
   {
     try
     {
-      current->next = new List< int > { data, nullptr };
-      current = current->next;
+      if (head == nullptr)
+      {
+        head = new List< int > { data, nullptr };
+        current = head;
+      }
+      else
+      {
+        current->next = new List< int > { data, nullptr };
+        current = current->next;
+      }
     }
     catch (...)
     {
@@ -55,6 +59,17 @@ int main(int argc, char** argv)
       deleteList(head);
       return 1;
     }
+  }
+  if (std::cin.eof() && head == nullptr)
+  {
+    std::cout << "\n";
+    return 0;
+  }
+  if (!std::cin.eof() && std::cin.fail())
+  {
+    std::cerr << "error\n";
+    deleteList(head);
+    return 1;
   }
   if (std::atoi(argv[1]) == 0)
   {
