@@ -147,6 +147,7 @@ int main(int argc, const char **argv)
   int n = 0;
   if ((std::cin >> n).eof())
   {
+    std::cout << '\n';
     return 0;
   }
   List< int > *head = nullptr, *tail = head;
@@ -165,30 +166,30 @@ int main(int argc, const char **argv)
       std::cerr << argv;
       return 1;
     }
-    if (argc == 0)
+    if (argc == 1 && argv[0][0] == '0')
     {
       head = reverse_with_list(head);
     }
-    else if (argc == 1)
+    else if (argc == 1 && argv[0][0] == '1')
     {
       head = reverse_cleanly(head);
     }
-    else if (argc == 2)
+    else if (argc == 1 && argv[0][0] == '2')
     {
       head = reverse_recursively(head);
     }
     else
     {
-      head = reverse_cleanly(head);
       std::cerr << "not 0 or 1 or 2\n";
+      head = reverse_cleanly(head);
     }
     out_list(std::cout, head) << '\n';
     clear(head);
   }
-  catch(const std::exception& e)
+  catch(const std::bad_alloc& e)
   {
     std::cerr << e.what() << '\n';
-
+    clear(head);
   }
   return 0;
 }
