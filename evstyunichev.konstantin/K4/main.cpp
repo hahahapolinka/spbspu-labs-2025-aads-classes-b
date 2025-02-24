@@ -147,8 +147,7 @@ int main(int argc, const char **argv)
   int n = 0;
   if(!(std::cin >> n))
   {
-    std::cerr << "zero input";
-    return 2;
+    return 0;
   }
   List< int > *head = nullptr, *tail = head;
   try
