@@ -27,8 +27,7 @@ void deleteList(List< T >* list)
 List< int >* createList(std::istream& input)
 {
   int a = 0;
-  input >> a;
-  if (!input)
+  if (!(input >> a))
   {
     return nullptr;
   }
@@ -124,15 +123,15 @@ int main(int argc, char** argv)
   try
   {
     list = createList(std::cin);
-    if (!list && !std::cin.eof())
-    {
-      return 0;
-    }
     if (!std::cin.eof() && !std::cin)
     {
       std::cerr << "Incorrect input\n";
       deleteList(list);
       return 1;
+    }
+    else if (!list && std::cin.eof())
+    {
+      return 0;
     }
     if (list->next)
     {
