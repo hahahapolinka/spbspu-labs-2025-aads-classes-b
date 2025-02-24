@@ -28,8 +28,8 @@ List< T >* reverse_with_list(List< T >* head)
   }
   while(oldHead)
   {
-    List< T >* fake = head;
-    head = head->next;
+    List< T >* fake = oldHead;
+    oldHead = oldHead->next;
     delete fake;
   }
   return newHead;
