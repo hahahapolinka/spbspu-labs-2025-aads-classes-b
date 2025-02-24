@@ -92,12 +92,17 @@ int main(int argc, char** argv)
   catch (...)
   {
     std::cerr << "error\n";
+    return 1;
   }
   try
   {
     while (std::cin >> data)
     {
       head = create_node(head, data);
+    }
+    if (!std::cin)
+    {
+      return 0;
     }
     if (mode == 0)
     {
