@@ -135,8 +135,6 @@ int main(int argc, char** argv)
     return 1;
   }
   List< int >* current = head;
-  if (current)
-  {
   std::cout << current->data;
   current = current->next;
   while (current != nullptr)
