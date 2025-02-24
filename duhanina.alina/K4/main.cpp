@@ -77,11 +77,6 @@ List< T >* create_node(List< T >* node, T data)
 
 int main(int argc, char** argv)
 {
-  if (argc != 2)
-  {
-    std::cerr << "error\n";
-    return 1;
-  }
   List<int>* head = nullptr;
   int data = 0;
   int mode = 0;
@@ -123,14 +118,6 @@ int main(int argc, char** argv)
     std::cerr << "error\n";
     return 1;
   }
-  try
-  {
-    mode = std::stoi(argv[1]);
-  }
-  catch (...)
-  {
-    std::cerr << "error\n";
-  }
   List<int>* current = head;
   if (current)
   {
@@ -146,6 +133,7 @@ int main(int argc, char** argv)
   else
   {
     std::cerr << "empty\n";
+    return 1;
   }
   free_list(head);
   return 0;
