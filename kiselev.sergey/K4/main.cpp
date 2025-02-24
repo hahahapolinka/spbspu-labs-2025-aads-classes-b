@@ -24,23 +24,27 @@ void deleteList(List< T >* list)
   }
 }
 
-template< typename T >
-List< T >* createList(std::istream& input, List< T >* list)
+List< int >* createList(std::istream& input)
 {
-  List< T >* head = list;
+  int a = 0;
+  input >> a;
+  if (!input)
+  {
+    return nullptr;
+  }
+  List< int >* list = new List< int >{a, nullptr };
+  List< int >* head = list;
   try
   {
-    while (!(input.eof()))
+    while (!input.eof())
     {
-      std::string numbers;
-      char symbol;
-      input >> symbol;
-      numbers.push_back(symbol);
-      if (!std::isdigit(numbers.front()))
+      a = 0;
+      input >> a;
+      if (!input)
       {
-        throw std::logic_error("Incorrect number");
+        return head;
       }
-      list = new List< T >{ std::stoi(numbers), nullptr };
+      list->next = new List< int >{ a, nullptr };
       list = list->next;
     }
     return head;
@@ -93,6 +97,10 @@ List< T >* reverse_cleanly(List< T >* head) noexcept
 template< typename T >
 List< T >* reverse_recursively(List< T >* head) noexcept
 {
+  if (!head->next)
+  {
+    return head;
+  }
   List< T >* temp = reverse_recursively(head->next);
   head->next->next = head;
   head->next = nullptr;
@@ -101,6 +109,10 @@ List< T >* reverse_recursively(List< T >* head) noexcept
 template< typename T >
 std::ostream& printList(std::ostream& output, List< T >* list)
 {
+  if (!list)
+  {
+    throw std::logic_error("List is empty");
+  }
   output << list->data;
   list = list->next;
   while (list)
@@ -116,7 +128,7 @@ int main(int argc, char** argv)
   List< int >* list = nullptr;
   try
   {
-    list = createList(std::cin, list);
+    list = createList(std::cin);
     if (argc == 2 && argv[1][0] == '0')
     {
       list = reverse_with_list(list);
@@ -132,7 +144,7 @@ int main(int argc, char** argv)
     else
     {
       std::cerr << "Unknown parameter\n";
-      reverse_cleanly(list);
+      list = reverse_cleanly(list);
     }
     printList(std::cout, list) << "\n";
     deleteList(list);
