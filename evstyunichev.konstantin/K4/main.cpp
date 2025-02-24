@@ -23,7 +23,7 @@ template< class T >
 void push_back(List< T > * head, T data);
 
 template< class T >
-void push_front(List< T > * head, T data);
+List< T > * push_front(List< T > * head, T data);
 
 template< class T >
 void clear(List< T > * head)
@@ -33,15 +33,16 @@ void clear(List< T > * head)
   {
     head = head->next;
     delete cur;
+    cur = head;
   }
   return;
 }
 
 template< class T >
-void push_back(List< T > * head, T data)
+void push_back(List< T > * tail, T data)
 {
-  List< T > * cur = new List< T >{data, head->next};
-  head->next = cur;
+  List< T > * cur = new List< T >{data, tail->next};
+  tail->next = cur;
   return;
 }
 
@@ -53,14 +54,15 @@ List< T > * push_front(List< T > * head, T data)
 }
 
 template< class T >
-void insert_from_begin(List< T > * node, List< T > * tail)
+void insert_after(List< T > * node, List< T > * tail)
 {
   List< T > *cur = nullptr;
-  if (tail->next)
+  if (tail)
   {
-    cur = tail->next->next;
+    cur = tail->next;
   }
-  tail->next = 
+  tail->next = node;
+  node->next = cur;
   return;
 }
 
@@ -71,10 +73,10 @@ List< T > * reverse_with_list(List< T > * head)
   try
   {
     List< T > * cur = new List< T >{head->data, nullptr};
-    while (head)
+    while (head->next)
     {
       head = head->next;
-      cur = push_front(cur, head);
+      cur = push_front(cur, head->data);
     }
     return cur;
   }
@@ -88,28 +90,97 @@ List< T > * reverse_with_list(List< T > * head)
 template< class T >
 List< T > * reverse_cleanly(List< T > * head) noexcept
 {
-  List< T > * cur = head;
-  while (cur->next)
+  List< T > * tail = head, * temp = head;
+  while (tail->next)
   {
-    cur = cur->next;
+    tail = tail->next;
   }
+  while (head != tail)
+  {
+    head = head->next;
+    insert_after(temp, tail);
+    temp = head;
+  }
+  return tail;
+}
 
+template< class T >
+List< T > * reverse_rec(List< T > * head) noexcept
+{
+  if (!head->next)
+  {
+    return head;
+  }
+  List< T > *cur = reverse_rec(head->next);
+  cur->next = head;
+  cur->next->next = nullptr;
+  return head;
 }
 
 template< class T >
 List< T > * reverse_recursively(List< T > * head) noexcept
 {
-  if (head->next)
+  List< T > *cur = head;
+  while (cur->next)
   {
-    List< T > * cur = head->next->next;
-    head->next->next = head;
-    return reverse_recursively(head->next);
+    cur = cur->next;
   }
-  return head;
+  reverse_rec(head);
+  return cur;
+}
+
+template < class T >
+std::ostream & out_list(std::ostream &out, List< T > *head)
+{
+  out << head->data;
+  head = head->next;
+  while (head)
+  {
+    std::cout << ' ' << head->data;
+    head = head->next;
+  }
+  return out;
 }
 
 int main()
 {
-  
-}
+  int argc = 2;
+  int n = 0;
+  std::cin >> n;
+  List< int > *head = nullptr, *tail = head;
+  try
+  {
+    head = new List< int >{n, nullptr};
+    tail = head;
+    while (std::cin >> n)
+    {
+      push_back(tail, n);
+      tail = tail->next;
+    }
+    if (!std::cin.eof())
+    {
+      clear(head);
+      return 1;
+    }
+    if (argc == 0)
+    {
+      head = reverse_with_list(head);
+    }
+    else if (argc == 1)
+    {
+      head = reverse_cleanly(head);
+    }
+    else if (argc == 2)
+    {
+      head = reverse_recursively(head);
+    }
+    out_list(std::cout, head) << '\n';
+    clear(head);
+  }
+  catch(const std::exception& e)
+  {
+    std::cerr << e.what() << '\n';
 
+  }
+  return 0;
+}
