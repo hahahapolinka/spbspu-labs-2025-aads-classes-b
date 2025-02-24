@@ -86,7 +86,7 @@ int main(int argc, char** argv)
   int data = 0;
   try
   {
-    while (std::cin >> data)
+    while (std::cin >> data && !std::cin.eof())
     {
       head = create_node(head, data);
     }
