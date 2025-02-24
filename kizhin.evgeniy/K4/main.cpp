@@ -18,15 +18,15 @@ int main(int argc, char** argv)
       return 0;
     }
     if (result == 0) {
-      list = kizhin::reverseWithList(list);
+      list = reverseWithList(list);
     } else if (result == 1) {
-      list = kizhin::reverseCleanly(list);
+      list = reverseCleanly(list);
     } else if (result == 2) {
-      list = kizhin::reverseRecursively(list);
+      list = reverseRecursively(list);
     }
-    kizhin::outputFwdList(std::cout, list) << '\n';
+    outputFwdList(std::cout, list) << '\n';
   } catch (const std::exception& e) {
-    kizhin::clear(list);
+    clear(list);
     std::cerr << e.what() << '\n';
     return 1;
   }
