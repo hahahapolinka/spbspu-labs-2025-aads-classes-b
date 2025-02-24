@@ -37,10 +37,6 @@ int main(int argc, char** argv)
   }
   int data = 0;
   std::cin >> data;
-  if (std::cin.eof())
-  {
-    return 1;
-  }
   if (std::cin.fail())
   {
     std::cerr << "error\n";
@@ -61,12 +57,6 @@ int main(int argc, char** argv)
       deleteList(head);
       return 1;
     }
-  }
-  if (!std::cin)
-  {
-    std::cerr << "Wrong Input";
-    deleteList(head);
-    return 1;
   }
   if (std::atoi(argv[1]) == 0)
   {
