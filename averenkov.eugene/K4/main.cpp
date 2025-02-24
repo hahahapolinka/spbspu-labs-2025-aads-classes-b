@@ -36,10 +36,9 @@ int main(int argc, char** argv)
     return 0;
   }
   int data = 0;
-  std::cin >> data;
-  if (std::cin.fail())
+  if (!(std::cin >> data))
   {
-    return 1;
+    return 0;
   }
   List< int >* head = new List< int > { data, nullptr };
   List< int >* current = head;
