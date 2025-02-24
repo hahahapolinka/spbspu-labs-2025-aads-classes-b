@@ -49,7 +49,10 @@ int main (int argc)
       std::cerr << "Not correct input\n";
       return 1;
     }
-    tail->next = new List{a, nullptr};
-    
+    try
+    {
+      tail->next = new List{a, nullptr};
+    }
+    catch (const std::bad)
   }
 }
