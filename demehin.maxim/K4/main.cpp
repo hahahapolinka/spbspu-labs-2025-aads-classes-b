@@ -10,7 +10,17 @@ struct List
 template< class T >
 List< T >* reverse_with_list(List< T >* head)
 {
-  return nullptr;
+  List< T >* stackHead = nullptr;
+  List< T >* current = head;
+
+  while (current != nullptr)
+  {
+    List< T >* newNode = new List< T >{current->data, stackHead};
+    stackHead = newNode;
+    current = current->next;
+  }
+  return stackHead;
+
 }
 
 template< class T >
@@ -34,6 +44,17 @@ void free_list(List< T >* head)
     List< T >* next = current->next;
     delete current;
     current = next;
+  }
+}
+
+template< class T >
+void print_list(std::ostream& out, List< T >* head)
+{
+  List< T >* current = head;
+  while (current != nullptr)
+  {
+    out << current->data;
+    current = current->next;
   }
 }
 
@@ -71,12 +92,15 @@ int main(int argc, char* argv[])
     return 1;
   }
 
-
   std::string param = argv[1];
-  if (param == "1")
+  if (param == "0")
   {
-    std::cout << "fgsgsg\n";
+    head = reverse_with_list(head);
   }
+
+
+  print_list(std::cout, head);
+  std::cout << "\n";
 
   free_list(head);
 }
