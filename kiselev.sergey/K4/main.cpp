@@ -36,14 +36,8 @@ List< int >* createList(std::istream& input)
   List< int >* head = list;
   try
   {
-    while (!input.eof())
+    while (input >> a)
     {
-      a = 0;
-      input >> a;
-      if (!input)
-      {
-        return head;
-      }
       list->next = new List< int >{ a, nullptr };
       list = list->next;
     }
@@ -69,6 +63,7 @@ List< T >* reverse_with_list(List< T >* head)
       stack = node;
       temp = temp->next;
     }
+    deleteList(head);
     return stack;
   }
   catch (const std::bad_alloc&)
@@ -129,22 +124,35 @@ int main(int argc, char** argv)
   try
   {
     list = createList(std::cin);
-    if (argc == 2 && argv[1][0] == '0')
+    if (!list && !std::cin.eof())
     {
-      list = reverse_with_list(list);
+      return 0;
     }
-    else if (argc == 2 && argv[1][0] == '1')
+    if (std::cin.eof() && !std::cin)
     {
-      list = reverse_cleanly(list);
+      std::cerr << "Incorrect input\n";
+      deleteList(list);
+      return 1;
     }
-    else if (argc == 2 && argv[1][0] == '2')
+    if (list->next)
     {
-      list = reverse_recursively(list);
-    }
-    else
-    {
-      std::cerr << "Unknown parameter\n";
-      list = reverse_cleanly(list);
+      if (argc == 2 && argv[1][0] == '0')
+      {
+        list = reverse_with_list(list);
+      }
+      else if (argc == 2 && argv[1][0] == '1')
+      {
+        list = reverse_cleanly(list);
+      }
+      else if (argc == 2 && argv[1][0] == '2')
+      {
+        list = reverse_recursively(list);
+      }
+      else
+      {
+        std::cerr << "Unknown parameter\n";
+        list = reverse_cleanly(list);
+      }
     }
     printList(std::cout, list) << "\n";
     deleteList(list);
