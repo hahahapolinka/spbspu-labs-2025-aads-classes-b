@@ -16,11 +16,11 @@ template < class T >
 void printList(List< T >* head)
 {
   List< T >* fake = head;
-  std::cout << fake->data;
+  std::cout << head->data;
   fake = fake->next;
   while(fake)
   {
-    std::cout << " " << fake->next;
+    std::cout << " " << fake->data;
     fake = fake->next;
   }
 }
@@ -34,14 +34,14 @@ int main(int argc, char** argv)
   }
   int data;
   std::cin >> data;
+  if (std::cin.eof())
+  {
+    return 0;
+  }
   if (std::cin.fail())
   {
     std::cerr << "error\n";
     return 1;
-  }
-  if (std::cin.eof())
-  {
-    return 0;
   }
   List< int >* head = new List< int > { data, nullptr };
   List< int >* current = head;
@@ -89,11 +89,4 @@ int main(int argc, char** argv)
   std::cout << "\n";
   deleteList(head);
   return 0;
-
-
-
-
-
-
-
 }
