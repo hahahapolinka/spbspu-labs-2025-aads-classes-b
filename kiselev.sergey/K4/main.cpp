@@ -87,7 +87,13 @@ List< T >* reverse_cleanly(List< T >* head) noexcept
 }
 
 template< typename T >
-List< T >* reverse_recursively(List< T >* head) noexcept;
+List< T >* reverse_recursively(List< T >* head) noexcept
+{
+  List< T >* temp = reverse_recursively(head->next);
+  head->next->next = head;
+  head->next = nullptr;
+  return temp;
+}
 template< typename T >
 std::ostream& printList(std::ostream& output, List< T >* list)
 {
@@ -109,15 +115,15 @@ int main(int argc, char** argv)
     list = createList(std::cin, list);
     if (argc == 2 && argv[1][0] == '0')
     {
-      reverse_with_list(list);
+      list = reverse_with_list(list);
     }
     else if (argc == 2 && argv[1][0] == '1')
     {
-      reverse_cleanly(list);
+      list = reverse_cleanly(list);
     }
     else if (argc == 2 && argv[1][0] == '2')
     {
-      reverse_recursively(list);
+      list = reverse_recursively(list);
     }
     else
     {
