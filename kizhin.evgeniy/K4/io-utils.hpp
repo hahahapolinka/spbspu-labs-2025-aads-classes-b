@@ -11,14 +11,13 @@ namespace kizhin {
     FwdList< T >* result = nullptr;
     try {
       T currentData;
-      in >> currentData;
-      if (in.eof()) {
+      if (!(in >> currentData)) {
         return nullptr;
       }
       result = new FwdList< T >{ currentData, nullptr };
       FwdList< T >* currentNode = result;
       while (in >> currentData) {
-        currentNode = new FwdList< T >{ currentData, nullptr };
+        currentNode = new FwdList< T >{ currentData, currentNode };
       }
     } catch (...) {
       clear(result);
