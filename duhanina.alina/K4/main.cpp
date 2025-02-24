@@ -14,10 +14,11 @@ List< T >* reverse_with_list(List< T >* head)
   List< T >* current = head;
   while (current)
   {
-    List< T >* fake = new List< T >{ current->data, stack };
+    List< T >* fake = new List< T > { current->data, stack };
     stack = fake;
     current = current->next;
   }
+  free_list(head);
   return stack;
 }
 
@@ -64,7 +65,7 @@ List< T >* create_node(List< T >* node, T data)
 {
   if (!node)
   {
-    return new List< T >{ data, nullptr };
+    return new List< T > { data, nullptr };
   }
   List< T >* current = node;
   while (current->next)
@@ -81,7 +82,7 @@ int main(int argc, char** argv)
   {
     return 1;
   }
-  List<int>* head = nullptr;
+  List< int >* head = nullptr;
   int data = 0;
   int mode = 0;
   try
