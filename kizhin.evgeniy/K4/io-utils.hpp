@@ -25,6 +25,18 @@ namespace kizhin {
     }
     return result;
   }
+
+  template < typename T >
+  std::ostream& outputFwdList(std::ostream& out, const FwdList< T >* head)
+  {
+    out << head->value;
+    head = head->next;
+    while (head) {
+      out << ' ' << head->value;
+      head = head->next;
+    }
+    return out;
+  }
 }
 
 #endif
