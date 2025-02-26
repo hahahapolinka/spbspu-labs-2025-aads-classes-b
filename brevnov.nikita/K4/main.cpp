@@ -21,9 +21,14 @@ void clear(List< T > * head)
 }
 
 template< class T >
-std::ostream& outputing(List< T > * head, std::ostream& out)
+viod outputing(List< T > * head, std::ostream& out)
 {
-  
+  std::cout << head->value;
+  while (head->next != nullptr)
+  {
+    std::cout << " " << head->next->value;
+    head = head->next;
+  }
 }
 
 template< class T >
@@ -109,5 +114,8 @@ int main (int argc)
   {
     head = reverse_cleanly(List< T > * head);
   }
-
+  outputing(head, std::cout);
+  clear(head);
+  std::cout << "\n";
+  return 0;
 }
