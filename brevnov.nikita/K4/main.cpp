@@ -35,11 +35,11 @@ template< class T >
 List< T > * reverse_with_list(List< T > * head)
 {
   List< T > * dhead = head;
-  List< T > * last = new List{help->value, nullptr};
+  List< T > * last = new List< T >{help->value, nullptr};
   while (dhead->next != nullptr)
   {
     dhead = dhead->next;
-    last = new List{dhead->value, last};
+    last = new List< T >{dhead->value, last};
   }
   clear(head);
   return last;
