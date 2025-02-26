@@ -85,7 +85,7 @@ int main(int argc, char* argv[])
     return 1;
   }
   int num = 0;
-  if (!(std::cin >> num))
+  if (!(std::cin >> num) && std::cin.eof())
   {
     return 0;
   }
@@ -122,11 +122,11 @@ int main(int argc, char* argv[])
     head = reverse_with_list(head);
     free_list(oldHead);
   }
-  if (param == "1")
+  else if (param == "1")
   {
     head = reverse_cleanly(head);
   }
-  if (param == "2")
+  else if (param == "2")
   {
     head = reverse_recursively(head);
   }
