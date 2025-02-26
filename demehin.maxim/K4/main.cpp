@@ -112,18 +112,17 @@ int main(int argc, char* argv[])
     return 1;
   }
 
-  std::string param = argv[1];
-  if (param == "0")
+  if (argc == 2 && argv[1][0] == '0')
   {
     List< int >* oldHead = head;
     head = reverse_with_list(head);
     free_list(oldHead);
   }
-  else if (param == "1")
+  else if (argc == 2 && argv[1][0] == '1')
   {
     head = reverse_cleanly(head);
   }
-  else if (param == "2")
+  else if (argc == 2 && argv[1][0] == '2')
   {
     head = reverse_recursively(head);
   }
