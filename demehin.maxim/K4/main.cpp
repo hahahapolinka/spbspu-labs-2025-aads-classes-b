@@ -80,13 +80,10 @@ void print_list(std::ostream& out, List< T >* head)
 
 int main(int argc, char* argv[])
 {
-  if (argc != 2)
-  {
-    return 1;
-  }
   int num = 0;
   if (!(std::cin >> num) && std::cin.eof())
   {
+    std::cout << "\n";
     return 0;
   }
   List< int >* head = new List< int >{num, nullptr};
@@ -132,6 +129,7 @@ int main(int argc, char* argv[])
   }
   else
   {
+    std::cerr << "incorrect param\n";
     head = reverse_cleanly(head);
   }
 
