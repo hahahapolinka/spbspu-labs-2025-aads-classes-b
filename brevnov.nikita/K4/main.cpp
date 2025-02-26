@@ -23,23 +23,23 @@ void clear(List< T > * head)
 template< class T >
 void outputing(List< T > * head, std::ostream& out)
 {
-  std::cout << head->value;
+  std::cout << head->data;
   while (head->next != nullptr)
   {
-    std::cout << " " << head->next->value;
+    std::cout << " " << head->next->data;
     head = head->next;
   }
 }
 
 template< class T >
 List< T > * reverse_with_list(List< T > * head)
-{
+{ 
   List< T > * dhead = head;
-  List< T > * last = new List< T >{dhead->value, nullptr};
+  List< T > * last = new List< T >{dhead->data, nullptr};
   while (dhead->next != nullptr)
   {
     dhead = dhead->next;
-    last = new List< T >{dhead->value, last};
+    last = new List< T >{dhead->data, last};
   }
   clear(head);
   return last;
@@ -88,6 +88,7 @@ List< T > * reverse_recursively(List< T > * head) noexcept
 
 int main (int argc, char** argv)
 {
+  constexpr char notwarning = argv[0];
   int a = 0;
   std::cin >> a;
   if (std::cin.fail())
