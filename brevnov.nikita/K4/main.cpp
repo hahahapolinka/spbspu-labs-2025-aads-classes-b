@@ -88,7 +88,7 @@ List< T > * reverse_recursively(List< T > * head) noexcept
 
 int main (int argc, char** argv)
 {
-  constexpr char notwarning = argv[0];
+  char * str = argv[1];
   int a = 0;
   std::cin >> a;
   if (std::cin.fail())
@@ -132,11 +132,11 @@ int main (int argc, char** argv)
     }
     tail = tail->next;
   }
-  if (argc == 2)
+  if (argc == 2 && str[0] == '2')
   {
     head = reverse_recursively(head);
   }
-  else if (argc == 0)
+  else if (argc == 2 && str[0] == '0')
   {
     try
     {
@@ -149,8 +149,13 @@ int main (int argc, char** argv)
       return 1;
     }
   }
+  else if (argc == 2 && str[0] == '1')
+  {
+    head = reverse_cleanly(head);
+  }
   else
   {
+    std::cerr << "Not correct paramentr\n";
     head = reverse_cleanly(head);
   }
   outputing(head, std::cout);
