@@ -100,7 +100,9 @@ int main(int argc, char* argv[])
   std::string param = argv[1];
   if (param == "0")
   {
+    List< int >* oldHead = head;
     head = reverse_with_list(head);
+    free_list(oldHead);
   }
   //if (param == "1")
   //{
