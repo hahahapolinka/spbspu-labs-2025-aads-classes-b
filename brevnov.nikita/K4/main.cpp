@@ -11,7 +11,7 @@ template< class T >
 void clear(List< T > * head)
 {
   List< T > * deletehelp = head->next;
-  while (deletehelp->value != nullptr)
+  while (deletehelp->next != nullptr)
   {
     delete head;
     head = deletehelp;
@@ -34,7 +34,14 @@ viod outputing(List< T > * head, std::ostream& out)
 template< class T >
 List< T > * reverse_with_list(List< T > * head)
 {
-
+  List< T > * dhead = head;
+  List< T > * last = new List{help->value, nullptr};
+  while (dhead->next != nullptr)
+  {
+    dhead = dhead->next;
+    last = new List{dhead->value, last};
+  }
+  return last;
 }
 
 template< class T >
