@@ -41,13 +41,25 @@ List< T > * reverse_with_list(List< T > * head)
     dhead = dhead->next;
     last = new List{dhead->value, last};
   }
+  clear(head);
   return last;
 }
 
 template< class T >
 List< T > * reverse_cleanly(List< T > * head) noexcept
 {
-
+  List< T > * nextl = head->next;
+  List< T > * help = nextl->next;
+  head->next = nullptr;
+  while (help != nullptr)
+  {
+    nextl->next = head;
+    head = nextl;
+    nextl = help;
+    help = help->next;
+  }
+  nextl->next = head;
+  return nextl;
 }
 
 template< class T >
