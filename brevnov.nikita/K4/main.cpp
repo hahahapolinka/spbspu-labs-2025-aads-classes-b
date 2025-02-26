@@ -100,9 +100,10 @@ int main (int argc, char** argv)
     std::cout << "\n";
     return 0;
   }
+  List< int > * head = nullptr;
   try
   {
-    List< int > * head = new List< int >{a, nullptr};
+    head = new List< int >{a, nullptr};
   }
   catch (const std::bad_alloc& e)
   {
