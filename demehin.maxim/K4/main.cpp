@@ -87,7 +87,7 @@ int main(int argc, char* argv[])
   int num = 0;
   if (!(std::cin >> num))
   {
-    return 1;
+    return 0;
   }
   List< int >* head = new List< int >{num, nullptr};
   try
@@ -129,6 +129,10 @@ int main(int argc, char* argv[])
   if (param == "2")
   {
     head = reverse_recursively(head);
+  }
+  else
+  {
+    head = reverse_cleanly(head);
   }
 
   print_list(std::cout, head);
