@@ -92,9 +92,8 @@ int main(int argc, char* argv[])
   List< int >* head = new List< int >{num, nullptr};
   try
   {
-    while(true)
+    while(std::cin >> num || !std::cin.eof())
     {
-      std::cin >> num;
       if (!std::cin)
       {
         std::cerr << "incorrect input\n";
