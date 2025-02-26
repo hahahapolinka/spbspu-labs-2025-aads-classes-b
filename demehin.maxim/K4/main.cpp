@@ -26,13 +26,31 @@ List< T >* reverse_with_list(List< T >* head)
 template< class T >
 List< T >* reverse_cleanly(List< T >* head) noexcept
 {
-  return nullptr;
+  List< T >* prev = nullptr;
+  List< T >* next = nullptr;
+  List< T >* current = head;
+  while (current != nullptr)
+  {
+    next = current->next;
+    current->next = prev;
+    prev = current;
+    current = next;
+  }
+  return prev;
 }
 
 template< class T >
 List< T >* reverse_recursively(List< T >* head) noexcept
 {
-  return nullptr;
+  if (head == nullptr || head->next == nullptr)
+  {
+    return head;
+  }
+
+  List< T >* newHead = reverse_recursively(head->next);
+  head->next->next = head;
+  head->next = nullptr;
+  return newHead;
 }
 
 template< class T >
@@ -104,11 +122,14 @@ int main(int argc, char* argv[])
     head = reverse_with_list(head);
     free_list(oldHead);
   }
-  //if (param == "1")
-  //{
-    //head = reverse_cleanly(head);
-  //}
-
+  if (param == "1")
+  {
+    head = reverse_cleanly(head);
+  }
+  if (param == "2")
+  {
+    head = reverse_recursively(head);
+  }
 
   print_list(std::cout, head);
   std::cout << "\n";
