@@ -33,7 +33,7 @@ void outputing(List< T > * head, std::ostream& out)
 
 template< class T >
 List< T > * reverse_with_list(List< T > * head)
-{ 
+{
   List< T > * dhead = head;
   List< T > * last = new List< T >{dhead->data, nullptr};
   while (dhead->next != nullptr)
