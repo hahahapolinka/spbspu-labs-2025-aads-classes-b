@@ -5,7 +5,7 @@ struct List
 {
   T data;
   List< T > * next;
-}
+};
 
 template< class T >
 void clear(List< T > * head)
@@ -21,7 +21,7 @@ void clear(List< T > * head)
 }
 
 template< class T >
-viod outputing(List< T > * head, std::ostream& out)
+void outputing(List< T > * head, std::ostream& out)
 {
   std::cout << head->value;
   while (head->next != nullptr)
@@ -132,13 +132,13 @@ int main (int argc)
   }
   if (argc == 2)
   {
-    head = reverse_recursively(List< T > * head);
+    head = reverse_recursively(head);
   }
   else if (argc == 0)
   {
     try
     {
-      head = reverse_with_list(List< T > * head);
+      head = reverse_with_list(head);
     }
     catch (const std::bad_alloc& e)
     {
@@ -149,7 +149,7 @@ int main (int argc)
   }
   else
   {
-    head = reverse_cleanly(List< T > * head);
+    head = reverse_cleanly(head);
   }
   outputing(head, std::cout);
   clear(head);
