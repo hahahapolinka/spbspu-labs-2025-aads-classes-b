@@ -102,14 +102,14 @@ int main (int argc, char** argv)
   }
   try
   {
-    List * head = new List< int >{a, nullptr};
+    List< int > * head = new List< int >{a, nullptr};
   }
   catch (const std::bad_alloc& e)
   {
     std::cerr << "Not enough memory!\n";
     return 1;
   }
-  List * tail = head;
+  List< int > * tail = head;
   while (!std::cin.eof())
   {
     std::cin >> a;
