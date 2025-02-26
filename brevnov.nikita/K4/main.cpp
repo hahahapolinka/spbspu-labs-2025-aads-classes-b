@@ -23,10 +23,10 @@ void clear(List< T > * head)
 template< class T >
 void outputing(List< T > * head, std::ostream& out)
 {
-  std::cout << head->data;
+  out << head->data;
   while (head->next != nullptr)
   {
-    std::cout << " " << head->next->data;
+    out << " " << head->next->data;
     head = head->next;
   }
 }
