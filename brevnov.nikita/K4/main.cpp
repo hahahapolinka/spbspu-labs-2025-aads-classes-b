@@ -86,7 +86,7 @@ List< T > * reverse_recursively(List< T > * head) noexcept
   return headreturn(nextl, nextl->next);
 }
 
-int main (int argc)
+int main (int argc, char** argv)
 {
   int a = 0;
   std::cin >> a;
@@ -102,7 +102,7 @@ int main (int argc)
   }
   try
   {
-    List * head = new List{a, nullptr};
+    List * head = new List< int >{a, nullptr};
   }
   catch (const std::bad_alloc& e)
   {
@@ -120,7 +120,7 @@ int main (int argc)
     }
     try
     {
-      tail->next = new List{a, nullptr};
+      tail->next = new List< int >{a, nullptr};
     }
     catch (const std::bad_alloc& e)
     {
