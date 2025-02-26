@@ -86,7 +86,7 @@ List< T > * reverse_recursively(List< T > * head) noexcept
   return headreturn(nextl, nextl->next);
 }
 
-int main (int argc) 
+int main (int argc)
 {
   int a = 0;
   std::cin >> a;
