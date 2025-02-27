@@ -56,13 +56,13 @@ List< T >* reverse_with_list(List< T >* head)
   List< T >* temp = head;
   try
   {
-    while (temp != nullptr)
+    while (temp)
     {
-      List< T >* node = new List< T >{ temp->data, stack };
-      stack = node;
+      List< T >* node = temp;
       temp = temp->next;
+      node->next = stack;
+      stack = node;
     }
-    deleteList(head);
     return stack;
   }
   catch (const std::bad_alloc&)
@@ -78,7 +78,7 @@ List< T >* reverse_cleanly(List< T >* head) noexcept
   List< T >* prev = nullptr;
   List< T >* temp = head;
   List< T >* next = nullptr;
-  while (temp != nullptr)
+  while (temp)
   {
     next = temp->next;
     temp->next = prev;
