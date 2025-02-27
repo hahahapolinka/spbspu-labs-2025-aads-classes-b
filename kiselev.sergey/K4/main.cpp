@@ -54,22 +54,14 @@ List< T >* reverse_with_list(List< T >* head)
 {
   List< T >* stack = nullptr;
   List< T >* temp = head;
-  try
+  while (temp)
   {
-    while (temp)
-    {
-      List< T >* node = temp;
-      temp = temp->next;
-      node->next = stack;
-      stack = node;
-    }
-    return stack;
+    List< T >* node = temp;
+    temp = temp->next;
+    node->next = stack;
+    stack = node;
   }
-  catch (const std::bad_alloc&)
-  {
-    deleteList(stack);
-    throw;
-  }
+  return stack;
 }
 
 template < typename T >
