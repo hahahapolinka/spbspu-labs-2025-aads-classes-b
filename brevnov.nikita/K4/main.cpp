@@ -44,6 +44,7 @@ List< T > * reverse_with_list(List< T > * head)
     catch(const std::bad_alloc& e)
     {
       clear(last);
+      throw;
     }
   }
   clear(head);
