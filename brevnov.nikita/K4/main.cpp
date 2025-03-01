@@ -39,7 +39,7 @@ List< T > * reverse_with_list(List< T > * head)
     try
     {
       dhead = dhead->next;
-      last = new List< T >{dhead->data, last};
+      last = new List< T >{dhead->data, last};  
     }
     catch(const std::bad_alloc& e)
     {
@@ -53,6 +53,10 @@ List< T > * reverse_with_list(List< T > * head)
 template< class T >
 List< T > * reverse_cleanly(List< T > * head) noexcept
 {
+  if (head == nullptr and head->next == nullptr)
+  {
+    return head;
+  }
   List< T > * nextl = head->next;
   List< T > * help = nextl->next;
   head->next = nullptr;
