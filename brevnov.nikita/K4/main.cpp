@@ -10,14 +10,12 @@ struct List
 template< class T >
 void clear(List< T > * head)
 {
-  List< T > * deletehelp = head->next;
-  while (deletehelp->next != nullptr)
+  while (head != nullptr)
   {
+    List< T > * next = head->next;
     delete head;
-    head = deletehelp;
-    deletehelp = deletehelp->next;
+    head = next;
   }
-  delete head;
 }
 
 template< class T >
