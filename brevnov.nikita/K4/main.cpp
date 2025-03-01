@@ -39,7 +39,7 @@ List< T > * reverse_with_list(List< T > * head)
     try
     {
       dhead = dhead->next;
-      last = new List< T >{dhead->data, last};  
+      last = new List< T >{dhead->data, last};
     }
     catch(const std::bad_alloc& e)
     {
