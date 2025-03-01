@@ -36,8 +36,15 @@ List< T > * reverse_with_list(List< T > * head)
   List< T > * last = new List< T >{dhead->data, nullptr};
   while (dhead->next != nullptr)
   {
-    dhead = dhead->next;
-    last = new List< T >{dhead->data, last};
+    try
+    {
+      dhead = dhead->next;
+      last = new List< T >{dhead->data, last};
+    }
+    catch(const std::bad_alloc& e)
+    {
+      clear(last);
+    }
   }
   clear(head);
   return last;
