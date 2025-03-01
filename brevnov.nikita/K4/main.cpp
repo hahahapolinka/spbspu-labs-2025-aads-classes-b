@@ -72,27 +72,15 @@ List< T > * reverse_cleanly(List< T > * head) noexcept
 }
 
 template< class T >
-List< T > * headreturn(List< T > * head, List< T > * nextl) noexcept
-{
-  if (nextl == nullptr)
-  {
-    return head;
-  }
-  else
-  {
-    List< T > * help = nextl->next;
-    nextl->next = head;
-    return headreturn(nextl, help);
-  }
-}
-
-template< class T >
 List< T > * reverse_recursively(List< T > * head) noexcept
 {
-  List< T > * nextl = head->next;
+  if (head == nullptr || head->next == nullptr) {
+    return head;
+  }
+  List< T > * subHead = reverse_recursively(head->next);
+  head->next->next = head;
   head->next = nullptr;
-  nextl->next = head;
-  return headreturn(nextl, nextl->next);
+  return subHead;
 }
 
 int main (int argc, char** argv)
