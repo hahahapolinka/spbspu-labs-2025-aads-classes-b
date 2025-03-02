@@ -21,6 +21,10 @@ void clear(List< T > * head)
 template< class T >
 void outputing(List< T > * head, std::ostream& out)
 {
+  if (head == nullptr)
+  {
+    return;
+  }
   out << head->data;
   while (head->next != nullptr)
   {
@@ -116,6 +120,7 @@ int main (int argc, char** argv)
     if (std::cin.fail())
     {
       std::cerr << "Not correct input\n";
+      clear(head);
       return 1;
     }
     try
@@ -153,7 +158,7 @@ int main (int argc, char** argv)
   }
   else
   {
-    std::cerr << "Not correct paramentr\n";
+    std::cerr << "Not correct parametr\n";
     head = reverse_cleanly(head);
   }
   outputing(head, std::cout);
