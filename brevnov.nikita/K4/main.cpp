@@ -95,7 +95,6 @@ int main (int argc, char** argv)
   std::cin >> a;
   if (std::cin.eof())
   {
-    std::cerr << "\n";
     return 0;
   }
   else if (std::cin.fail())
