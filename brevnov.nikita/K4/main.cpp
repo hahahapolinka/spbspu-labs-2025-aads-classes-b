@@ -93,15 +93,15 @@ int main (int argc, char** argv)
   char * str = argv[1];
   int a = 0;
   std::cin >> a;
-  if (std::cin.fail())
+  if (std::cin.eof())
+  {
+    std::cerr << "\n";
+    return 0;
+  }
+  else if (std::cin.fail())
   {
     std::cerr << "Not correct input\n";
     return 1;
-  }
-  else if (std::cin.eof())
-  {
-    std::cout << "\n";
-    return 0;
   }
   List< int > * head = nullptr;
   try
