@@ -92,21 +92,13 @@ int main (int argc, char** argv)
 {
   char * str = argv[1];
   int a = 0;
-  std::cin >> a;
-  if (std::cin.fail())
-  {
-    std::cerr << "Not correct input\n";
-    return 1;
-  }
-  else if (std::cin.eof())
-  {
-    std::cerr << "\n";
-    return 0;
-  }
   List< int > * head = nullptr;
   try
   {
-    head = new List< int >{a, nullptr};
+    if (std::cin >> a && !std::cin.eof())
+    {
+      head = new List< int >{a, nullptr};
+    }
   }
   catch (const std::bad_alloc& e)
   {
@@ -114,14 +106,7 @@ int main (int argc, char** argv)
     return 1;
   }
   List< int > * tail = head;
-  std::cin >> a;
-  if (std::cin.fail())
-  {
-    std::cerr << "Not correct input\n";
-    clear(head);
-    return 1;
-  }
-  while (!std::cin.eof())
+  while (!std::cin.eof() && std::cin >> a)
   {
     if (std::cin.fail())
     {
@@ -140,7 +125,6 @@ int main (int argc, char** argv)
       return 1;
     }
     tail = tail->next;
-    std::cin >> a;
   }
   if (argc == 2 && str[0] == '2')
   {
