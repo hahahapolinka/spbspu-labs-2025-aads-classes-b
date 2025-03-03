@@ -14,11 +14,11 @@ List< T >* reverse_with_list(List< T >* head)
   List< T >* current = head;
   while (current)
   {
-    List< T >* fake = new List< T > { current->data, stack };
+    List< T >* fake = current;
     stack = fake;
     current = current->next;
+    fake->next = stack;
   }
-  free_list(head);
   return stack;
 }
 
