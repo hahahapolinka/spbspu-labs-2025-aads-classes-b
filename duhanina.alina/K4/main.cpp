@@ -14,10 +14,10 @@ List< T >* reverse_with_list(List< T >* head)
   List< T >* current = head;
   while (current)
   {
-    List< T >* fake = current;
-    stack = fake;
-    current = current->next;
-    fake->next = stack;
+    List< T >* next = current->next;
+    current->next = stack;
+    stack = current;
+    current = next;
   }
   return stack;
 }
@@ -49,7 +49,7 @@ List< T >* reverse_recursively(List< T >* head) noexcept
   return reversed_head;
 }
 
-template<class T>
+template< class T >
 void free_list(List< T >* head)
 {
   while (head != nullptr)
@@ -60,7 +60,7 @@ void free_list(List< T >* head)
   }
 }
 
-template<class T>
+template< class T >
 List< T >* create_node(List< T >* node, T data)
 {
   if (!node)
