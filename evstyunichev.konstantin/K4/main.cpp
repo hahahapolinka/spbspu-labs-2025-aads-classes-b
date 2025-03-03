@@ -23,9 +23,6 @@ template< class T >
 void push_back(List< T > * head, T data);
 
 template< class T >
-List< T > * push_front(List< T > * head, T data);
-
-template< class T >
 void clear(List< T > * head)
 {
   List< T > * cur = head;
@@ -47,13 +44,6 @@ void push_back(List< T > * tail, T data)
 }
 
 template< class T >
-List< T > * push_front(List< T > * head, T data)
-{
-  List< T > * cur = new List< T >{data, head};
-  return cur;
-}
-
-template< class T >
 void insert_after(List< T > * node, List< T > * tail)
 {
   List< T > *cur = nullptr;
@@ -67,24 +57,17 @@ void insert_after(List< T > * node, List< T > * tail)
 }
 
 template< class T >
-List< T > * reverse_with_list(List< T > * head)
+List< T > * reverse_with_list(List< T > *head)
 {
-  List< T > * cur = nullptr;
-  try
+  List< T > *prev = nullptr, *tail = head;
+  while (tail)
   {
-    List< T > * cur = new List< T >{head->data, nullptr};
-    while (head->next)
-    {
-      head = head->next;
-      cur = push_front(cur, head->data);
-    }
-    return cur;
+    List< T > *cur = tail;
+    tail = tail->next;
+    cur->next = prev;
+    prev = cur;
   }
-  catch (const std::bad_alloc &e)
-  {
-    clear(cur);
-    throw;
-  }
+  return prev;
 }
 
 template< class T >
@@ -166,15 +149,15 @@ int main(int argc, const char **argv)
       std::cerr << "input error";
       return 1;
     }
-    if (argc == 2 && argv[1][0] == '0')
+    if (argc == 2 && argv[1] == "0")
     {
       head = reverse_with_list(head);
     }
-    else if (argc == 2 && argv[1][0] == '1')
+    else if (argc == 2 && argv[1] == "1")
     {
       head = reverse_cleanly(head);
     }
-    else if (argc == 2 && argv[1][0] == '2')
+    else if (argc == 2 && argv[1] == "2")
     {
       head = reverse_recursively(head);
     }
