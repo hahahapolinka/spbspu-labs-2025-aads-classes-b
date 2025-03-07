@@ -36,13 +36,13 @@ List< T > * reverse_with_list(List< T >* head)
     while (new_list)
     {
       List< T >* element = new_list->data;
-      if (!element->data)
+      if (!element->next)
       {
         new_head = element;
       }
       List< List< T >* >* next_node = new_list->next;
       new_list->data = nullptr;
-      if (new_list->next)
+      if (next_node)
       {
         element->next = next_node->data;
       }
