@@ -18,17 +18,31 @@ void clear(List< T >* head)
 }
 
 template< class T >
-List< T > * reverse_with_list(List< T > * head)
+List< T > * reverse_with_list(List< T >* head)
 {
-  List< T > * it = nullptr;
+  List< List< T >* >* it = nullptr;
   List< T > * temp = head;
   try
   {
     while (temp)
     {
-      List< T > * now = new List< T >{temp->data, it};
+      List< List< T >* >* now = new List< List< T >* >{temp, it};
       it = now;
       temp = temp->next;
+    }
+    List< List< T >* >* new_list = it;
+    while (new_list)
+    {
+      List< T >* element = new_list->data;
+      if (new_list->next)
+      {
+        element->next = new_list->next->data;
+      }
+      else
+      {
+        element->next = nullptr;
+      }
+      new_list = new_list->next;
     }
   }
   catch (const std::bad_alloc& e)
@@ -36,28 +50,28 @@ List< T > * reverse_with_list(List< T > * head)
     clear(it);
     throw;
   }
-  clear(head);
-  return it;
+  clear(it);
+  return head;
 }
 
 template< class T >
 List< T > * reverse_cleanly(List< T > * head) noexcept
 {
-    if (!head)
-    {
-        return head;
-    }
-    List< T > * next = head->next;
-    head->next = nullptr;
-    List< T > * last = head;
-    while (next)
-    {
-        List< T > * remember = next->next;
-        next->next = last;
-        last = next;
-        next = remember;
-    }
-    return last;
+  if (!head)
+  {
+    return head;
+  }
+  List< T > * next = head->next;
+  head->next = nullptr;
+  List< T > * last = head;
+  while (next)
+  {
+    List< T > * remember = next->next;
+    next->next = last;
+    last = next;
+    next = remember;
+  }
+  return last;
 }
 
 template< class T >
