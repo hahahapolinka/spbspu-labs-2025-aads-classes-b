@@ -22,7 +22,8 @@ List< T > * reverse_with_list(List< T >* head)
 {
   List< List< T >* >* it = nullptr;
   List< List< T >* >* now = nullptr;
-  List< T > * temp = head;
+  List< T >* new_head = nullptr; 
+  List< T >* temp = head;
   try
   {
     while (temp)
@@ -34,16 +35,16 @@ List< T > * reverse_with_list(List< T >* head)
     List< List< T >* >* new_list = it;
     while (new_list)
     {
-      List< T >* element = new_list->data;
+      new_head = new_list->data;
       List< List< T >* >* next_node = new_list->next;
       new_list->data = nullptr;
       if (new_list->next)
       {
-        element->next = next_node->data;
+        new_head->next = next_node->data;
       }
       else
       {
-        element->next = nullptr;
+        new_head->next = nullptr;
       }
       new_list = new_list->next;
     }
@@ -54,7 +55,7 @@ List< T > * reverse_with_list(List< T >* head)
     throw;
   }
   clear(it);
-  return element;
+  return new_head;
 }
 
 template< class T >
