@@ -22,7 +22,7 @@ List< T > * reverse_with_list(List< T >* head)
 {
   List< List< T >* >* it = nullptr;
   List< List< T >* >* now = nullptr;
-  List< T >* new_head = nullptr; 
+  List< T >* new_head = nullptr;
   List< T >* temp = head;
   try
   {
