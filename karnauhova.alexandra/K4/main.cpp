@@ -21,12 +21,13 @@ template< class T >
 List< T > * reverse_with_list(List< T >* head)
 {
   List< List< T >* >* it = nullptr;
+  List< List< T >* >* now = nullptr;
   List< T > * temp = head;
   try
   {
     while (temp)
     {
-      List< List< T >* >* now = new List< List< T >* >{temp, it};
+      now = new List< List< T >* >{temp, it};
       it = now;
       temp = temp->next;
     }
@@ -34,10 +35,11 @@ List< T > * reverse_with_list(List< T >* head)
     while (new_list)
     {
       List< T >* element = new_list->data;
+      List< T >* node = new_list->next;
       new_list->data = nullptr;
       if (new_list->next)
       {
-        element->next = new_list->next->data;
+        element->next = next_element->data;
       }
       else
       {
@@ -48,7 +50,7 @@ List< T > * reverse_with_list(List< T >* head)
   }
   catch (const std::bad_alloc& e)
   {
-    clear(it);
+    clear(now);
     throw;
   }
   clear(it);
