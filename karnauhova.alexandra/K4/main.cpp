@@ -34,6 +34,7 @@ List< T > * reverse_with_list(List< T >* head)
     while (new_list)
     {
       List< T >* element = new_list->data;
+      new_list->data = nullptr;
       if (new_list->next)
       {
         element->next = new_list->next->data;
@@ -112,13 +113,13 @@ int main(int argc, char** argv)
   {
     if (std::cin >> x && !std::cin.eof())
     {
-        head = new List< int >{x, nullptr};
+      head = new List< int >{x, nullptr};
     }
     List< int >* last = head;
     while (std::cin >> x && !std::cin.eof())
     {
-        last->next = new List< int >{x, nullptr};
-        last = last->next;
+      last->next = new List< int >{x, nullptr};
+      last = last->next;
     }
   }
   catch (const std::bad_alloc& e)
@@ -138,20 +139,20 @@ int main(int argc, char** argv)
   {
     if (argc == 2 && str[0] == '0')
     {
-        head = reverse_with_list(head);
+      head = reverse_with_list(head);
     }
     else if (argc == 2 && str[0] == '1')
     {
-        head = reverse_cleanly(head);
+      head = reverse_cleanly(head);
     }
     else if (argc == 2 && str[0] == '2')
     {
-        head = reverse_recursively(head);
+      head = reverse_recursively(head);
     }
     else
     {
-        std::cerr << "Error in parameter\n";
-        head = reverse_cleanly(head);
+      std::cerr << "Error in parameter\n";
+      head = reverse_cleanly(head);
     }
   }
   catch (const std::bad_alloc& e)
