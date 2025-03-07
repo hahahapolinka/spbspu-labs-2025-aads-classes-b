@@ -54,7 +54,7 @@ List< T > * reverse_with_list(List< T >* head)
     throw;
   }
   clear(it);
-  return head;
+  return element;
 }
 
 template< class T >
