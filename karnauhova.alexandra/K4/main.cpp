@@ -18,17 +18,6 @@ void clear(List< T >* head)
 }
 
 template< class T >
-void clear_temp(List< List< T >* >* head)
-{
-  while (head)
-  {
-    List< List< T >* >* now = head->next;
-    delete head;
-    head = now;
-  }
-}
-
-template< class T >
 List< T > * reverse_with_list(List< T >* head)
 {
   List< List< T >* >* it = nullptr;
@@ -46,26 +35,30 @@ List< T > * reverse_with_list(List< T >* head)
     List< List< T >* >* new_list = it;
     while (new_list)
     {
-      new_head = new_list->data;
+      List< T >* element = new_list->data;
+      if (!element->data)
+      {
+        new_head = element;
+      }
       List< List< T >* >* next_node = new_list->next;
       new_list->data = nullptr;
       if (new_list->next)
       {
-        new_head->next = next_node->data;
+        element->next = next_node->data;
       }
       else
       {
-        new_head->next = nullptr;
+        element->next = nullptr;
       }
       new_list = new_list->next;
     }
   }
   catch (const std::bad_alloc& e)
   {
-    clear_temp(now);
+    clear(now);
     throw;
   }
-  clear_temp(it);
+  clear(it);
   return new_head;
 }
 
