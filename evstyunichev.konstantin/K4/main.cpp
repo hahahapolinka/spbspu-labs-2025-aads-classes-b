@@ -36,11 +36,18 @@ void clear(List< T > * head)
 }
 
 template< class T >
-void push_back(List< T > * tail, T data)
+void push_back(List< T > *tail, T data)
 {
   List< T > * cur = new List< T >{data, tail->next};
   tail->next = cur;
   return;
+}
+
+template< class T >
+List< T > * push_front(List< T > *head, T data)
+{
+  List< T > * cur = new List< T >{data, head};
+  return cur;
 }
 
 template< class T >
@@ -57,17 +64,34 @@ void insert_after(List< T > * node, List< T > * tail)
 }
 
 template< class T >
-List< T > * reverse_with_list(List< T > *head)
+List< T > * reverse_with_list(List< T > *head1)
 {
-  List< T > *prev = nullptr, *tail = head;
-  while (tail)
+  List< List< T > * > *head2 = nullptr, *cur2 = nullptr;
+
+  List< T > *cur = head1;
+  try
   {
-    List< T > *cur = tail;
-    tail = tail->next;
-    cur->next = prev;
-    prev = cur;
+    head2 = push_front(head2, head1);
+    while (cur->next)
+    {
+      head2 = push_front(head2, cur);
+      cur = cur->next;
+    }
+    head2 = push_front(head2, cur);
   }
-  return prev;
+  catch(const std::exception& e)
+  {
+    clear(head2);
+    std::cerr << e.what() << '\n';
+  }
+  cur2 = head2;
+  while (cur2->next)
+  {
+    cur2->data->next = cur2->next->data;
+    cur2 = cur2->next;
+  }
+  head1->next = nullptr;
+  return cur;
 }
 
 template< class T >
