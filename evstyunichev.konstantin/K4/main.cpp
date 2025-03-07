@@ -91,6 +91,7 @@ List< T > * reverse_with_list(List< T > *head1)
     cur2 = cur2->next;
   }
   head1->next = nullptr;
+  clear(head2);
   return cur;
 }
 
