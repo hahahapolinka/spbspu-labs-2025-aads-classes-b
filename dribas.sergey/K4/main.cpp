@@ -43,16 +43,34 @@ List < int >* input(std::istream& in)
 }
 
 template< typename T >
-List< T > * reverse_with_list(List< T > * head)
-{
-  List< T > * stackH = nullptr;
-
-  while(head != nullptr) {
-    List< T > * node = new List< T >{head->data, stackH};
-    stackH = node;
-    head = head->next;
-  }
-  return stackH;
+List< T >* reverse_with_list(List< T >* head) {
+    if (head == nullptr) {
+      return head;
+    }
+    List< List< T >* >* stack = nullptr;
+    List< T >* current = head;
+    try {
+      for (; current; current = current->next) {
+        stack = new List< List< T >* >{current, stack};
+      }
+    } catch (const std::bad_alloc& e) {
+      clear(stack);
+      throw;
+    }
+    head = stack->data;
+    List< List< T >* >* temp = stack;
+    stack = stack->next;
+    delete temp;
+    current = head;
+    current->next = nullptr;
+    for (; stack != nullptr; current = current->next) {
+      current->next = stack->data;
+      temp = stack;
+      stack = stack->next;
+      delete temp;
+    }
+    current->next = nullptr;
+    return head;
 }
 
 template< typename T >
@@ -108,13 +126,18 @@ int main(int argc, char* argv[])
     return 1;
   }
   if (argc == 2 && argv[1][0] == '0') {
-    head = reverse_with_list(head);
+    try {
+      head = reverse_with_list(head);
+    } catch (const std::bad_alloc& e) {
+      std::cerr << e.what() << '\n';
+    }
   } else if (argc == 2 && argv[1][0] == '1') {
     head = reverse_cleanly(head);
   } else if (argc == 2 && argv[1][0] == '2') {
     head = reverse_recursively(head);
   } else {
     std::cerr << "no parametr found\n";
+    head = reverse_cleanly(head);
   }
 
   outputList(std::cout, head);
