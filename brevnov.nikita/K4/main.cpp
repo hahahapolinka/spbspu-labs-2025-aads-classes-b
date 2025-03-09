@@ -101,13 +101,12 @@ int main (int argc, char** argv)
   {
     if (std::cin >> a && !std::cin.eof())
     {
-      head = new List< int >{a, nullptr};
-      if (std::cin.fail())
       {
         std::cerr << "Not correct input\n";
         clear(head);
         return 1;
       }
+      head = new List< int >{a, nullptr};
     }
   }
   catch (const std::bad_alloc& e)
@@ -118,12 +117,6 @@ int main (int argc, char** argv)
   List< int > * tail = head;
   while (!std::cin.eof() && std::cin >> a)
   {
-    if (std::cin.fail())
-    {
-      std::cerr << "Not correct input\n";
-      clear(head);
-      return 1;
-    }
     try
     {
       tail->next = new List< int >{a, nullptr};
@@ -136,6 +129,12 @@ int main (int argc, char** argv)
     }
     tail = tail->next;
   }
+  if (std::cin.fail())
+    {
+      std::cerr << "Not correct input\n";
+      clear(head);
+      return 1;
+    }
   if (argc == 2 && str[0] == '2')
   {
     head = reverse_recursively(head);
