@@ -33,6 +33,7 @@ List < int >* input(std::istream& in)
       }
     }
     if (in.fail() && !in.eof()) {
+      clear(realHead);
       throw std::invalid_argument("Invalid input");
     }
     return realHead;
