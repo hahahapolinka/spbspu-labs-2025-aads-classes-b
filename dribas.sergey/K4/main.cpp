@@ -8,7 +8,7 @@ struct List {
 };
 
 template< typename T >
-void clear(List < T > * head)
+void clear(List< T > * head)
 {
   while (head) {
     List < T >* interim = head->next;
@@ -17,11 +17,11 @@ void clear(List < T > * head)
   }
 }
 
-List < int >* input(std::istream& in)
+List< int >* input(std::istream& in)
 {
   int value = 0;
-  List < int >* head = nullptr;
-  List < int >* realHead = head;
+  List< int >* head = nullptr;
+  List< int >* realHead = head;
   try {
     while(in >> value) {
       if (!head) {
@@ -44,34 +44,35 @@ List < int >* input(std::istream& in)
 }
 
 template< typename T >
-List< T >* reverse_with_list(List< T >* head) {
-    if (head == nullptr) {
-      return head;
+List< T >* reverse_with_list(List< T >* head)
+{
+  if (head == nullptr) {
+    return head;
+  }
+  List< List< T >* >* stack = nullptr;
+  List< T >* current = head;
+  try {
+    for (; current; current = current->next) {
+      stack = new List< List< T >* >{current, stack};
     }
-    List< List< T >* >* stack = nullptr;
-    List< T >* current = head;
-    try {
-      for (; current; current = current->next) {
-        stack = new List< List< T >* >{current, stack};
-      }
-    } catch (const std::bad_alloc& e) {
-      clear(stack);
-      throw;
-    }
-    head = stack->data;
-    List< List< T >* >* temp = stack;
+  } catch (const std::bad_alloc& e) {
+    clear(stack);
+    throw;
+  }
+  head = stack->data;
+  List< List< T >* >* temp = stack;
+  stack = stack->next;
+  delete temp;
+  current = head;
+  current->next = nullptr;
+  for (; stack != nullptr; current = current->next) {
+    current->next = stack->data;
+    temp = stack;
     stack = stack->next;
     delete temp;
-    current = head;
-    current->next = nullptr;
-    for (; stack != nullptr; current = current->next) {
-      current->next = stack->data;
-      temp = stack;
-      stack = stack->next;
-      delete temp;
-    }
-    current->next = nullptr;
-    return head;
+  }
+  current->next = nullptr;
+  return head;
 }
 
 template< typename T >
@@ -118,7 +119,7 @@ void outputList(std::ostream& out, List< T > * head)
 
 int main(int argc, char* argv[])
 {
-  List < int > * head = nullptr;
+  List< int > * head = nullptr;
   try {
     head = input(std::cin);
   } catch (const std::exception& error) {
