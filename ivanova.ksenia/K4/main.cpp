@@ -1,10 +1,41 @@
 #include <iostream>
 
-int main()
+template< class T >
+struct List {
+  T data;
+  List< T > * next;
+};
+
+template< class T >
+void clear(List< T >* head)
 {
-  //They say my hunger's a problem
-  //They tell me to curb my appetite
-  //They say I can't keep myself
-  //From trying a bite of every plate in sight
-  std::cout << "was on the lesson" << '\n';
+  while (head)
+  {
+    List< T >* current = head->next;
+    delete head;
+    head = current;
+  }
+}
+
+template< class T >
+List< T > * reverse_with_list(List< T >* head)
+{
+
+}
+
+template< class T >
+List< T > * reverse_cleanly(List< T > * head) noexcept
+{
+
+}
+
+template< class T >
+void output_list(std::ostream& out, List< T > * head)
+{
+
+}
+
+int main(int argc, char** argv)
+{
+
 }
