@@ -99,14 +99,14 @@ int main (int argc, char** argv)
   List< int > * head = nullptr;
   try
   {
-    if (std::cin >> a && !std::cin.eof())
+    if (std::cin >> a && !std::cin.eof() && !std::cin.fail())
     {
-      {
-        std::cerr << "Not correct input\n";
-        clear(head);
-        return 1;
-      }
       head = new List< int >{a, nullptr};
+    }
+    else if (std::cin.fail())
+    {
+      std::cerr << "Not correct input\n";
+      return 1;
     }
   }
   catch (const std::bad_alloc& e)
