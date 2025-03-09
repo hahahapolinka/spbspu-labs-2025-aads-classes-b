@@ -26,6 +26,22 @@ List< T > * reverse_with_list(List< T >* head)
 template< class T >
 List< T > * reverse_cleanly(List< T > * head) noexcept
 {
+  List< T >* prev = nullptr;
+  List< T >* next = nullptr;
+  List< T >* current = head;
+  while (current)
+  {
+    next = current->next;
+    current->next = prev;
+    prev = current;
+    current = next;
+  }
+  return prev;
+}
+
+template< class T >
+List< T > * reverse_recursively(List< T > * head) noexcept
+{
 
 }
 
