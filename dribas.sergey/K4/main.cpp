@@ -21,20 +21,23 @@ List < int >* input(std::istream& in)
 {
   int value = 0;
   List < int >* head = nullptr;
-  auto realHead = head;
+  List < int >* realHead = head;
   try {
     while(in >> value) {
       if (!head) {
         head = new List < int > {value, nullptr};
         realHead = head;
       } else {
-        head->next = new List < int > { value, nullptr};
+        head->next = new List < int > {value, nullptr};
         head = head->next;
       }
     }
+    if (in.fail() && !in.eof()) {
+      throw std::invalid_argument("Invalid input");
+    }
     return realHead;
   } catch (const std::bad_alloc&) {
-    clear(head);
+    clear(realHead);
     throw;
   }
 }
@@ -99,7 +102,7 @@ int main(int argc, char* argv[])
   List < int > * head = nullptr;
   try {
     head = input(std::cin);
-  } catch (const std::bad_alloc & error) {
+  } catch (const std::exception& error) {
     std::cerr << error.what() << '\n';
     clear(head);
     return 1;
