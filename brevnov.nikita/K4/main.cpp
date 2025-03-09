@@ -106,6 +106,7 @@ int main (int argc, char** argv)
     else if (std::cin.fail())
     {
       std::cerr << "Not correct input\n";
+      std::cerr << "1\n";
       return 1;
     }
   }
@@ -132,6 +133,7 @@ int main (int argc, char** argv)
   if (std::cin.fail())
     {
       std::cerr << "Not correct input\n";
+      std::cerr << "2\n";
       clear(head);
       return 1;
     }
