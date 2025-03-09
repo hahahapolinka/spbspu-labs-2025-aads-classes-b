@@ -95,7 +95,7 @@ void outputList(std::ostream& out, List< T > * head)
 }
 
 int main(int argc, char* argv[])
-{ 
+{
   List < int > * head = nullptr;
   try {
     head = input(std::cin);
