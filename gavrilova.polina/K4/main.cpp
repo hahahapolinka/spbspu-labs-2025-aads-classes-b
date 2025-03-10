@@ -74,7 +74,6 @@ FwdList<T>* reverse_recursively(FwdList<T>* head) {
     head->next = nullptr;
 
     return new_head;
-    
 }
 
 std::istream& inputListInt(std::istream& in, FwdList< int >* head)
