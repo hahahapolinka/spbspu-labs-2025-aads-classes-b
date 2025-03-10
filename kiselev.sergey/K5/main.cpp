@@ -53,6 +53,10 @@ void pushTree(BiTree< T >* root, const T& value, Cmp cmp)
 template< class T >
 void deleteTree(BiTree< T >* root)
 {
+  if(!root)
+  {
+    return;
+  }
   if (root->left)
   {
     deleteTree(root->left);
@@ -70,7 +74,7 @@ int main()
   std::cin >> length;
   if (length == 0)
   {
-    std::cout << "sequence length 0\n";
+    std::cerr << "sequence length 0\n";
     return 0;
   }
   BiTree< int >* root = nullptr;
