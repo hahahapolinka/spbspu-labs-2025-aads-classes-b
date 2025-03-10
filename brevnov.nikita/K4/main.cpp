@@ -36,7 +36,7 @@ void outputing(List< T > * head, std::ostream& out)
 template< class T >
 List< T > * reverse_with_list(List< T > * head)
 {
-  if (head == nullptr or head->next == nullptr)
+  if (head == nullptr || head->next == nullptr)
   {
     return head;
   }
@@ -62,7 +62,7 @@ List< T > * reverse_with_list(List< T > * head)
 template< class T >
 List< T > * reverse_cleanly(List< T > * head) noexcept
 {
-  if (head == nullptr and head->next == nullptr)
+  if (head == nullptr && head->next == nullptr)
   {
     return head;
   }
