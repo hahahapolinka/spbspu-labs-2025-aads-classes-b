@@ -30,7 +30,7 @@ struct BiTree {
 };
 
 template< class T, class Cmp >
-BiTree< T > * find(const BiTree< T > * root, const T & value, Cmp cmp);
+const BiTree< T > * find(const BiTree< T > * root, const T & value, Cmp cmp);
 ```
 
 Задача K4
