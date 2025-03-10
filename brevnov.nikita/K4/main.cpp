@@ -97,22 +97,22 @@ int main (int argc, char** argv)
   char * str = argv[1];
   int a = 0;
   List< int > * head = nullptr;
-  try
+  if (std::cin >> a && !std::cin.eof() && !std::cin.fail())
   {
-    if (std::cin >> a && !std::cin.eof() && !std::cin.fail())
+    try
     {
       head = new List< int >{a, nullptr};
     }
-    else if (std::cin.fail())
+    catch (const std::bad_alloc& e)
     {
-      std::cerr << "Not correct input\n";
-      std::cerr << "1\n";
+      std::cerr << "Not enough memory!\n";
       return 1;
     }
   }
-  catch (const std::bad_alloc& e)
+  else if (std::cin.fail())
   {
-    std::cerr << "Not enough memory!\n";
+    std::cerr << "Not correct input\n";
+    std::cerr << "1\n";
     return 1;
   }
   List< int > * tail = head;
