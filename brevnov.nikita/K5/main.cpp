@@ -54,7 +54,7 @@ void addElTree(BiTree< T > * root, const T & value, Cmp cmp)
 template< class T >
 void clear(BiTree< T > * head)
 {
-  if (head == nulptr)
+  if (head == nullptr)
   {
     return;
   }
@@ -94,7 +94,7 @@ int main()
     std::cerr << "Not correct input!\n";
     return 1;
   }
-  BiList< int > * root = nullptr;
+  BiTree< int > * root = nullptr;
   int b = 0;
   for (size_t i = 0; i < n; i++)
   {
