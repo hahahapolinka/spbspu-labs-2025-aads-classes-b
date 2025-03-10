@@ -23,7 +23,7 @@ FwdList< T >* reverse_with_list(FwdList< T >* head)
   FwdList< FwdList< T >* >* stack = new FwdList< FwdList< T >* >{head, nullptr};
   while (head) {
     try {
-      FwdList< FwdList< int >* >* new_node = new FwdList< FwdList< T >* >{head, stack};
+      FwdList< FwdList< T >* >* new_node = new FwdList< FwdList< T >* >{head, stack};
       stack = new_node;
       head = head->next;
     } catch(const std::bad_alloc&) {
@@ -39,7 +39,7 @@ FwdList< T >* reverse_with_list(FwdList< T >* head)
     current_head->next = head;
     head = current_head;
   }
-  clear< FwdList< int >*>(stack);
+  clear< FwdList< T >*>(stack);
   return head;
 
 }
@@ -74,13 +74,13 @@ FwdList<T>* reverse_recursively(FwdList<T>* head) {
     return new_head;
 }
 
-std::istream& inputListInt(std::istream& in, FwdList< int >* head)
+FwdList< int >* inputListInt(std::istream& in, FwdList< int >* head)
 {
   FwdList< int >* cur = head;
   while (!std::cin.eof()) {
     int newData = 0;
     if (!(in >> newData)) {
-      return in;
+      clear(head);
     }
     try {
       cur = new FwdList< int >{newData, nullptr};
@@ -90,7 +90,7 @@ std::istream& inputListInt(std::istream& in, FwdList< int >* head)
       throw;
     }
   }
-  return in;
+
 }
 
 std::ostream& outputListInt(std::ostream& out, FwdList< int >* head)
@@ -105,16 +105,18 @@ std::ostream& outputListInt(std::ostream& out, FwdList< int >* head)
 int main (int argc, char** argv)
 {
   *argv = nullptr;
-  FwdList< int >* head = nullptr;
-  if (!inputListInt(std::cin, head)) {
-    std::cerr << "Invalid input\n";
-    return 1;
-  }
+  FwdList< int >* head = inputListInt(std::cin)
   FwdList< int >* new_head = nullptr;
   switch(argc) {
     case 0:
-      new_head = reverse_with_list< int >(head);
-      break;
+      try {
+        new_head = reverse_with_list< int >(head);
+        break;
+      } catch (const std::bad_alloc&) {
+        clear< int >(head);
+        clear< int >(new_head);
+      }
+      
     case 1:
       new_head = reverse_cleanly< int >(head);
       break;
@@ -125,4 +127,5 @@ int main (int argc, char** argv)
       new_head = reverse_cleanly< int >(head);
   }
   outputListInt(std::cout, new_head);
+  clear< int >(new_head);
 }
