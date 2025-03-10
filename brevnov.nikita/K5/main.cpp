@@ -121,7 +121,6 @@ int main()
       clear(root)
       return 1;
     }
-    
   }
   while (std::cin >> b && std::cin.good())
   {
