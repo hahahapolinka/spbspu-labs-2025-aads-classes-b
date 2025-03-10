@@ -41,7 +41,6 @@ FwdList< T >* reverse_with_list(FwdList< T >* head)
     delete stack;
     stack = cur_stack;
   }
-  clear< FwdList< int >*>(stack);
   return head;
 
 }
