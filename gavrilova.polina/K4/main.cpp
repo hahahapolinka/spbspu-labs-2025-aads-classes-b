@@ -122,7 +122,6 @@ int main (int argc, char** argv)
     std::cerr << "Memory error";
     return 1;
   }
-  
   FwdList< int >* new_head = nullptr;
 
   if (argc == 2 && argv[1][0] == '0')
