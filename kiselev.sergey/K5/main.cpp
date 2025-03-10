@@ -7,7 +7,13 @@ struct BiTree {
 };
 
 template< class T, class Cmp = std::less< T > >
-BiTree< T >* find(const BiTree< T >* root, const T& value, Cmp = Cmp{})
+const BiTree< T >* find(const BiTree< T >* root, const T& value, Cmp = Cmp{});
+
+template< class T, class Cmp = std::less< T > >
+void pushTree(BiTree< T >* root, const T& value, Cmp = Cmp{});
+
+template< class T, class Cmp >
+const BiTree< T >* find(const BiTree< T >* root, const T& value, Cmp cmp)
 {
   while (root)
   {
@@ -27,8 +33,8 @@ BiTree< T >* find(const BiTree< T >* root, const T& value, Cmp = Cmp{})
   return nullptr;
 }
 
-template< class T, class Cmp = std::less< T > >
-void pushTree(BiTree< T >* root, const T& value, Cmp = Cmp{})
+template< class T, class Cmp >
+void pushTree(BiTree< T >* root, const T& value, Cmp cmp)
 {
   while(root)
   {
