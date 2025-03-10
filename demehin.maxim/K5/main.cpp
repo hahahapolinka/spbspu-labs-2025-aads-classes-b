@@ -50,12 +50,6 @@ BiTree< T >* insNode(BiTree< T >* root, const T& value, Cmp cmp)
   return root;
 }
 
-template< class T, class Cmp >
-void clear(BiTree< T >* root, Cmp cmp)
-{
-  
-}
-
 int main()
 {
   size_t s = 0;
