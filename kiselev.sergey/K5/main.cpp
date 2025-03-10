@@ -6,14 +6,8 @@ struct BiTree {
     BiTree< T >* left, * right;
 };
 
-template< class T >
-bool less(T& num1, T& num2)
-{
-  return num1 < num2;
-}
-
-template< class T, class Cmp >
-BiTree< T >* find(const BiTree< T >* root, const T& value, Cmp cmp)
+template< class T, class Cmp = std::less< T > >
+BiTree< T >* find(const BiTree< T >* root, const T& value, Cmp = Cmp{})
 {
   while (root)
   {
@@ -33,8 +27,8 @@ BiTree< T >* find(const BiTree< T >* root, const T& value, Cmp cmp)
   return nullptr;
 }
 
-template< class T, class Cmp >
-void pushTree(BiTree< T >* root, const T& value, Cmp cmp)
+template< class T, class Cmp = std::less< T > >
+void pushTree(BiTree< T >* root, const T& value, Cmp = Cmp{})
 {
   while(root)
   {
@@ -85,7 +79,7 @@ int main()
     }
     try
     {
-      pushTree(root, number, less(number, root->data));
+      pushTree(root, number);
     }
     catch (std::bad_alloc&)
     {
@@ -103,7 +97,7 @@ int main()
       deleteTree(root);
       return 1;
     }
-    if (find(root, findNum, less(findNum, root->data)))
+    if (find(root, findNum))
     {
       std::cout << "<FOUND>\n";
     }
