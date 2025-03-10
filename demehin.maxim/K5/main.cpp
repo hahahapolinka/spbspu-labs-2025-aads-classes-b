@@ -105,4 +105,5 @@ int main()
       std::cout << "<NOT FOUND>\n";
     }
   }
+  clear(root);
 }
