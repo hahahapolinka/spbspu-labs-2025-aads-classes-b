@@ -81,11 +81,6 @@ int main()
 {
   size_t length = 0;
   std::cin >> length;
-  if (length == 0)
-  {
-    std::cerr << "sequence length 0\n";
-    return 1;
-  }
   BiTree< int >* root = nullptr;
   for (size_t i = 0; i < length; ++i)
   {
@@ -110,12 +105,6 @@ int main()
   int findNum;
   while (std::cin >> findNum)
   {
-    if (!std::cin.eof() && std::cin.fail())
-    {
-      std::cerr << "Incorrect number\n";
-      deleteTree(root);
-      return 1;
-    }
     if (find(root, findNum))
     {
       std::cout << "<FOUND>\n";
@@ -124,6 +113,12 @@ int main()
     {
       std::cout << "<NOT FOUND>\n";
     }
+  }
+  if (!std::cin.eof() && std::cin.fail())
+  {
+    std::cerr << "Incorrect number\n";
+    deleteTree(root);
+    return 1;
   }
   deleteTree(root);
   return 0;
