@@ -47,10 +47,14 @@ FwdList< T >* reverse_with_list(FwdList< T >* head)
 }
 
 template< class T >
-FwdList< T >* reverse_cleanly(FwdList< T >* head) {
-  if (!head) return nullptr;
+FwdList< T >* reverse_cleanly(FwdList< T >* head) noexcept {
+  if (!head) {
+    return nullptr;
+  }
   FwdList< T >* cur = head->next;
-  if (!cur) return head;
+  if (!cur) {
+    return head;
+  }
   FwdList< T >* temp = cur->next;
   head->next = nullptr;
   while (temp) {
@@ -63,9 +67,9 @@ FwdList< T >* reverse_cleanly(FwdList< T >* head) {
 }
 
 template<class T>
-FwdList<T>* reverse_recursively(FwdList<T>* head) {
+FwdList<T>* reverse_recursively(FwdList<T>* head) noexcept {
     if (!head || !head->next) {
-        return head;
+      return head;
     }
 
     FwdList<T>* new_head = reverse_recursively(head->next);
@@ -113,18 +117,29 @@ int main (int argc, char** argv)
     return 1;
   }
   FwdList< int >* new_head = nullptr;
-  switch(argc) {
-    case 0:
-      new_head = reverse_with_list< int >(head);
-      break;
-    case 1:
-      new_head = reverse_cleanly< int >(head);
-      break;
-    case 2:
-      new_head = reverse_recursively< int >(head);
-      break;
-    default:
-      new_head = reverse_cleanly< int >(head);
+
+  if (argc == 2 && argv[1][0] == '0')
+  {
+    try {
+      new_head = reverse_with_list(head);
+    }  catch(const std::bad_alloc&) {
+      std::cerr << "Memory error";
+      return 1;
+    }
+  }
+  else if (argc == 2 && argv[1][0] == '1')
+  {
+    new_head = reverse_cleanly(head);
+  }
+  else if (argc == 2 && argv[1][0] == '2')
+  {
+    new_head = reverse_recursively(head);
+  }
+  else
+  {
+    std::cerr << "Invalid parametrs\n";
+    new_head = reverse_cleanly(head);
   }
   outputListInt(std::cout, new_head);
+  clear< int >(new_head);
 }
