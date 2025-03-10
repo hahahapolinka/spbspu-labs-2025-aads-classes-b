@@ -4,7 +4,7 @@
 template< class T >
 struct FwdList {
   T data;
-  FwdList* next;
+  FwdList< T >* next;
 };
 
 template< class T >
@@ -80,29 +80,34 @@ FwdList<T>* reverse_recursively(FwdList<T>* head) noexcept {
     return new_head;
 }
 
-std::istream& inputListInt(std::istream& in, FwdList< int >* head)
+FwdList< int >* inputListInt(std::istream& in)
 {
+  int newData = 0;
+  if (!(std::cin >> newData)) {
+    return nullptr;
+  }
+  FwdList< int >* head = new FwdList< int >{newData, nullptr};
   FwdList< int >* cur = head;
-  while (!std::cin.eof()) {
-    int newData = 0;
-    if (!(in >> newData)) {
-      return in;
-    }
+  while (in >> newData && !in.eof()) {
     try {
-      cur = new FwdList< int >{newData, nullptr};
+      FwdList< int >* new_node = new FwdList< int >{newData, nullptr};
+      cur->next = new_node;
       cur = cur->next;
     } catch(const std::bad_alloc&) {
       clear< int >(head);
       throw;
     }
   }
-  return in;
+  return head;
 }
 
 std::ostream& outputListInt(std::ostream& out, FwdList< int >* head)
 {
   while (head) {
     out << head->data;
+    if (head->next) {
+      out << " ";
+    }
     head = head->next;
   }
   return out;
@@ -110,9 +115,8 @@ std::ostream& outputListInt(std::ostream& out, FwdList< int >* head)
 
 int main (int argc, char** argv)
 {
-  *argv = nullptr;
   FwdList< int >* head = nullptr;
-  if (!inputListInt(std::cin, head)) {
+  if (!inputListInt(std::cin)) {
     std::cerr << "Invalid input\n";
     return 1;
   }
