@@ -52,16 +52,32 @@ List< int >* createList(std::istream& input)
 template< typename T >
 List< T >* reverse_with_list(List< T >* head)
 {
-  List< T >* stack = nullptr;
+  List< List< T >* >* stack = nullptr;
   List< T >* temp = head;
-  while (temp)
+  try
   {
-    List< T >* node = temp;
-    temp = temp->next;
-    node->next = stack;
-    stack = node;
+    while (temp)
+    {
+      stack = new List< List< T >* >{ temp, stack };
+      temp = temp->next;
+    }
   }
-  return stack;
+  catch (std::bad_alloc&)
+  {
+    deleteList(stack);
+    throw;
+  }
+  head = stack->data;
+  temp = head;
+  while (stack)
+  {
+    temp->next = stack->data;
+    temp = temp->next;
+    stack = stack->next;
+  }
+  temp->next = nullptr;
+  deleteList(stack);
+  return head;
 }
 
 template < typename T >
