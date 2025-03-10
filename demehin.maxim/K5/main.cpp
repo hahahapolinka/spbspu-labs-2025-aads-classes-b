@@ -78,6 +78,7 @@ int main()
     if (!(std::cin >> val))
     {
       std::cerr << "input error\n";
+      clear(root);
       return 1;
     }
     root = insNode(root, val, std::less< int >());
@@ -93,6 +94,7 @@ int main()
         break;
       }
       std::cerr << "input error\n";
+      clear(root);
       return 1;
     }
 
