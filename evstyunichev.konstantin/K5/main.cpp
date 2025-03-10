@@ -83,6 +83,11 @@ const BiTree< T > * find(const BiTree< T > * root, const T & value, Cmp cmp)
   }
 }
 
+bool comp(int a, int b)
+{
+  return a < b;
+}
+
 int main()
 {
   BiTree< int > *root = nullptr;
@@ -100,7 +105,7 @@ int main()
     {
       if (std::cin >> data)
       {
-        push(root, data, std::less());
+        push(root, data, comp);
       }
       else
       {
@@ -109,7 +114,7 @@ int main()
     }
     while (std::cin >> data)
     {
-      if (!find(root, data, std::less()))
+      if (!find(root, data, comp))
       {
         std::cout << "NOTFOUND\n";
       }
