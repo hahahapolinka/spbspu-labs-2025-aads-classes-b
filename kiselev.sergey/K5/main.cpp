@@ -10,14 +10,14 @@ template< class T, class Cmp = std::less< T > >
 const BiTree< T >* find(const BiTree< T >* root, const T& value, Cmp = Cmp{});
 
 template< class T, class Cmp = std::less< T > >
-void pushTree(BiTree< T >* root, const T& value, Cmp = Cmp{});
+BiTree< T >* pushTree(BiTree< T >* root, const T& value, Cmp = Cmp{});
 
 template< class T, class Cmp >
 const BiTree< T >* find(const BiTree< T >* root, const T& value, Cmp cmp)
 {
   while (root)
   {
-    if (!cmp(value, root->data))
+    if (cmp(root->data, value))
     {
       root = root->right;
     }
@@ -34,20 +34,35 @@ const BiTree< T >* find(const BiTree< T >* root, const T& value, Cmp cmp)
 }
 
 template< class T, class Cmp >
-void pushTree(BiTree< T >* root, const T& value, Cmp cmp)
+BiTree< T >* pushTree(BiTree< T >* root, const T& value, Cmp cmp)
 {
-  while(root)
+  if (!root)
   {
-    if (cmp(value, root->data))
+    root = new BiTree< T >{value, nullptr, nullptr };
+  }
+  BiTree< T >* temp = root;
+  BiTree< T >* parentTemp = nullptr;
+  while (temp)
+  {
+    parentTemp = temp;
+    if (cmp(value, temp->data))
     {
-      root = root->left;
+      temp = temp->left;
     }
     else
     {
-      root = root->left;
+      temp = temp->right;
     }
   }
-  root = new BiTree< T >{ value, nullptr, nullptr };
+  if (cmp(value, parentTemp->data))
+  {
+    parentTemp->left = new BiTree< T >{ value, nullptr, nullptr };
+  }
+  else
+  {
+    parentTemp->right = new BiTree< T >{ value, nullptr, nullptr };
+  }
+  return root;
 }
 
 template< class T >
@@ -57,14 +72,8 @@ void deleteTree(BiTree< T >* root)
   {
     return;
   }
-  if (root->left)
-  {
-    deleteTree(root->left);
-  }
-  else if (root->right)
-  {
-    deleteTree(root->right);
-  }
+  deleteTree(root->left);
+  deleteTree(root->right);
   delete root;
 }
 
@@ -75,7 +84,7 @@ int main()
   if (length == 0)
   {
     std::cerr << "sequence length 0\n";
-    return 0;
+    return 1;
   }
   BiTree< int >* root = nullptr;
   for (size_t i = 0; i < length; ++i)
@@ -89,7 +98,7 @@ int main()
     }
     try
     {
-      pushTree(root, number);
+      root = pushTree(root, number);
     }
     catch (std::bad_alloc&)
     {
