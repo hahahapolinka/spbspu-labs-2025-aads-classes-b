@@ -113,12 +113,12 @@ int main()
     }
     try
     {
-      addElTree(root, b, comp)
+      addElTree(root, b, comp);
     }
     catch(const std::bad_alloc & e)
     {
       std::cerr << "Nor enough memory!\n";
-      clear(root)
+      clear(root);
       return 1;
     }
   }
