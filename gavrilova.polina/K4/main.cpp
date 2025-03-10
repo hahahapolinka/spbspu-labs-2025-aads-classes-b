@@ -31,13 +31,15 @@ FwdList< T >* reverse_with_list(FwdList< T >* head)
       throw;
     }
   }
-  head = nullptr;
+  head = stack->data;
+  FwdList< T >* current_head = head;
   FwdList< FwdList< T >* >* cur_stack = stack;
-  while (cur_stack) {
-    FwdList< T >* current_head = cur_stack->data;
+  while (cur_stack->next) {
+    current_head->next = cur_stack->next->data;
     cur_stack = cur_stack->next;
-    current_head->next = head;
-    head = current_head;
+    current_head = current_head->next;
+    delete stack;
+    stack = cur_stack;
   }
   clear< FwdList< int >*>(stack);
   return head;
@@ -72,6 +74,7 @@ FwdList<T>* reverse_recursively(FwdList<T>* head) {
     head->next = nullptr;
 
     return new_head;
+    
 }
 
 std::istream& inputListInt(std::istream& in, FwdList< int >* head)
