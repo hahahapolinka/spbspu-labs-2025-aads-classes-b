@@ -68,6 +68,7 @@ List< T >* reverse_with_list(List< T >* head)
     throw;
   }
   head = stack->data;
+  List< List< T >* >* tempStack = stack;
   temp = head;
   while (stack)
   {
@@ -76,7 +77,7 @@ List< T >* reverse_with_list(List< T >* head)
     stack = stack->next;
   }
   temp->next = nullptr;
-  deleteList(stack);
+  deleteList(tempStack);
   return head;
 }
 
