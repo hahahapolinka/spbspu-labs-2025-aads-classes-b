@@ -116,11 +116,11 @@ int main()
     {
       if (!find(root, data, comp))
       {
-        std::cout << "NOTFOUND";
+        std::cout << "<NOTFOUND>";
       }
       else
       {
-        std::cout << "FOUND";
+        std::cout << "<FOUND>";
       }
     }
     while (std::cin >> data)
@@ -128,11 +128,11 @@ int main()
       std::cout << " ";
       if (!find(root, data, comp))
       {
-        std::cout << "NOTFOUND";
+        std::cout << "<NOTFOUND>";
       }
       else
       {
-        std::cout << "FOUND\n";
+        std::cout << "<FOUND>";
       }
     }
     std::cout << "\n";
