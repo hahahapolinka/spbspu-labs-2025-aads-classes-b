@@ -2,24 +2,67 @@
 #include <string>
 
 template< class T >
-struct List {
+struct List
+{
   T data;
   List< T >* next;
 };
 
 template< class T >
+void free_stack(List< List< T >* >* head)
+{
+  while (head != nullptr)
+  {
+    List< List< T >* >* temp = head;
+    head = head->next;
+    delete temp->data;
+    delete temp;
+  }
+}
+
+template< class T >
 List< T >* reverse_with_list(List< T >* head)
 {
-  List< T >* stack = nullptr;
-  List< T >* current = head;
-  while (current)
+  List< List< T >* >* temp_stack = nullptr;
+  List< T >* current_node = head;
+  try
   {
-    List< T >* next = current->next;
-    current->next = stack;
-    stack = current;
-    current = next;
+    while (current_node != nullptr)
+    {
+      List< List< T >* >* new_stack_node = new List< List< T >* >{ current_node, temp_stack };
+      temp_stack = new_stack_node;
+      current_node = current_node->next;
+    }
+    List< List< T >* >* stack_node = temp_stack;
+    List< T >* new_head = nullptr;
+    List< T >* prev_node = nullptr;
+    while (stack_node != nullptr)
+    {
+      List< T >* node = stack_node->data;
+      if (new_head == nullptr)
+      {
+        new_head = node;
+      }
+      if (prev_node != nullptr)
+      {
+        prev_node->next = node;
+      }
+      prev_node = node;
+      stack_node = stack_node->next;
+    }
+    if (prev_node != nullptr)
+    {
+      prev_node->next = nullptr;
+    }
+    free_stack(temp_stack);
+    return new_head;
   }
-  return stack;
+  catch (...)
+  {
+    free_stack(temp_stack);
+    std::cerr << "Error\n";
+    return head;
+  }
 }
 
 template< class T >
@@ -28,7 +71,8 @@ List< T >* reverse_cleanly(List< T >* head) noexcept
   List< T >* prev = nullptr;
   List< T >* current = head;
   List< T >* next = nullptr;
-  while (current != nullptr) {
+  while (current != nullptr)
+  {
     next = current->next;
     current->next = prev;
     prev = current;
@@ -40,7 +84,8 @@ List< T >* reverse_cleanly(List< T >* head) noexcept
 template< class T >
 List< T >* reverse_recursively(List< T >* head) noexcept
 {
-  if (head == nullptr || head->next == nullptr) {
+  if (head == nullptr || head->next == nullptr)
+  {
     return head;
   }
   List<T>* reversed_head = reverse_recursively(head->next);
