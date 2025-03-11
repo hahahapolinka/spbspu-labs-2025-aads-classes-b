@@ -126,7 +126,7 @@ int main()
         std::cout << "<FOUND>\n";
       }
     }
-    if (std::cin.fail())
+    if (!std::cin.eof())
     {
       throw std::invalid_argument("error!");
     }
