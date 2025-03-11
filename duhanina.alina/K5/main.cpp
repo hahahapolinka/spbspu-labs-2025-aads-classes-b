@@ -1,3 +1,5 @@
+#include <iostream>
+
 template< class T >
 struct BiTree
 {
@@ -69,7 +71,7 @@ int main()
     return 1;
   }
   BiTree< int >* root = nullptr;
-  for (int i = 0; i < length; ++i)
+  for (size_t i = 0; i < length; ++i)
   {
     int value = 0;
     if (!(std::cin >> value))
