@@ -94,11 +94,17 @@ int main()
   try
   {
     size_t n = 0;
-    std::cin >> n;
+    if (!(std::cin >> n))
+    {
+      throw std::invalid_argument("error!");
+    }
     int data = 0;
     if (n)
     {
-      std::cin >> data;
+      if (!(std::cin >> data))
+      {
+        throw std::invalid_argument("error!");
+      }
       root = create(data);
     }
     for (size_t i = 1; i < n; i++)
@@ -109,33 +115,20 @@ int main()
       }
       else
       {
-        throw std::invalid_argument("vnrejv");
-      }
-    }
-    if (std::cin >> data)
-    {
-      if (!find(root, data, comp))
-      {
-        std::cout << "<NOTFOUND>";
-      }
-      else
-      {
-        std::cout << "<FOUND>";
+        throw std::invalid_argument("error!");
       }
     }
     while (std::cin >> data)
     {
-      std::cout << " ";
       if (!find(root, data, comp))
       {
-        std::cout << "<NOTFOUND>";
+        std::cout << "<NOTFOUND>\n";
       }
       else
       {
-        std::cout << "<FOUND>";
+        std::cout << "<FOUND>\n";
       }
     }
-    std::cout << "\n";
     clear(root);
     return 0;
   }
