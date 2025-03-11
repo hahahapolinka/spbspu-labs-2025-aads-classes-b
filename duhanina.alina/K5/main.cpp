@@ -8,7 +8,7 @@ struct BiTree
 };
 
 template< class T >
-void deleteTree(BiTree< T > *root)
+void deleteTree(BiTree< T >* root)
 {
   if (root != nullptr)
   {
