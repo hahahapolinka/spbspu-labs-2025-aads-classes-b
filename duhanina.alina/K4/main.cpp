@@ -15,7 +15,6 @@ void free_stack(List< List< T >* >* head)
   {
     List< List< T >* >* temp = head;
     head = head->next;
-    delete temp->data;
     delete temp;
   }
 }
@@ -61,7 +60,7 @@ List< T >* reverse_with_list(List< T >* head)
   {
     free_stack(temp_stack);
     std::cerr << "Error\n";
-    return head;
+    throw;
   }
 }
 
@@ -88,7 +87,7 @@ List< T >* reverse_recursively(List< T >* head) noexcept
   {
     return head;
   }
-  List<T>* reversed_head = reverse_recursively(head->next);
+  List< T >* reversed_head = reverse_recursively(head->next);
   head->next->next = head;
   head->next = nullptr;
   return reversed_head;
