@@ -94,10 +94,7 @@ int main()
   try
   {
     size_t n = 0;
-    if (!(std::cin >> n))
-    {
-      throw std::invalid_argument("error!");
-    }
+    std::cin >> n;
     int data = 0;
     if (n)
     {
@@ -122,12 +119,16 @@ int main()
     {
       if (!find(root, data, comp))
       {
-        std::cout << "<NOTFOUND>\n";
+        std::cout << "<NOT FOUND>\n";
       }
       else
       {
         std::cout << "<FOUND>\n";
       }
+    }
+    if (std::cin.fail())
+    {
+      throw std::invalid_argument("error!");
     }
     clear(root);
     return 0;
