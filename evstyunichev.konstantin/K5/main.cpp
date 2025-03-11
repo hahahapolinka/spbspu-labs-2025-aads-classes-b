@@ -112,17 +112,30 @@ int main()
         throw std::invalid_argument("vnrejv");
       }
     }
-    while (std::cin >> data)
+    if (std::cin >> data)
     {
       if (!find(root, data, comp))
       {
-        std::cout << "NOTFOUND\n";
+        std::cout << "NOTFOUND";
+      }
+      else
+      {
+        std::cout << "FOUND";
+      }
+    }
+    while (std::cin >> data)
+    {
+      std::cout << " ";
+      if (!find(root, data, comp))
+      {
+        std::cout << "NOTFOUND";
       }
       else
       {
         std::cout << "FOUND\n";
       }
     }
+    std::cout << "\n";
     clear(root);
     return 0;
   }
