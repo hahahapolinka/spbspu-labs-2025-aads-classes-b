@@ -9,7 +9,7 @@ struct List
 };
 
 template< class T >
-List< T >* pushIn(List< T >* head, int data)
+List< T >* pushIn(List< T >* head, T data)
 {
   List< T >* newList = new List< T > {data, nullptr};
   newList->next = head;
@@ -17,21 +17,39 @@ List< T >* pushIn(List< T >* head, int data)
 }
 
 template< class T >
-List< T >* reverse_with_list(List< T >* head)
+void clear(List< T >* head)
 {
-  List< T >* oldHead = head;
-  List< T >* newHead = nullptr;
   while (head)
   {
-    newHead = pushIn(newHead, head->data);
+    List< T >* temp = head;
     head = head->next;
+    delete temp;
   }
-  while(oldHead)
+}
+
+template< class T >
+List< T >* reverse_with_list(List< T >* head1)
+{
+  if (!head1)
   {
-    List< T >* fake = oldHead;
-    oldHead = oldHead->next;
-    delete fake;
+    return head1;
   }
+  List< List< T >* >* head2 = nullptr;
+  List< T >* cur = head1;
+  while (cur)
+  {
+    head2 = pushIn(head2, cur);
+    cur = cur->next;
+  }
+  List< T >* newHead = head2->data;
+  List< List< T >* >* cur2 = head2;
+  while (cur2->next)
+  {
+    cur2->data->next = cur2->next->data;
+    cur2 = cur2->next;
+  }
+  cur2->data->next = nullptr;
+  clear(head2);
   return newHead;
 }
 
