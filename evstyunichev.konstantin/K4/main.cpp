@@ -20,6 +20,9 @@ template< class T >
 void clear(List< T > * head);
 
 template< class T >
+List< T > * create(T data);
+
+template< class T >
 void push_back(List< T > * head, T data);
 
 template< class T >
@@ -36,18 +39,18 @@ void clear(List< T > * head)
 }
 
 template< class T >
-void push_back(List< T > *tail, T data)
+List< T > * create(T data)
 {
-  List< T > * cur = new List< T >{data, tail->next};
-  tail->next = cur;
-  return;
+  List< T > *head = new List< T >{ data, nullptr };
+  return head;
 }
 
 template< class T >
-List< T > * push_front(List< T > *head, T data)
+void push_back(List< T > *tail, T data)
 {
-  List< T > * cur = new List< T >{data, head};
-  return cur;
+  List< T > *cur = new List< T >{ data, tail->next };
+  tail->next = cur;
+  return;
 }
 
 template< class T >
@@ -66,39 +69,39 @@ void insert_after(List< T > * node, List< T > * tail)
 template< class T >
 List< T > * reverse_with_list(List< T > *head1)
 {
-  List< List< T > * > *head2 = nullptr, *cur2 = nullptr;
-
-  List< T > *cur = head1;
+  List< List< T > * > *head2 = nullptr, *cur = head2;
+  List< T > *temp = head1;
   try
   {
-    head2 = push_front(head2, head1);
-    while (cur->next)
+    head2 = create(temp);
+    cur = head2;
+    while (temp->next)
     {
-      head2 = push_front(head2, cur);
+      temp = temp->next;
+      push_back(cur, temp);
       cur = cur->next;
     }
-    head2 = push_front(head2, cur);
+    cur = head2;
+    head1->next = nullptr;
+    while (cur->next)
+    {
+      cur->next->data->next = cur->data;
+      cur = cur->next;
+    }
   }
   catch(const std::exception& e)
   {
     clear(head2);
     std::cerr << e.what() << '\n';
   }
-  cur2 = head2;
-  while (cur2->next)
-  {
-    cur2->data->next = cur2->next->data;
-    cur2 = cur2->next;
-  }
-  head1->next = nullptr;
   clear(head2);
-  return cur;
+  return temp;
 }
 
 template< class T >
-List< T > * reverse_cleanly(List< T > * head) noexcept
+List< T > * reverse_cleanly(List< T > *head) noexcept
 {
-  List< T > * tail = head, * temp = head;
+  List< T > *tail = head, *temp = head;
   while (tail->next)
   {
     tail = tail->next;
@@ -113,7 +116,7 @@ List< T > * reverse_cleanly(List< T > * head) noexcept
 }
 
 template< class T >
-List< T > * reverse_rec(List< T > * head) noexcept
+List< T > * reverse_rec(List< T > *head) noexcept
 {
   if (!head->next)
   {
@@ -126,7 +129,7 @@ List< T > * reverse_rec(List< T > * head) noexcept
 }
 
 template< class T >
-List< T > * reverse_recursively(List< T > * head) noexcept
+List< T > * reverse_recursively(List< T > *head) noexcept
 {
   List< T > *cur = head;
   while (cur->next)
@@ -152,16 +155,16 @@ std::ostream & out_list(std::ostream &out, List< T > *head)
 
 int main(int argc, char *argv[])
 {
-  int n = 0;
-  if ((std::cin >> n).eof())
-  {
-    std::cout << '\n';
-    return 0;
-  }
   List< int > *head = nullptr, *tail = head;
   try
   {
-    head = new List< int >{n, nullptr};
+    int n = 0;
+    if ((std::cin >> n).eof())
+    {
+      std::cout << '\n';
+      return 0;
+    }
+    head = create(n);
     tail = head;
     while (std::cin >> n)
     {
@@ -171,7 +174,7 @@ int main(int argc, char *argv[])
     if (!std::cin.eof())
     {
       clear(head);
-      std::cerr << "input error";
+      std::cerr << "input error\n";
       return 1;
     }
     if (argc == 2 && argv[1][0] == '0')
