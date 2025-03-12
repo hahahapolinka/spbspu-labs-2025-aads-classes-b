@@ -70,9 +70,9 @@ template< class T >
 List< T > * reverse_with_list(List< T > *head1)
 {
   List< List< T > * > *head2 = nullptr, *cur = head2;
+  List< T > *temp = head1;
   try
   {
-    List< T > *temp = head1;
     head2 = create(temp);
     cur = head2;
     while (temp->next)
@@ -88,14 +88,14 @@ List< T > * reverse_with_list(List< T > *head1)
       cur->next->data->next = cur->data;
       cur = cur->next;
     }
-    clear(head2);
-    return temp;
   }
   catch(const std::exception& e)
   {
     clear(head2);
     std::cerr << e.what() << '\n';
   }
+  clear(head2);
+  return temp;
 }
 
 template< class T >
