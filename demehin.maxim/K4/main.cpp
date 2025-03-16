@@ -10,14 +10,19 @@ struct List
 template< class T >
 List< T >* reverse_with_list(List< T >* head)
 {
+  if (head == nullptr || head->next == nullptr)
+  {
+    return head;
+  }
   List< T >* stackHead = nullptr;
   List< T >* current = head;
 
   while (current != nullptr)
   {
-    List< T >* newNode = new List< T >{current->data, stackHead};
-    stackHead = newNode;
-    current = current->next;
+    List< T >* nextNode = current->head;
+    current->next = stackHead;
+    stackHead = current;
+    current = nextNode;
   }
   return stackHead;
 
@@ -116,7 +121,7 @@ int main(int argc, char* argv[])
   {
     List< int >* oldHead = head;
     head = reverse_with_list(head);
-    free_list(oldHead);
+    //free_list(oldHead);
   }
   else if (argc == 2 && argv[1][0] == '1')
   {
