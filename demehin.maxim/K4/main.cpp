@@ -15,10 +15,9 @@ List< T >* reverse_with_list(List< T >* head)
 
   while (current != nullptr)
   {
-    List< T >* nextNode = current->next;
-    current->next = stackHead;
-    stackHead = current;
-    current = nextNode;
+    List< T >* newNode = new List< T >{current->data, stackHead};
+    stackHead = newNode;
+    current = current->next;
   }
   return stackHead;
 
