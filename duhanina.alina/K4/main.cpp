@@ -59,7 +59,6 @@ List< T >* reverse_with_list(List< T >* head)
   catch (...)
   {
     free_stack(temp_stack);
-    std::cerr << "Error\n";
     throw;
   }
 }
