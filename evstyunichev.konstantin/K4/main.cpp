@@ -8,27 +8,24 @@ struct List {
 };
 // 1
 template< class T >
-List< T > * reverse_with_list(List< T > * head);
+List< T > * reverse_with_list(List< T > *head);
 // 2
 template< class T >
-List< T > * reverse_cleanly(List< T > * head) noexcept;
+List< T > * reverse_cleanly(List< T > *head) noexcept;
 // 3
 template< class T >
-List< T > * reverse_recursively(List< T > * head) noexcept;
+List< T > * reverse_recursively(List< T > *head) noexcept;
 
 template< class T >
-void clear(List< T > * head);
+void clear(List< T > *head);
 
 template< class T >
-List< T > * create(T data);
+List< T > * push_back(T data, List< T > *tail = nullptr);
 
 template< class T >
-void push_back(List< T > * head, T data);
-
-template< class T >
-void clear(List< T > * head)
+void clear(List< T > *head)
 {
-  List< T > * cur = head;
+  List< T > *cur = head;
   while (head)
   {
     head = head->next;
@@ -39,22 +36,18 @@ void clear(List< T > * head)
 }
 
 template< class T >
-List< T > * create(T data)
+List< T > * push_back(T data, List< T > *tail)
 {
-  List< T > *head = new List< T >{ data, nullptr };
-  return head;
+  List< T > *cur = new List< T >{ data, nullptr };
+  if (tail)
+  {
+    tail->next = cur;
+  }
+  return cur;
 }
 
 template< class T >
-void push_back(List< T > *tail, T data)
-{
-  List< T > *cur = new List< T >{ data, tail->next };
-  tail->next = cur;
-  return;
-}
-
-template< class T >
-void insert_after(List< T > * node, List< T > * tail)
+void insert_after(List< T > *node, List< T > *tail)
 {
   List< T > *cur = nullptr;
   if (tail)
@@ -73,12 +66,12 @@ List< T > * reverse_with_list(List< T > *head1)
   List< T > *temp = head1;
   try
   {
-    head2 = create(temp);
+    head2 = push_back(temp);
     cur = head2;
     while (temp->next)
     {
       temp = temp->next;
-      push_back(cur, temp);
+      push_back(temp, cur);
       cur = cur->next;
     }
     cur = head2;
@@ -88,13 +81,13 @@ List< T > * reverse_with_list(List< T > *head1)
       cur->next->data->next = cur->data;
       cur = cur->next;
     }
+    clear(head2);
   }
-  catch(const std::exception& e)
+  catch (const std::exception &e)
   {
     clear(head2);
-    std::cerr << e.what() << '\n';
+    throw;
   }
-  clear(head2);
   return temp;
 }
 
@@ -164,11 +157,11 @@ int main(int argc, char *argv[])
       std::cout << '\n';
       return 0;
     }
-    head = create(n);
+    head = push_back(n);
     tail = head;
     while (std::cin >> n)
     {
-      push_back(tail, n);
+      push_back(n, tail);
       tail = tail->next;
     }
     if (!std::cin.eof())
