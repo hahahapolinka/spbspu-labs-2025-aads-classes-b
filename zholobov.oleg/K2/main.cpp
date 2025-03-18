@@ -16,11 +16,11 @@ void del_list(FwdList* list) noexcept
 
 FwdList* add_duplicates(FwdList* head, size_t idx, size_t num)
 {
-  if (num == 0) {
+  if (idx == 0) {
     throw std::out_of_range("index should be greater than 0");
   }
 
-  while ((--idx != 0) || (head == nullptr)) {
+  while ((--idx != 0) && (head != nullptr)) {
     head = head->next;
   }
 
@@ -29,9 +29,7 @@ FwdList* add_duplicates(FwdList* head, size_t idx, size_t num)
   }
 
   while (num-- != 0) {
-    FwdList* new_elem = new FwdList;
-    new_elem->value = head->value;
-    new_elem->next = head->next;
+    FwdList* new_elem = new FwdList{head->value, head->next};
     head->next = new_elem;
   }
   return head;
@@ -39,9 +37,11 @@ FwdList* add_duplicates(FwdList* head, size_t idx, size_t num)
 
 void print_list(const FwdList* list) noexcept
 {
-  while (list != nullptr) {
-    std::cout << list->value << " ";
-    list = list->next;
+  if (list != nullptr) {
+    std::cout << list->value;
+    while ((list = list->next) != nullptr) {
+      std::cout << " " << list->value;
+    }
   }
 }
 
@@ -49,10 +49,8 @@ int main()
 {
   FwdList* list = nullptr;
   try {
-    for (size_t i = 0; i < 10; ++i) {
-      FwdList* cur = new FwdList;
-      cur->value = 9 - i;
-      cur->next = list;
+    for (int i = 0; i < 10; ++i) {
+      FwdList* cur = new FwdList{9 - i, list};
       list = cur;
     }
     while (!std::cin.eof()) {
@@ -63,13 +61,10 @@ int main()
       }
       add_duplicates(list, idx, num);
     }
-  } catch (const std::out_of_range& e) {
+  } catch (const std::exception& e) {
     std::cerr << e.what() << "\n";
     del_list(list);
     return 1;
-  } catch (const std::bad_alloc& e) {
-    std::cerr << e.what() << "\n";
-    del_list(list);
   }
   print_list(list);
   std::cout << "\n";
