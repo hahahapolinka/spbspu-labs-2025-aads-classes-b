@@ -36,10 +36,18 @@ List< T >* reverse_with_list(List< T >* head1)
   }
   List< List< T >* >* head2 = nullptr;
   List< T >* cur = head1;
-  while (cur)
+  try
   {
-    head2 = pushIn(head2, cur);
-    cur = cur->next;
+    while (cur)
+    {
+      head2 = pushIn(head2, cur);
+      cur = cur->next;
+    }
+  }
+  catch (...)
+  {
+    clear(head2);
+    throw;
   }
   List< T >* newHead = head2->data;
   List< List< T >* >* cur2 = head2;
