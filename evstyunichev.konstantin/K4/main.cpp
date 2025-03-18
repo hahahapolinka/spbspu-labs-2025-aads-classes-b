@@ -4,7 +4,7 @@
 template< class T >
 struct List {
   T data;
-  List< T > * next;
+  List< T > *next;
 };
 // 1
 template< class T >
