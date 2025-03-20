@@ -41,22 +41,35 @@ List< T > * reverse_with_list(List< T > * head)
     return head;
   }
   List< T > * dhead = head;
-  List< T > * last = new List< T >{dhead->data, nullptr};
+  size_t count = 1;
   while (dhead->next != nullptr)
   {
-    try
-    {
-      dhead = dhead->next;
-      last = new List< T >{dhead->data, last};
-    }
-    catch(const std::bad_alloc& e)
-    {
-      clear(last);
-      throw;
-    }
+    count++;
+    dhead = dhead->next;
   }
-  clear(head);
-  return last;
+  List< List < T > > * last = new List< List < T > >{dhead, nullptr};
+  List< List < T > > * dlast = last;
+  while (count > 1)
+  {
+    dhead = head;
+    for (size_t i = 0; i < count; i++)
+    {
+      dhead = dhead->head;
+    }
+    count--;
+    dlast->next = new List< List < T > >{dhead, nullptr};
+    dlast = dlast->next;
+  }
+  dlast = last;
+  while (dlast->next != nullptr)
+  {
+    dlast->data->next = dlast->next;
+    dlast = dlast->next;
+  }
+  dlast->data->next = nullptr;
+  head = last->data;
+  clear(last);
+  return head;
 }
 
 template< class T >
