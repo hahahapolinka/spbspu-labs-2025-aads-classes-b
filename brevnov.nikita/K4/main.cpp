@@ -63,7 +63,7 @@ List< T > * reverse_with_list(List< T > * head)
   dlast = last;
   while (dlast->next != nullptr)
   {
-    dlast->data->next = * dlast->next;
+    dlast->data->next = dlast->next->data;
     dlast = dlast->next;
   }
   dlast->data->next = nullptr;
