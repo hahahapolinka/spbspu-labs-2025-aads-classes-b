@@ -66,7 +66,6 @@ List< T > * reverse_with_list(List< T > * head)
     dlast->data->next = dlast->next->data;
     dlast = dlast->next;
   }
-  dlast->data->next = dlast->next->data;
   dlast->data->next = nullptr;
   head = last->data;
   clear(last);
