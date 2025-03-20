@@ -47,8 +47,8 @@ List< T > * reverse_with_list(List< T > * head)
     count++;
     dhead = dhead->next;
   }
-  List< List < T > > * last = new List< List < T > >{dhead, nullptr};
-  List< List < T > > * dlast = last;
+  List< List < T > * > * last = new List< List < T > * >{dhead, nullptr};
+  List< List < T > * > * dlast = last;
   while (count > 1)
   {
     dhead = head;
@@ -57,7 +57,7 @@ List< T > * reverse_with_list(List< T > * head)
       dhead = dhead->head;
     }
     count--;
-    dlast->next = new List< List < T > >{dhead, nullptr};
+    dlast->next = new List< List < T > * >{dhead, nullptr};
     dlast = dlast->next;
   }
   dlast = last;
