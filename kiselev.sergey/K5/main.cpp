@@ -7,16 +7,18 @@ struct BiTree {
 };
 
 template< class T, class Cmp = std::less< T > >
-const BiTree< T >* find(const BiTree< T >* root, const T& value, Cmp = Cmp{});
+std::pair< const BiTree< T >*, BiTree< T >* > find(const BiTree< T >* root, const T& value, Cmp = Cmp{});
 
 template< class T, class Cmp = std::less< T > >
 BiTree< T >* pushTree(BiTree< T >* root, const T& value, Cmp = Cmp{});
 
 template< class T, class Cmp >
-const BiTree< T >* find(const BiTree< T >* root, const T& value, Cmp cmp)
+std::pair< const BiTree< T >*, BiTree< T >* > find(const BiTree< T >* root, const T& value, Cmp cmp)
 {
+  BiTree< T >* parent = nullptr;
   while (root)
   {
+    parent = const_cast< BiTree< T >* >(root);
     if (cmp(root->data, value))
     {
       root = root->right;
@@ -27,10 +29,10 @@ const BiTree< T >* find(const BiTree< T >* root, const T& value, Cmp cmp)
     }
     else
     {
-      return root;
+      return { root, parent };
     }
   }
-  return nullptr;
+  return { nullptr, parent };
 }
 
 template< class T, class Cmp >
@@ -41,19 +43,7 @@ BiTree< T >* pushTree(BiTree< T >* root, const T& value, Cmp cmp)
     root = new BiTree< T >{value, nullptr, nullptr };
   }
   BiTree< T >* temp = root;
-  BiTree< T >* parentTemp = nullptr;
-  while (temp)
-  {
-    parentTemp = temp;
-    if (cmp(value, temp->data))
-    {
-      temp = temp->left;
-    }
-    else
-    {
-      temp = temp->right;
-    }
-  }
+  BiTree< T >* parentTemp = find(temp, value, cmp).second;
   if (cmp(value, parentTemp->data))
   {
     parentTemp->left = new BiTree< T >{ value, nullptr, nullptr };
@@ -105,7 +95,7 @@ int main()
   int findNum;
   while (std::cin >> findNum)
   {
-    if (find(root, findNum))
+    if (find(root, findNum).first)
     {
       std::cout << "<FOUND>\n";
     }
