@@ -130,9 +130,9 @@ int main (int argc, char** argv)
     }
   }
   List< int > * tail = head;
+  std::cin >> a;
   while (!std::cin.eof())
   {
-    std::cin >> a;
     if (std::cin.fail() && !std::cin.eof())
     {
       std::cerr << "Not correct input\n";
@@ -150,6 +150,7 @@ int main (int argc, char** argv)
       return 1;
     }
     tail = tail->next;
+    std::cin >> a;
   }
   if (argc == 2 && str[0] == '2')
   {
