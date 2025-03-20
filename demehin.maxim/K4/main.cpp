@@ -14,18 +14,31 @@ List< T >* reverse_with_list(List< T >* head)
   {
     return head;
   }
-  List< T >* stackHead = nullptr;
+
+  List< List< T >* >* stack = nullptr;
   List< T >* current = head;
 
   while (current != nullptr)
   {
-    List< T >* nextNode = current->next;
-    current->next = stackHead;
-    stackHead = current;
-    current = nextNode;
+    List< List< T >* >* newNode = new List< List< T >* >;
+    newNode->data = current;
+    newNode->next = stack;
+    stack = newNode;
+    current = current->next;
   }
-  return stackHead;
 
+  List< T >* newHead = stack->data;
+  List< T >* prevNode = newHead;
+  stack = stack->next;
+
+  while (stack != nullptr)
+  {
+    prevNode->next = stack->data;
+    prevNode = stack->data;
+    stack = stack->next;
+  }
+  prevNode->next = nullptr;
+  return newHead;
 }
 
 template< class T >
