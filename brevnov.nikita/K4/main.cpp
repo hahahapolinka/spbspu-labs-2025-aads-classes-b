@@ -110,9 +110,9 @@ int main (int argc, char** argv)
   char * str = argv[1];
   int a = 0;
   List< int > * head = nullptr;
+  std::cin >> a;
   if (!std::cin.eof())
   {
-    std::cin >> a;
     if (std::cin.fail() && !std::cin.eof())
     {
       std::cerr << "Not correct input\n";
