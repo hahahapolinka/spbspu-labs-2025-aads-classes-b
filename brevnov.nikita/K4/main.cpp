@@ -49,7 +49,7 @@ List< T > * reverse_with_list(List< T > * head)
   }
   List< List < T > * > * last = new List< List < T > * >{dhead, nullptr};
   List< List < T > * > * dlast = last;
-  while (count > 1)
+  while (count > 0)
   {
     dhead = head;
     for (size_t i = 1; i < count; i++)
