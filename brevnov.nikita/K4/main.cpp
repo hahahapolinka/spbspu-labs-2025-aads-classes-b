@@ -52,7 +52,7 @@ List< T > * reverse_with_list(List< T > * head)
   while (count > 1)
   {
     dhead = head;
-    for (size_t i = 0; i < count; i++)
+    for (size_t i = 1; i < count; i++)
     {
       dhead = dhead->next;
     }
