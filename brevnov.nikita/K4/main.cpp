@@ -110,7 +110,7 @@ int main (int argc, char** argv)
   char * str = argv[1];
   int a = 0;
   List< int > * head = nullptr;
-  if (std::cin >> a && !std::cin.eof() && !std::cin.fail())
+  if (std::cin >> a && !std::cin.eof())
   {
     try
     {
@@ -121,12 +121,12 @@ int main (int argc, char** argv)
       std::cerr << "Not enough memory!\n";
       return 1;
     }
-  }
-  else if (std::cin.fail())
-  {
-    std::cerr << "Not correct input\n";
-    std::cerr << "1\n";
-    return 1;
+    if (std::cin.fail() && !std::cin.eof())
+    {
+      std::cerr << "Not correct input\n";
+      clear(head);
+      return 1;
+    }
   }
   List< int > * tail = head;
   while (!std::cin.eof() && std::cin >> a)
@@ -142,14 +142,13 @@ int main (int argc, char** argv)
       return 1;
     }
     tail = tail->next;
-  }
-  if (std::cin.fail())
+    if (std::cin.fail() && !std::cin.eof())
     {
       std::cerr << "Not correct input\n";
-      std::cerr << "2\n";
       clear(head);
       return 1;
     }
+  }
   if (argc == 2 && str[0] == '2')
   {
     head = reverse_recursively(head);
