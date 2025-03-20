@@ -29,22 +29,20 @@ List< T >* reverse_with_list(List< T >* head)
 
   List< T >* newHead = stack->data;
   List< T >* prevNode = newHead;
+  List< List< T >* >* temp = stack;
   stack = stack->next;
+  delete temp;
 
   while (stack != nullptr)
   {
     prevNode->next = stack->data;
     prevNode = stack->data;
-    stack = stack->next;
-  }
-  prevNode->next = nullptr;
-
-  while (stack != nullptr)
-  {
-    List< List< T >* >* temp = stack;
+    temp = stack;
     stack = stack->next;
     delete temp;
   }
+  prevNode->next = nullptr;
+
   return newHead;
 }
 
