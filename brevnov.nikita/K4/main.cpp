@@ -110,8 +110,15 @@ int main (int argc, char** argv)
   char * str = argv[1];
   int a = 0;
   List< int > * head = nullptr;
-  if (std::cin >> a && !std::cin.eof())
+  if (!std::cin.eof())
   {
+    std::cin >> a;
+    if (std::cin.fail() && !std::cin.eof())
+    {
+      std::cerr << "Not correct input\n";
+      clear(head);
+      return 1;
+    }
     try
     {
       head = new List< int >{a, nullptr};
@@ -121,16 +128,17 @@ int main (int argc, char** argv)
       std::cerr << "Not enough memory!\n";
       return 1;
     }
+  }
+  List< int > * tail = head;
+  while (!std::cin.eof())
+  {
+    std::cin >> a;
     if (std::cin.fail() && !std::cin.eof())
     {
       std::cerr << "Not correct input\n";
       clear(head);
       return 1;
     }
-  }
-  List< int > * tail = head;
-  while (!std::cin.eof() && std::cin >> a)
-  {
     try
     {
       tail->next = new List< int >{a, nullptr};
@@ -142,12 +150,6 @@ int main (int argc, char** argv)
       return 1;
     }
     tail = tail->next;
-    if (std::cin.fail() && !std::cin.eof())
-    {
-      std::cerr << "Not correct input\n";
-      clear(head);
-      return 1;
-    }
   }
   if (argc == 2 && str[0] == '2')
   {
