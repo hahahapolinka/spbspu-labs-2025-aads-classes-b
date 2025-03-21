@@ -13,7 +13,16 @@ bool comp(const T & a, const T & b)
 }
 
 template< class T, class Cmp = std::less< T > >
-void addElTree(BiTree< T > * root, const T & value, Cmp = cmp{})
+void addElTree(BiTree< T > * root, const T & value, Cmp = Cmp{});
+
+template< class T >
+void clear(BiTree< T > * head);
+
+template< class T, class Cmp = std::less< T > >
+const BiTree< T > * find(const BiTree< T > * root, const T & value, Cmp = Cmp{});
+
+template< class T, class Cmp = std::less< T > >
+void addElTree(BiTree< T > * root, const T & value, Cmp cmp)
 {
   BiTree< T > * sub = root;
   if (root == nullptr)
