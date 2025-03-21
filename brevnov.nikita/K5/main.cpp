@@ -75,7 +75,7 @@ void clear(BiTree< T > * head)
 template< class T, class Cmp >
 const BiTree< T > * find(const BiTree< T > * root, const T & value, Cmp cmp)
 {
-  BiTree< T >  * sub = root;
+  const BiTree< T >  * sub = root;
   while (sub != nullptr)
   {
     if (sub->data == value)
