@@ -1,5 +1,4 @@
 #include <iostream>
-#include "list.hpp"
 
 template< class T >
 struct List {
