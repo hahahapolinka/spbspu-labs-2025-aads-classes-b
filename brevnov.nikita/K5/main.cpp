@@ -12,8 +12,8 @@ bool comp(const T & a, const T & b)
   return a <= b;
 }
 
-template< class T, class Cmp >
-void addElTree(BiTree< T > * root, const T & value, Cmp cmp)
+template< class T, class Cmp = std::less< T > >
+void addElTree(BiTree< T > * root, const T & value, Cmp = cmp{})
 {
   BiTree< T > * sub = root;
   if (root == nullptr)
