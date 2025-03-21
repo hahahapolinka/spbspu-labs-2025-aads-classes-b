@@ -57,7 +57,15 @@ List< T > * reverse_with_list(List< T > * head)
       dhead = dhead->next;
     }
     count--;
-    dlast->next = new List< List < T > * >{dhead, nullptr};
+    try
+    {
+      dlast->next = new List< List < T > * >{dhead, nullptr};
+    }
+    catch (const std::bad_alloc& e)
+    {
+      clear(last);
+      throw;
+    }
     dlast = dlast->next;
   }
   dlast = last;
