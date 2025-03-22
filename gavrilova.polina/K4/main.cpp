@@ -64,7 +64,7 @@ FwdList< T >* reverse_cleanly(FwdList< T >* head) noexcept {
     cur = next;
   }
 
-  return prev; 
+  return prev;
 }
 
 template<class T>
