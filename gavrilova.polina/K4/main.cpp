@@ -20,6 +20,9 @@ void clear(FwdList< T >* head)
 template< class T >
 FwdList< T >* reverse_with_list(FwdList< T >* head)
 {
+  if (!head) {
+    return nullptr;
+  }
   FwdList< FwdList< T >* >* stack = new FwdList< FwdList< T >* >{head, nullptr};
   head = head->next;
   while (head) {
@@ -120,7 +123,11 @@ int main (int argc, char** argv)
   try {
     head = inputListInt(std::cin);
   } catch(const std::bad_alloc&) {
-    std::cerr << "Memory error";
+    std::cerr << "Memory error\n";
+    return 1;
+  }
+  if (!std::cin) {
+    std::cerr << "Invalid input\n";
     return 1;
   }
   FwdList< int >* new_head = nullptr;
@@ -144,7 +151,6 @@ int main (int argc, char** argv)
   }
   else
   {
-    std::cerr << "Invalid parametrs\n";
     new_head = reverse_cleanly(head);
   }
   outputListInt(std::cout, new_head);
