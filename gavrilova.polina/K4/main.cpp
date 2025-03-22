@@ -92,7 +92,7 @@ FwdList< int >* inputListInt(std::istream& in)
   }
   FwdList< int >* head = new FwdList< int >{newData, nullptr};
   FwdList< int >* cur = head;
-  while (in >> newData || !in.eof()) {
+  while (in >> newData && !in.eof()) {
     try {
       FwdList< int >* new_node = new FwdList< int >{newData, nullptr};
       cur->next = new_node;
@@ -126,7 +126,7 @@ int main (int argc, char** argv)
     std::cerr << "Memory error\n";
     return 1;
   }
-  if (!std::cin) {
+  if (!std::cin && !std::cin.eof()) {
     std::cerr << "Invalid input\n";
     return 1;
   }
