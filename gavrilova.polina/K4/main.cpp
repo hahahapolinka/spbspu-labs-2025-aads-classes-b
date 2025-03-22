@@ -128,6 +128,7 @@ int main (int argc, char** argv)
   }
   if (!std::cin && !std::cin.eof()) {
     std::cerr << "Invalid input\n";
+    clear< int >(head);
     return 1;
   }
   FwdList< int >* new_head = nullptr;
@@ -138,6 +139,7 @@ int main (int argc, char** argv)
       new_head = reverse_with_list(head);
     } catch(const std::bad_alloc&) {
       std::cerr << "Memory error";
+      clear< int >(head);
       return 1;
     }
   }
@@ -152,8 +154,9 @@ int main (int argc, char** argv)
   else
   {
     new_head = reverse_cleanly(head);
+    std::cerr << "Invalid paRAMETRS\n";
   }
   outputListInt(std::cout, new_head);
-  std::cout << " ";
+  std::cout << "\n";
   clear< int >(new_head);
 }
