@@ -21,7 +21,7 @@ int main()
     }
     try {
       root = insertBT<size_t>(cur_num, root, pred);
-    } catch(const std::bad_alloc) {
+    } catch(const std::bad_alloc&) {
       clear< size_t >(root);
       std::cerr << "Memory error!\n";
       return 1;
