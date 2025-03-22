@@ -45,12 +45,8 @@ FwdList< T >* reverse_with_list(FwdList< T >* head)
     cur_stack = cur_stack->next;
     delete temp_stack;
   }
-<<<<<<< HEAD
-  clear< FwdList< T >*>(stack);
-=======
   delete stack;
   current_head->next = nullptr;
->>>>>>> gavrilova.polina/K4
   return head;
 }
 
@@ -88,11 +84,7 @@ FwdList<T>* reverse_recursively(FwdList<T>* head) noexcept {
     return new_head;
 }
 
-<<<<<<< HEAD
-FwdList< int >* inputListInt(std::istream& in, FwdList< int >* head)
-=======
 FwdList< int >* inputListInt(std::istream& in)
->>>>>>> gavrilova.polina/K4
 {
   int newData = 0;
   if (!(in >> newData)) {
@@ -100,15 +92,7 @@ FwdList< int >* inputListInt(std::istream& in)
   }
   FwdList< int >* head = new FwdList< int >{newData, nullptr};
   FwdList< int >* cur = head;
-<<<<<<< HEAD
-  while (!std::cin.eof()) {
-    int newData = 0;
-    if (!(in >> newData)) {
-      clear(head);
-    }
-=======
   while (in >> newData && !in.eof()) {
->>>>>>> gavrilova.polina/K4
     try {
       FwdList< int >* new_node = new FwdList< int >{newData, nullptr};
       cur->next = new_node;
@@ -118,11 +102,7 @@ FwdList< int >* inputListInt(std::istream& in)
       throw;
     }
   }
-<<<<<<< HEAD
-
-=======
-  return head;
->>>>>>> gavrilova.polina/K4
+ return head;
 }
 
 std::ostream& outputListInt(std::ostream& out, FwdList< int >* head)
@@ -139,33 +119,6 @@ std::ostream& outputListInt(std::ostream& out, FwdList< int >* head)
 
 int main (int argc, char** argv)
 {
-<<<<<<< HEAD
-  *argv = nullptr;
-  FwdList< int >* head = inputListInt(std::cin)
-  FwdList< int >* new_head = nullptr;
-  switch(argc) {
-    case 0:
-      try {
-        new_head = reverse_with_list< int >(head);
-        break;
-      } catch (const std::bad_alloc&) {
-        clear< int >(head);
-        clear< int >(new_head);
-      }
-      
-    case 1:
-      new_head = reverse_cleanly< int >(head);
-      break;
-    case 2:
-      new_head = reverse_recursively< int >(head);
-      break;
-    default:
-      new_head = reverse_cleanly< int >(head);
-  }
-  outputListInt(std::cout, new_head);
-  clear< int >(new_head);
-}
-=======
   FwdList< int >* head = nullptr;
   try {
     head = inputListInt(std::cin);
@@ -207,4 +160,4 @@ int main (int argc, char** argv)
   std::cout << "\n";
   clear< int >(new_head);
 }
->>>>>>> gavrilova.polina/K4
+
