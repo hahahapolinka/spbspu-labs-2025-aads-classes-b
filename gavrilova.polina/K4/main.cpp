@@ -4,7 +4,7 @@
 template< class T >
 struct FwdList {
   T data;
-  FwdList* next;
+  FwdList< T >* next;
 };
 
 template< class T >
@@ -20,7 +20,11 @@ void clear(FwdList< T >* head)
 template< class T >
 FwdList< T >* reverse_with_list(FwdList< T >* head)
 {
+  if (!head) {
+    return nullptr;
+  }
   FwdList< FwdList< T >* >* stack = new FwdList< FwdList< T >* >{head, nullptr};
+  head = head->next;
   while (head) {
     try {
       FwdList< FwdList< T >* >* new_node = new FwdList< FwdList< T >* >{head, stack};
@@ -31,39 +35,49 @@ FwdList< T >* reverse_with_list(FwdList< T >* head)
       throw;
     }
   }
-  head = nullptr;
-  FwdList< FwdList< T >* >* cur_stack = stack;
+  head = stack->data;
+  FwdList< T >* current_head = head;
+  FwdList< FwdList< T >* >* cur_stack = stack->next;
   while (cur_stack) {
-    FwdList< T >* current_head = cur_stack->data;
+    current_head->next = cur_stack->data;
+    current_head = current_head->next;
+    FwdList< FwdList< T >* >* temp_stack = cur_stack;
     cur_stack = cur_stack->next;
-    current_head->next = head;
-    head = current_head;
+    delete temp_stack;
   }
+<<<<<<< HEAD
   clear< FwdList< T >*>(stack);
+=======
+  delete stack;
+  current_head->next = nullptr;
+>>>>>>> gavrilova.polina/K4
   return head;
-
 }
 
 template< class T >
-FwdList< T >* reverse_cleanly(FwdList< T >* head) {
-  if (!head) return nullptr;
-  FwdList< T >* cur = head->next;
-  if (!cur) return head;
-  FwdList< T >* temp = cur->next;
-  head->next = nullptr;
-  while (temp) {
-    cur->next = head;
-    head = cur;
-    cur = temp;
-    temp = temp->next;
+FwdList< T >* reverse_cleanly(FwdList< T >* head) noexcept {
+  if (!head) {
+    return nullptr;
   }
-  return cur;
+
+  FwdList< T >* prev = nullptr;
+  FwdList< T >* cur = head;
+  FwdList< T >* next = nullptr;
+
+  while (cur) {
+    next = cur->next;
+    cur->next = prev;
+    prev = cur;
+    cur = next;
+  }
+
+  return prev;
 }
 
 template<class T>
-FwdList<T>* reverse_recursively(FwdList<T>* head) {
+FwdList<T>* reverse_recursively(FwdList<T>* head) noexcept {
     if (!head || !head->next) {
-        return head;
+      return head;
     }
 
     FwdList<T>* new_head = reverse_recursively(head->next);
@@ -74,29 +88,50 @@ FwdList<T>* reverse_recursively(FwdList<T>* head) {
     return new_head;
 }
 
+<<<<<<< HEAD
 FwdList< int >* inputListInt(std::istream& in, FwdList< int >* head)
+=======
+FwdList< int >* inputListInt(std::istream& in)
+>>>>>>> gavrilova.polina/K4
 {
+  int newData = 0;
+  if (!(in >> newData)) {
+    return nullptr;
+  }
+  FwdList< int >* head = new FwdList< int >{newData, nullptr};
   FwdList< int >* cur = head;
+<<<<<<< HEAD
   while (!std::cin.eof()) {
     int newData = 0;
     if (!(in >> newData)) {
       clear(head);
     }
+=======
+  while (in >> newData && !in.eof()) {
+>>>>>>> gavrilova.polina/K4
     try {
-      cur = new FwdList< int >{newData, nullptr};
+      FwdList< int >* new_node = new FwdList< int >{newData, nullptr};
+      cur->next = new_node;
       cur = cur->next;
     } catch(const std::bad_alloc&) {
       clear< int >(head);
       throw;
     }
   }
+<<<<<<< HEAD
 
+=======
+  return head;
+>>>>>>> gavrilova.polina/K4
 }
 
 std::ostream& outputListInt(std::ostream& out, FwdList< int >* head)
 {
   while (head) {
     out << head->data;
+    if (head->next) {
+      out << " ";
+    }
     head = head->next;
   }
   return out;
@@ -104,6 +139,7 @@ std::ostream& outputListInt(std::ostream& out, FwdList< int >* head)
 
 int main (int argc, char** argv)
 {
+<<<<<<< HEAD
   *argv = nullptr;
   FwdList< int >* head = inputListInt(std::cin)
   FwdList< int >* new_head = nullptr;
@@ -129,3 +165,46 @@ int main (int argc, char** argv)
   outputListInt(std::cout, new_head);
   clear< int >(new_head);
 }
+=======
+  FwdList< int >* head = nullptr;
+  try {
+    head = inputListInt(std::cin);
+  } catch(const std::bad_alloc&) {
+    std::cerr << "Memory error\n";
+    return 1;
+  }
+  if (!std::cin && !std::cin.eof()) {
+    std::cerr << "Invalid input\n";
+    clear< int >(head);
+    return 1;
+  }
+  FwdList< int >* new_head = nullptr;
+
+  if (argc == 2 && std::string(argv[1]) == "0")
+  {
+    try {
+      new_head = reverse_with_list(head);
+    } catch(const std::bad_alloc&) {
+      std::cerr << "Memory error";
+      clear< int >(head);
+      return 1;
+    }
+  }
+  else if (argc == 2 && std::string(argv[1]) == "1")
+  {
+    new_head = reverse_cleanly(head);
+  }
+  else if (argc == 2 && std::string(argv[1]) == "2")
+  {
+    new_head = reverse_recursively(head);
+  }
+  else
+  {
+    new_head = reverse_cleanly(head);
+    std::cerr << "Invalid paRAMETRS\n";
+  }
+  outputListInt(std::cout, new_head);
+  std::cout << "\n";
+  clear< int >(new_head);
+}
+>>>>>>> gavrilova.polina/K4
