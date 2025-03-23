@@ -27,7 +27,7 @@ void addElTree(BiTree< T > * root, const T & value, Cmp cmp)
   bool done = false;
   while (!done)
   {
-    if (cmp.funComp(sub->data, value))
+    if (cmp(sub->data, value))
     {
       if (sub->right == nullptr)
       {
