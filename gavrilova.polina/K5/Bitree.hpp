@@ -50,6 +50,9 @@ void clear(BiTree< T > * root)
 template< class T, class Cmp >
 BiTree< T > * find(BiTree< T > * root, const T & value, Cmp cmp)
 {
+  if (!root) {
+    return nullptr;
+  }
   while (true) {
     if (cmp(value, root->data)) {
       if (root->left) {
@@ -57,7 +60,7 @@ BiTree< T > * find(BiTree< T > * root, const T & value, Cmp cmp)
       } else {
         return root;
       }
-    } else if (!cmp(value, root->data)) {
+    } else if (cmp(root->data, value)) {
       if (root->right) {
         root = root->right;
       } else {
