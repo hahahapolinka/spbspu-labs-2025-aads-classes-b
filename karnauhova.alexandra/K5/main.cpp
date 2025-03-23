@@ -6,16 +6,40 @@ struct BiTree {
   BiTree< T > * left, * right;
 };
 
+bool isGreater(int first, int second)
+{
+  return first > second;
+}
+
 template< class T, class Cmp >
-BiTree< T > * find(const BiTree< T > * root, const T & value, Cmp cmp);
+BiTree< T > * find(const BiTree< T > * root, const T & value, Cmp cmp)
+{
+  const BiTree< T >* big_root = root;
+  while (big_root != nullptr)
+  {
+    if (cmp(value, big_root->data))
+    {
+      big_root = big_root->right;
+    }
+    else
+    {
+      if (value == big_root->data)
+      {
+        return const_cast< BiTree< T >* >(big_root);
+      }
+      big_root = big_root->left;
+    }
+  }
+  return nullptr;
+}
 
 template< class T >
 void clear(BiTree< T >* root)
 {
-  while (root->left != nullptr && root->right != nullptr)
+  while (root->left != nullptr || root->right != nullptr)
   {
     BiTree< T >* now = root;
-    while (now->left != nullptr && now->right != nullptr)
+    while (now->left != nullptr || now->right != nullptr)
     {
       if (now->right != nullptr)
       {
@@ -32,28 +56,44 @@ void clear(BiTree< T >* root)
   delete root;
 }
 
-template< class T >
-BiTree< T > * output_tree(size_t size, std::ostream& out)
+template< class T, class Cmp >
+BiTree< T > * intput_tree(size_t size, std::istream& in, Cmp cmp)
 {
   BiTree< T >* root = nullptr;
   try
   {
     T x = 0;
-    out >> x;
+    in >> x;
     root = new BiTree< T >{x, nullptr, nullptr};
-    for (size_t i = 0, i < size, i++)
+    for (size_t i = 1; i < size; i++)
     {
-      out >> x;
+      in >> x;
       BiTree< T >* now = root;
       while (now != nullptr)
       {
-        if (x > now->data)
+        if (cmp(x, now->data))
         {
-          now = now->right;
+          if (now->right == nullptr)
+          {
+            now->right = new BiTree<T>{x, nullptr, nullptr};
+            break;
+          } 
+          else
+          {
+            now = now->right;
+          }
         }
         else
         {
-          now = now->left;
+          if (now->left == nullptr)
+          {
+            now->left = new BiTree<T>{x, nullptr, nullptr};
+            break;
+          } 
+          else
+          {
+            now = now->left;
+          }
         }
       }
       now = new BiTree< T >{x, nullptr, nullptr};
@@ -64,20 +104,38 @@ BiTree< T > * output_tree(size_t size, std::ostream& out)
     clear(root);
     throw;
   }
+  return root;
 }
 
 int main()
 {
   size_t size_tree = 0;
   std::cin >> size_tree;
+  int x = 0;
   BiTree< int >* root = nullptr;
   try
   {
-    root = output_tree(size, std::cin);
+    root = intput_tree<int>(size_tree, std::cin, isGreater);
   }
   catch(const std::bad_alloc& e)
   {
-    std::cerr <<'Out of memory\n';
+    std::cerr <<"Out of memory\n";
     return 1;
-  } 
+  }
+  while (!std::cin.eof())
+  {
+    std::cin >> x;
+    if (std::cin)
+    {
+      if (find< int >(root, x, isGreater))
+      {
+        std::cout << "FOUND\n";
+      }
+      else
+      {
+        std::cout << "NOT FOUND\n";
+      }
+    }
+  }
+  clear(root);
 }
