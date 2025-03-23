@@ -122,19 +122,15 @@ int main()
     std::cerr <<"Out of memory\n";
     return 1;
   }
-  while (!std::cin.eof())
+  while (std::cin >> x || !std::cin.eof())
   {
-    std::cin >> x;
-    if (std::cin)
+    if (find< int >(root, x, isGreater))
     {
-      if (find< int >(root, x, isGreater))
-      {
-        std::cout << "FOUND\n";
-      }
-      else
-      {
-        std::cout << "NOT FOUND\n";
-      }
+      std::cout << "FOUND\n";
+    }
+    else
+    {
+      std::cout << "NOT FOUND\n";
     }
   }
   clear(root);
