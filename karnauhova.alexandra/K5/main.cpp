@@ -49,6 +49,10 @@ template< class T, class Cmp >
 BiTree< T > * intput_tree(size_t size, std::istream& in, Cmp cmp)
 {
   BiTree< T >* root = nullptr;
+  if (!size)
+  {
+    return root;
+  }
   try
   {
     T x = 0;
