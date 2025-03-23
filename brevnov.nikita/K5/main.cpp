@@ -125,7 +125,7 @@ int main()
       return 1;
     }
   }
-  while (std::cin >> b && std::cin.good())
+  while (std::cin >> b)
   {
     if (find(root, b))
     {
