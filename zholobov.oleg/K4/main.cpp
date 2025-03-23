@@ -107,7 +107,10 @@ List< T >* inputList(std::istream& input)
     while (input >> value) {
       list = addElem(list, value);
     }
-  } catch (const std::bad_alloc&) {
+    if (!input.eof()) {
+      throw std::invalid_argument("Invalid input data");
+    }
+  } catch (const std::exception&) {
     deleteList(list);
     throw;
   }
