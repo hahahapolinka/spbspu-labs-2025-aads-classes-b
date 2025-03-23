@@ -136,7 +136,7 @@ int main()
       std::cout << "<NOT FOUND>\n";
     }
   }
-  if (std::cin.fail())
+  if (std::cin.fail() && !std::cin.eof())
   {
     std::cerr << "Not correct input!\n";
     clear(root);
