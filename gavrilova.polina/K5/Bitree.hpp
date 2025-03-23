@@ -27,7 +27,7 @@ BiTree< T > * insertBT(T new_val, BiTree< T > * root, Cmp cmp)
   }
 
   BiTree< T >* parent = find(root, new_val, cmp);
-  
+
   if (cmp(new_val, parent->data)) {
     parent->left = new_node;
   } else {
