@@ -85,7 +85,6 @@ BiTree< T > * intput_tree(size_t size, std::istream& in, Cmp cmp)
           }
         }
       }
-      now = new BiTree< T >{x, nullptr, nullptr};
     }
   }
   catch (const std::bad_alloc& e)
@@ -115,11 +114,11 @@ int main()
   {
     if (find< int >(root, x, isGreater))
     {
-      std::cout << "FOUND\n";
+      std::cout << "<FOUND>\n";
     }
     else
     {
-      std::cout << "NOT FOUND\n";
+      std::cout << "<NOT FOUND>\n";
     }
   }
   if (!std::cin.eof() && std::cin.fail())
