@@ -77,7 +77,7 @@ BiTree< T > * intput_tree(size_t size, std::istream& in, Cmp cmp)
           {
             now->right = new BiTree<T>{x, nullptr, nullptr};
             break;
-          } 
+          }
           else
           {
             now = now->right;
@@ -89,7 +89,7 @@ BiTree< T > * intput_tree(size_t size, std::istream& in, Cmp cmp)
           {
             now->left = new BiTree<T>{x, nullptr, nullptr};
             break;
-          } 
+          }
           else
           {
             now = now->left;
