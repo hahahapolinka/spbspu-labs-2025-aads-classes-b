@@ -6,12 +6,6 @@ struct BiTree {
   BiTree< T > * left, * right;
 };
 
-template< class T >
-bool comp(const T & a, const T & b)
-{
-  return a <= b;
-}
-
 template< class T, class Cmp = std::less< T > >
 void addElTree(BiTree< T > * root, const T & value, Cmp = Cmp{});
 
