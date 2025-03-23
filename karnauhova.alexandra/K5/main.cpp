@@ -36,23 +36,12 @@ BiTree< T > * find(const BiTree< T > * root, const T & value, Cmp cmp)
 template< class T >
 void clear(BiTree< T >* root)
 {
-  while (root->left != nullptr || root->right != nullptr)
+  if (root == nullptr)
   {
-    BiTree< T >* now = root;
-    while (now->left != nullptr || now->right != nullptr)
-    {
-      if (now->right != nullptr)
-      {
-        now = now->right;
-      }
-      if (now->left != nullptr)
-      {
-        now = now->left;
-      }
-    }
-    delete now;
-    now = nullptr;
+    return;
   }
+  clear(root->left);
+  clear(root->right);
   delete root;
 }
 
@@ -122,7 +111,7 @@ int main()
     std::cerr <<"Out of memory\n";
     return 1;
   }
-  while (std::cin >> x || !std::cin.eof())
+  while (std::cin >> x)
   {
     if (find< int >(root, x, isGreater))
     {
@@ -132,6 +121,12 @@ int main()
     {
       std::cout << "NOT FOUND\n";
     }
+  }
+  if (!std::cin.eof() && std::cin.fail())
+  {
+    std::cerr << "Incorrect number\n";
+    clear(root);
+    return 1;
   }
   clear(root);
 }
