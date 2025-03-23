@@ -21,26 +21,17 @@ void clear(BiTree< T > * root);
 template< class T, class Cmp >
 BiTree< T > * insertBT(T new_val, BiTree< T > * root, Cmp cmp)
 {
+  BiTree< T >* new_node = new BiTree<T>{new_val, nullptr, nullptr};
   if (!root) {
-    return new BiTree<T>{new_val, nullptr, nullptr};
+    return new_node;
   }
 
-  BiTree< T >* cur_root = root;
-  BiTree< T >* parent = nullptr;
-
-  while (cur_root) {
-    parent = cur_root;
-    if (cmp(new_val, parent->data)) {
-      cur_root = cur_root->left;
-    } else {
-      cur_root = cur_root->right;
-    }
-  }
-
+  BiTree< T >* parent = find(root, new_val, cmp);
+  
   if (cmp(new_val, parent->data)) {
-    parent->left = new BiTree<T>{new_val, nullptr, nullptr};
+    parent->left = new_node;
   } else {
-    parent->right = new BiTree<T>{new_val, nullptr, nullptr};
+    parent->right = new_node;
   }
   return root;
 }
@@ -59,14 +50,23 @@ void clear(BiTree< T > * root)
 template< class T, class Cmp >
 BiTree< T > * find(BiTree< T > * root, const T & value, Cmp cmp)
 {
-  while (root && root->data != value) {
+  while (true) {
     if (cmp(value, root->data)) {
-      root = root->left;
+      if (root->left) {
+        root = root->left;
+      } else {
+        return root;
+      }
+    } else if (!cmp(value, root->data)) {
+      if (root->right) {
+        root = root->right;
+      } else {
+        return root;
+      }
     } else {
-      root = root->right;
+      return root;
     }
   }
-  return root;
 }
 
 #endif
