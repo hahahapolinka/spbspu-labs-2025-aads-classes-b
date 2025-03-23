@@ -7,7 +7,7 @@ struct BiTree {
 };
 
 template< class T, class Cmp = std::less< T > >
-void addElTree(BiTree< T > * root, const T & value, Cmp = Cmp{});
+BiTree< T > * addElTree(BiTree< T > * root, const T & value, Cmp = Cmp{});
 
 template< class T >
 void clear(BiTree< T > * head);
@@ -16,13 +16,12 @@ template< class T, class Cmp = std::less< T > >
 const BiTree< T > * find(const BiTree< T > * root, const T & value, Cmp = Cmp{});
 
 template< class T, class Cmp = std::less< T > >
-void addElTree(BiTree< T > * root, const T & value, Cmp cmp)
+BiTree< T > * addElTree(BiTree< T > * root, const T & value, Cmp cmp)
 {
   BiTree< T > * sub = root;
   if (root == nullptr)
   {
-    root = new BiTree< T >{value, nullptr, nullptr};
-    return;
+    return new BiTree< T >{value, nullptr, nullptr};
   }
   bool done = false;
   while (!done)
@@ -52,6 +51,7 @@ void addElTree(BiTree< T > * root, const T & value, Cmp cmp)
       }
     }
   }
+  return root;
 }
 
 template< class T >
@@ -116,7 +116,7 @@ int main()
     }
     try
     {
-      addElTree(root, b);
+      root = addElTree(root, b);
     }
     catch(const std::bad_alloc & e)
     {
