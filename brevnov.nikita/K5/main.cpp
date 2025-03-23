@@ -116,7 +116,7 @@ int main()
     }
     try
     {
-      addElTree(root, b, comp);
+      addElTree(root, b);
     }
     catch(const std::bad_alloc & e)
     {
@@ -127,7 +127,7 @@ int main()
   }
   while (std::cin >> b && std::cin.good())
   {
-    if (find(root, b, comp))
+    if (find(root, b))
     {
       std::cout << "<FOUND>\n";
     }
