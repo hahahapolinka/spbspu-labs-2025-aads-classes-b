@@ -7,7 +7,7 @@ struct FwdList {
 
 FwdList* dublicate(FwdList* head, size_t for_dubl, size_t number);
 FwdList* createList(FwdList* head, int size);
-void clear(FwdList* head, size_t size);
+std::pair< FwdList*, FwdList* > createList(FwdList* head, int size, int value);
 void clear(FwdList* head);
 void outList(FwdList* head);
 
@@ -27,7 +27,7 @@ int main()
     size_t num = 0;
     if (!(std::cin >> for_dubl >> num)) {
       break;
-    };
+    }
     if (for_dubl == 0) {
       clear(origin_head);
       return 1;
@@ -40,7 +40,6 @@ int main()
       return 1;
     }
   }
-
 
   outList(origin_head);
   clear(origin_head);
@@ -55,11 +54,29 @@ FwdList* createList(FwdList * head, int size)
       cur->next = new FwdList{i, nullptr};
       cur = cur->next;
     } catch(const std::bad_alloc&) {
-      clear(head, i);
+      cur->next = nullptr;
+      clear(head);
       throw;
     }
   }
   return head;
+}
+
+std::pair< FwdList*, FwdList* > createList(int size, int value)
+{
+  FwdList* head = new FwdList{value, nullptr};
+  FwdList* cur = head;
+  for (int i = 1; i < size; ++i) {
+    try {
+      cur->next = new FwdList{value, nullptr};
+      cur = cur->next;
+    } catch(const std::bad_alloc&) {
+      cur->next = nullptr;
+      clear(head);
+      throw;
+    }
+  }
+  return {head, cur};
 }
 
 FwdList* dublicate(FwdList* head, size_t for_dubl, size_t number)
@@ -70,40 +87,10 @@ FwdList* dublicate(FwdList* head, size_t for_dubl, size_t number)
       throw std::out_of_range("!");
     }
   }
-
-  FwdList* cur = head;
-  FwdList* original_next = nullptr;
-  if (cur->next) {
-    original_next = cur->next;
-  }
-
-  for (size_t i = 0; i < number; ++i) {
-    FwdList* node = nullptr;
-    try {
-      node = new FwdList{cur->value, nullptr};
-    } catch(const std::bad_alloc&) {
-      clear(head->next, i);
-      head->next = original_next;
-      throw;
-    }
-    node->next = cur->next;
-    cur->next = node;
-    cur = node;
-  }
+  auto node = createList(number, head->value);
+  node.second->next = head->next;
+  head->next = node.first;
   return head;
-}
-
-void clear(FwdList* head, size_t size)
-{
-  if (!head) return;
-  FwdList* new_head = head->next;
-  for (size_t i =0; i < size; ++i) {
-    if (head) {
-      delete head;
-      head = new_head;
-      new_head = head->next;
-    }
-  }
 }
 
 void clear(FwdList* head)
