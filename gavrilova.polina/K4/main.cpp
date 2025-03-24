@@ -154,7 +154,7 @@ int main (int argc, char** argv)
   else
   {
     new_head = reverse_cleanly(head);
-    std::cerr << "Invalid parametrs";
+    std::cerr << "Invalid paRAMETRS\n";
   }
   outputListInt(std::cout, new_head);
   std::cout << "\n";
