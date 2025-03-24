@@ -62,9 +62,9 @@ FwdList* createList(FwdList * head, int size)
   return head;
 }
 
-std::pair< FwdList*, FwdList* > createList(FwdList * head, int size, int value)
+std::pair< FwdList*, FwdList* > createList(int size, int value)
 {
-  head = new FwdList{value, nullptr};
+  FwdList* head = new FwdList{value, nullptr};
   FwdList* cur = head;
   for (int i = 1; i < size; ++i) {
     try {
@@ -87,8 +87,7 @@ FwdList* dublicate(FwdList* head, size_t for_dubl, size_t number)
       throw std::out_of_range("!");
     }
   }
-  FwdList* node_head = nullptr;
-  auto node = createList(node_head, number, head->value);
+  auto node = createList(number, head->value);
   node.second->next = head->next;
   head->next = node.first;
   return head;
