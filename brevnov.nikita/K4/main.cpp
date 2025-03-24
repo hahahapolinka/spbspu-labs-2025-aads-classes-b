@@ -41,22 +41,43 @@ List< T > * reverse_with_list(List< T > * head)
     return head;
   }
   List< T > * dhead = head;
-  List< T > * last = new List< T >{dhead->data, nullptr};
+  size_t count = 1;
   while (dhead->next != nullptr)
   {
-    try
+    count++;
+    dhead = dhead->next;
+  }
+  List< List < T > * > * last = new List< List < T > * >{dhead, nullptr};
+  List< List < T > * > * dlast = last;
+  while (count > 0)
+  {
+    dhead = head;
+    for (size_t i = 1; i < count; i++)
     {
       dhead = dhead->next;
-      last = new List< T >{dhead->data, last};
     }
-    catch(const std::bad_alloc& e)
+    count--;
+    try
+    {
+      dlast->next = new List< List < T > * >{dhead, nullptr};
+    }
+    catch (const std::bad_alloc& e)
     {
       clear(last);
       throw;
     }
+    dlast = dlast->next;
   }
-  clear(head);
-  return last;
+  dlast = last;
+  while (dlast->next != nullptr)
+  {
+    dlast->data->next = dlast->next->data;
+    dlast = dlast->next;
+  }
+  dlast->data->next = nullptr;
+  head = last->data;
+  clear(last);
+  return head;
 }
 
 template< class T >
@@ -97,8 +118,15 @@ int main (int argc, char** argv)
   char * str = argv[1];
   int a = 0;
   List< int > * head = nullptr;
-  if (std::cin >> a && !std::cin.eof() && !std::cin.fail())
+  std::cin >> a;
+  if (!std::cin.eof())
   {
+    if (std::cin.fail() && !std::cin.eof())
+    {
+      std::cerr << "Not correct input\n";
+      clear(head);
+      return 1;
+    }
     try
     {
       head = new List< int >{a, nullptr};
@@ -109,15 +137,16 @@ int main (int argc, char** argv)
       return 1;
     }
   }
-  else if (std::cin.fail())
-  {
-    std::cerr << "Not correct input\n";
-    std::cerr << "1\n";
-    return 1;
-  }
   List< int > * tail = head;
-  while (!std::cin.eof() && std::cin >> a)
+  std::cin >> a;
+  while (!std::cin.eof())
   {
+    if (std::cin.fail() && !std::cin.eof())
+    {
+      std::cerr << "Not correct input\n";
+      clear(head);
+      return 1;
+    }
     try
     {
       tail->next = new List< int >{a, nullptr};
@@ -129,14 +158,8 @@ int main (int argc, char** argv)
       return 1;
     }
     tail = tail->next;
+    std::cin >> a;
   }
-  if (std::cin.fail())
-    {
-      std::cerr << "Not correct input\n";
-      std::cerr << "2\n";
-      clear(head);
-      return 1;
-    }
   if (argc == 2 && str[0] == '2')
   {
     head = reverse_recursively(head);
