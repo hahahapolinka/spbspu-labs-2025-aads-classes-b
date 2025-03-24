@@ -102,7 +102,7 @@ FwdList< int >* inputListInt(std::istream& in)
       throw;
     }
   }
- return head;
+  return head;
 }
 
 std::ostream& outputListInt(std::ostream& out, FwdList< int >* head)
@@ -154,10 +154,9 @@ int main (int argc, char** argv)
   else
   {
     new_head = reverse_cleanly(head);
-    std::cerr << "Invalid paRAMETRS\n";
+    std::cerr << "Invalid parametrs";
   }
   outputListInt(std::cout, new_head);
   std::cout << "\n";
   clear< int >(new_head);
 }
-
