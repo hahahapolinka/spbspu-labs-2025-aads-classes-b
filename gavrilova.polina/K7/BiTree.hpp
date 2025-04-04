@@ -9,16 +9,16 @@ namespace gavrilova {
     BiTree< T, Cmp > * left, * right, * parent;
     Cmp cmp;
   };
-  
+
   template< class T, class Cmp = std::less< T > >
   BiTree< T > * find(BiTree< T > * root, const T & value);
-  
+
   template< class T, class Cmp = std::less< T > >
   BiTree< T > * insertBT(T new_val, BiTree< T > * root);
-  
+
   template< class T >
   void clear(BiTree< T > * root);
-  
+
   template< class T, class Cmp = std::less< T > >
   BiTree< T > * insertBT(T new_val, BiTree< T > * root)
   {
@@ -26,9 +26,9 @@ namespace gavrilova {
     if (!root) {
       return new_node;
     }
-  
+
     BiTree< T >* parent = find(root, new_val);
-  
+
     if (root->cmp(new_val, parent->data)) {
       parent->left = new_node;
       new_node->parent = parent;
@@ -38,7 +38,7 @@ namespace gavrilova {
     }
     return root;
   }
-  
+
   template< class T >
   void clear(BiTree< T > * root)
   {
@@ -49,7 +49,7 @@ namespace gavrilova {
     clear< T >(root->right);
     delete root;
   }
-  
+
   template< class T, class Cmp = std::less< T > >
   BiTree< T > * find(BiTree< T > * root, const T & value)
   {
@@ -75,4 +75,5 @@ namespace gavrilova {
     }
   }
 }
+
 #endif

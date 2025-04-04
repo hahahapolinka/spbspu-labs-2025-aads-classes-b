@@ -15,7 +15,7 @@ namespace gavrilova {
 
     const T & data() const;
   };
-  
+
   template< class T, class Cmp = std::less< T > >
   BiTreeIterator< T > begin(BiTree< T, Cmp >* root);
 

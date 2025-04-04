@@ -29,7 +29,7 @@ int main()
 
   std::string way_to_output = " ";
   std::cin >> way_to_output;
-  
+
   if (way_to_output == "tomin") {
     auto it = gavrilova::rbegin< size_t >(root);
     while (it.hasPrev()) {
