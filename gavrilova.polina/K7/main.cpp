@@ -28,9 +28,13 @@ int main()
   }
 
   std::string way_to_output = " ";
-  std::cin >> way_to_output;
+  if (!(std::cin >> way_to_output)) {
+    std::cerr << "Empty command\n";
+    return 1;
+  }
 
   if (n == 0) {
+    std::cout << "\n";
     return 0;
   }
 
