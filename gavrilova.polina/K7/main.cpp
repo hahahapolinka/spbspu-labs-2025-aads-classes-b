@@ -11,7 +11,7 @@ int main()
     return 1;
   }
   gavrilova::BiTree< size_t >* root = nullptr;
-  for (; n > 0; --n) {
+  for (size_t i == 0; i < n; ++i) {
     size_t cur_num = 0;
     if (!(std::cin >> cur_num)) {
       std::cerr << "Invalid input!\n";
