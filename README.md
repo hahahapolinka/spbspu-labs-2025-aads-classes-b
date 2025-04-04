@@ -35,7 +35,7 @@ struct BiTree {
 
 template< class T, class Cmp >
 struct BiTreeIterator {
-  BiTree< T, Cmp > * node;
+  /* ??? */
 
   bool hasPrev() const;
   bool hasNext() const;
@@ -44,6 +44,34 @@ struct BiTreeIterator {
 
   const T & data() const;
 };
+
+// Итератор на начало
+template< class T, class Cmp >
+BiTreeIterator< T, Cmp > begin(BiTree< T, Cmp > * root);
+
+// Итератор на последний элемент
+template< class T, class Cmp >
+BiTreeIterator< T, Cmp > rbegin(BiTree< T, Cmp > * root);
+```
+Композицию итератора необходимо определить самостоятельно. Ожидается использование
+следующего клиентского кода для обхода дерева:
+```
+// прямой обход
+for (auto it = begin(rt); 
+ it.hasNext();
+ it = it.next())
+{
+  // it.data()
+}
+
+// обратный обход
+for (auto it = rbegin(rt);
+ it.hasPrev();
+ it = it.prev())
+{
+  // it.data()
+}
+
 ```
 
 Задача K6
