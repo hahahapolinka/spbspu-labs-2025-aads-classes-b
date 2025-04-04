@@ -51,7 +51,7 @@ namespace gavrilova {
     } else {
       BiTree< T >* prev = node;
       BiTree< T >* cur = prev->parent;
-      while (cur && cur->cmp(prev->data, cur->data)) {
+      while (cur && cur->cmp(cur->data, prev->data)) {
         prev = cur;
         cur = cur->parent;
       }
@@ -77,13 +77,8 @@ namespace gavrilova {
       }
       return BiTreeIterator< T >{cur};
     } else {
-      BiTree< T >* prev = node;
-      BiTree< T >* cur = prev->parent;
-      while (cur && cur->cmp(cur->data, prev->data)) {
-        prev = cur;
-        cur = cur->parent;
-      }
-      if (cur) {
+      BiTree< T >* cur = node->parent;
+      if (cur->right == node) {
         return BiTreeIterator< T >{cur};
       } else {
         return BiTreeIterator< T >{nullptr};

@@ -6,7 +6,7 @@
 int main()
 {
   size_t n = 0;
-  if (!std::cin >> n) {
+  if (!(std::cin >> n)) {
     std::cerr << "Invalid input!\n";
     return 1;
   }
@@ -27,22 +27,21 @@ int main()
     }
   }
 
-  std::string way_to_output = "";
+  std::string way_to_output = " ";
   std::cin >> way_to_output;
   
-  
   if (way_to_output == "tomin") {
-    auto it = gavrilova::begin< size_t >(root);
-    while (it.hasNext()) {
-      std::cout << it.data() << " ";
-      it = it.next();
-    }
-    std::cout << it.data();
-  } else if (way_to_output == "tomax") {
     auto it = gavrilova::rbegin< size_t >(root);
     while (it.hasPrev()) {
       std::cout << it.data() << " ";
       it = it.prev();
+    }
+    std::cout << it.data();
+  } else if (way_to_output == "tomax") {
+    auto it = gavrilova::begin< size_t >(root);
+    while (it.hasNext()) {
+      std::cout << it.data() << " ";
+      it = it.next();
     }
     std::cout << it.data();
   } else {

@@ -31,8 +31,10 @@ namespace gavrilova {
   
     if (root->cmp(new_val, parent->data)) {
       parent->left = new_node;
+      new_node->parent = parent;
     } else {
       parent->right = new_node;
+      new_node->parent = parent;
     }
     return root;
   }
